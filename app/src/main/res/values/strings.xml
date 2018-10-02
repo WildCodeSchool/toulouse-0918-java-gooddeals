@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">GoodDeals</string>
+    <string name="good">Good</string>
+    <string name="deals">Deals</string>
 </resources>
