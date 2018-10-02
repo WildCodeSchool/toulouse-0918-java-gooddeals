@@ -13,11 +13,6 @@ public class SplashActivity extends AppCompatActivity    {
 
     private static int SPLASH_TIME_OUT = 4000;
 
-    TextView good;
-    TextView deals;
-    ImageView logo;
-    Animation frombottom, fromtop;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +23,12 @@ public class SplashActivity extends AppCompatActivity    {
         TextView deals = findViewById(R.id.text_deals);
         ImageView logo = findViewById(R.id.image_logo);
 
-        frombottom = AnimationUtils.loadAnimation(this,R.anim.frombottom);
-        fromtop = AnimationUtils.loadAnimation(this, R.anim.fromtop);
+        Animation fromBottom = AnimationUtils.loadAnimation(this,R.anim.frombottom);
+        Animation fromTop = AnimationUtils.loadAnimation(this, R.anim.fromtop);
 
-        good.setAnimation(fromtop);
-        deals.setAnimation(fromtop);
-        logo.setAnimation(frombottom);
+        good.setAnimation(fromTop);
+        deals.setAnimation(fromTop);
+        logo.setAnimation(fromBottom);
 
         new Handler().postDelayed(new Runnable() {
             @Override
