@@ -4,6 +4,6 @@
     <string name="google_maps_API_key">AIzaSyDLjhEEUB50X-DHJDHTpm-pg3qVbBjFkJo</string>
     <string name="good">Good</string>
     <string name="deals">Deals</string>
-    <string name="unableCurrentLocation">unable to get current location</string>
-    <string name="mapRequests">You can\'t make map requests</string>
+    <string name="unableCurrentLocation">Position actuelle invalide</string>
+    <string name="mapRequests">Affichage de la carte impossible</string>
 </resources>
