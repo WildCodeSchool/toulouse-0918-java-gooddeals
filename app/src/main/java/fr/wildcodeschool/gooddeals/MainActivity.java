@@ -53,7 +53,8 @@ public class MainActivity extends NavbarActivity implements OnMapReadyCallback {
                     != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                     != PackageManager.PERMISSION_GRANTED) {
 
-            mMap.setMyLocationEnabled(true);
+                mMap.setMyLocationEnabled(true);
+            }
         }
     }
 

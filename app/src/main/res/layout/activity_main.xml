@@ -9,6 +9,8 @@
     tools:context=".MainActivity">
 
 
+
+
      <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -18,7 +20,9 @@
         android:name="com.google.android.gms.maps.SupportMapFragment" />
 
     <include
-        layout="@layout/activity_navbar" /> 
+        layout="@layout/activity_navbar" />
+
+
 
 
 </android.support.constraint.ConstraintLayout>

@@ -13,8 +13,6 @@
     <string name="vue_map">Vue Map</string>
     <string name="vue_liste">Vue Liste</string>
     <string name="google_maps_API_key">AIzaSyDLjhEEUB50X-DHJDHTpm-pg3qVbBjFkJo</string>
-    <string name="good">Good</string>
-    <string name="deals">Deals</string>
     <string name="unableCurrentLocation">Position actuelle invalide</string>
     <string name="mapRequests">Affichage de la carte impossible</string>
 
