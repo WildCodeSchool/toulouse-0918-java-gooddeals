@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">GoodDeals</string>
+
+    <!--deals_item-->
+    <string name="nom_deals_liste">Nom</string>
+    <string name="reduction_liste">Réduction</string>
+    <string name="description_reduction_liste">Description</string>
+
+
+
 </resources>
