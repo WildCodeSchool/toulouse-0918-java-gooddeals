@@ -71,9 +71,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_main);
 
         if(isServicesOK()){
-
+            getLocationPermission();
         }
-        getLocationPermission();
+
     }
 
     private void getDeviceLocation(){
