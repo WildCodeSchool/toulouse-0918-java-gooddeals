@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Dialog;
 import android.content.pm.PackageManager;
 import android.location.Location;
+
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -24,7 +25,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MainActivity extends NavbarActivity implements OnMapReadyCallback {
 
     private static final String TAG = "MainActivity";
 
@@ -52,9 +53,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                     != PackageManager.PERMISSION_GRANTED) {
 
-                return;
+                mMap.setMyLocationEnabled(true);
             }
-            mMap.setMyLocationEnabled(true);
         }
     }
 
@@ -62,6 +62,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        initDrawer();
 
         if (isServicesOK()) {
             getLocationPermission();

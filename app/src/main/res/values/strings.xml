@@ -1,9 +1,23 @@
 <resources>
-    <string name="app_name">GoodDeals</string>
 
-    <string name="google_maps_API_key">AIzaSyDLjhEEUB50X-DHJDHTpm-pg3qVbBjFkJo</string>
+    <string name="app_name">Good Deals</string>
     <string name="good">Good</string>
     <string name="deals">Deals</string>
+    <string name="title_activity_navbar">NavbarActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="vue_map">Vue Map</string>
+    <string name="vue_liste">Vue Liste</string>
+    <string name="google_maps_API_key">AIzaSyDLjhEEUB50X-DHJDHTpm-pg3qVbBjFkJo</string>
     <string name="unableCurrentLocation">Position actuelle invalide</string>
     <string name="mapRequests">Affichage de la carte impossible</string>
+    <string name="se_connecter">Se connecter</string>
+    <string name="map">Map</string>
+    <string name="liste_des_deals">Liste des deals</string>
+    <string name="se_logout">Se déconnecter</string>
+
 </resources>
