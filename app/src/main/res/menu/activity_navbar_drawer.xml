@@ -7,19 +7,19 @@
         <item
             android:id="@+id/nav_login"
             android:icon="@drawable/ic_exit_to_app"
-            android:title="Se conecter" />
+            android:title="@string/se_connecter" />
         <item
             android:id="@+id/nav_map"
             android:icon="@android:drawable/ic_dialog_map"
-            android:title="Map" />
+            android:title="@string/map" />
         <item
             android:id="@+id/nav_liste"
             android:icon="@drawable/ic_format_list_bulleted"
-            android:title="Liste des deals" />
+            android:title="@string/liste_des_deals" />
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_action_exit"
-            android:title="Se déconnecter" />
+            android:title="@string/se_logout" />
     </group>
 
 </menu>
