@@ -7,16 +7,18 @@ public class DealsModel {
     private String nom;
     private String reduction;
     private String description;
-    private String image;
+    private int icon;
+
 
 
 
     //constructeurs
-    public DealsModel (String nom, String reduction, String description, String image) {
+    public DealsModel(String nom, String reduction, String description, int icon) {
         this.nom = nom;
         this.reduction = reduction;
         this.description = description;
-        this.image = image;
+        this.icon = icon;
+
 
     }
 
@@ -36,6 +38,11 @@ public class DealsModel {
 
     }
 
+    public int getIcon() {
+        return this.icon;
+    }
+
+
 
     //setters
 
@@ -52,5 +59,7 @@ public class DealsModel {
         this.description = description;
     }
 
-
+    public void setIcon(int icon) {
+        this.icon = icon;
+    }
 }

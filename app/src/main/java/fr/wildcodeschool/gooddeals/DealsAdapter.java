@@ -2,6 +2,7 @@ package fr.wildcodeschool.gooddeals;
 
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import static fr.wildcodeschool.gooddeals.R.*;
 
 public class DealsAdapter extends ArrayAdapter {
+
 
 
     public DealsAdapter(@NonNull Context context, ArrayList<DealsModel> results ) {
@@ -35,13 +37,25 @@ public class DealsAdapter extends ArrayAdapter {
         }
 
         TextView nom = (TextView) convertView.findViewById(id.nom_deals);
-        TextView reduction = (TextView) convertView.findViewById(id.reduction_deals);
-        TextView description = (TextView) convertView.findViewById(id.description_deals);
-        ImageView icons = (ImageView) convertView.findViewById(id.icon_deals);
-
         nom.setText(deals.getNom());
+
+        TextView reduction = (TextView) convertView.findViewById(id.reduction_deals);
         reduction.setText(deals.getReduction());
+
+        TextView description = (TextView) convertView.findViewById(id.description_deals);
         description.setText(deals.getDescription());
+
+        ImageView icons = (ImageView) convertView.findViewById(id.icon_deals);
+        icons.setImageResource(deals.getIcon());
+
+
+
+
+
+
+
+
+
 
 
 
