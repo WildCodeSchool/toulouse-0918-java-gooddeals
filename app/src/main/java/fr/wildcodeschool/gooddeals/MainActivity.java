@@ -27,7 +27,11 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
@@ -50,9 +54,9 @@ public class MainActivity extends NavbarActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
-    public static ArrayList dealArrayList() {
+    public static ArrayList<Deal> dealArrayList() {
 
-        ArrayList deals = new ArrayList();
+        ArrayList<Deal> deals = new ArrayList<>();
 
         deals.add(new Deal("SLD Café", "-20%", 43.5996366, 1.4438431999999466, R.mipmap.ic_beer,R.drawable.sld_cafe));
         deals.add(new Deal("SUBWAY", "-30%", 43.59993009999999, 1.4439228999999614, R.mipmap.ic_beer,R.drawable.sld_cafe));
@@ -78,10 +82,6 @@ public class MainActivity extends NavbarActivity implements OnMapReadyCallback {
         return deals;
     }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> fbc657f2c9176a7fe869100636bfa072ba69f87a
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -96,6 +96,14 @@ public class MainActivity extends NavbarActivity implements OnMapReadyCallback {
                 mMap.setMyLocationEnabled(true);
             }
         }
+        for(Deal deal : dealArrayList()){
+            MarkerOptions markerOptions = new MarkerOptions()
+                    .icon(BitmapDescriptorFactory.fromResource(deal.getIcon()))
+                    .title(deal.getName());
+            markerOptions.position(new LatLng(deal.getLatitude(),deal.getLongitude()));
+            mMap.addMarker(markerOptions);
+        }
+
     }
 
     @Override

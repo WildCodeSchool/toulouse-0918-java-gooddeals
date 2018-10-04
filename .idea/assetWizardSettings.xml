@@ -44,11 +44,11 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="backgroundImage" value="$USER_HOME$/Desktop/mimap/icon_beer.png" />
+                                      <entry key="backgroundImage" value="$USER_HOME$/Desktop/mimap/if_map-marker_299087.png" />
                                       <entry key="backgroundLayerName" value="ic_launcher_background" />
-                                      <entry key="foregroundImage" value="$USER_HOME$/Desktop/mimap/icon_beer.png" />
-                                      <entry key="foregroundLayerName" value="ic_beer" />
-                                      <entry key="outputName" value="ic_beerb" />
+                                      <entry key="foregroundImage" value="$USER_HOME$/Desktop/mimap/if_map-marker_299087.png" />
+                                      <entry key="foregroundLayerName" value="ic_markerr" />
+                                      <entry key="outputName" value="ic_marker" />
                                     </map>
                                   </option>
                                 </PersistentState>
