@@ -7,13 +7,13 @@
     android:background="#58555B">
 
     <TextView
-        android:id="@+id/nom_deals"
+        android:id="@+id/name_deals"
         android:layout_width="129dp"
         android:layout_height="0dp"
         android:layout_marginLeft="120dp"
         android:layout_marginStart="120dp"
         android:layout_marginTop="8dp"
-        android:text="@string/nom_deals_liste"
+        android:text="@string/name_deals_list"
         android:textAllCaps="false"
         android:textColor="#00c145"
         android:textSize="20sp"
@@ -49,7 +49,7 @@
         android:layout_marginRight="120dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
-        android:text="@string/description_reduction_liste"
+        android:text="@string/description_reduction_list"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         app:fontFamily="sans-serif"
@@ -70,7 +70,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/reduction_liste"
+        android:text="@string/reduction_list"
         android:textColor="#00c145"
         android:textSize="14sp"
         app:fontFamily="@font/lobster"

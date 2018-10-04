@@ -19,12 +19,9 @@ import static fr.wildcodeschool.gooddeals.R.*;
 
 public class DealsAdapter extends ArrayAdapter {
 
-
-
     public DealsAdapter(@NonNull Context context, ArrayList<DealsModel> results ) {
         super(context, 0, results);
     }
-
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -35,9 +32,8 @@ public class DealsAdapter extends ArrayAdapter {
             convertView = LayoutInflater.from(getContext()).inflate(layout.item_deals, parent, false);
 
         }
-
-        TextView nom = (TextView) convertView.findViewById(id.nom_deals);
-        nom.setText(deals.getNom());
+        TextView nom = (TextView) convertView.findViewById(id.name_deals);
+        nom.setText(deals.getName());
 
         TextView reduction = (TextView) convertView.findViewById(id.reduction_deals);
         reduction.setText(deals.getReduction());
@@ -47,20 +43,6 @@ public class DealsAdapter extends ArrayAdapter {
 
         ImageView icons = (ImageView) convertView.findViewById(id.icon_deals);
         icons.setImageResource(deals.getIcon());
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         return convertView;
     }
 }

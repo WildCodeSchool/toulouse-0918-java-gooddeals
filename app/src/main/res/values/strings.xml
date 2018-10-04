@@ -2,9 +2,9 @@
     <string name="app_name">GoodDeals</string>
 
     <!--deals_item-->
-    <string name="nom_deals_liste">Nom</string>
-    <string name="reduction_liste">Réduction</string>
-    <string name="description_reduction_liste">Description</string>
+    <string name="name_deals_list">Nom</string>
+    <string name="reduction_list">Réduction</string>
+    <string name="description_reduction_list">Description</string>
     <string name="good">Good</string>
     <string name="deals">Deals</string>
 

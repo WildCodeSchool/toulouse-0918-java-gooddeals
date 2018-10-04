@@ -21,9 +21,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent goToSearch = new Intent(MainActivity.this,
                         DealsActivity.class);
                 startActivity(goToSearch);
-
             }
-
         });
     }
 }
