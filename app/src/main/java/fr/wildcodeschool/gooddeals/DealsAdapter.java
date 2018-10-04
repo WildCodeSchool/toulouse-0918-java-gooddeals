@@ -19,30 +19,28 @@ import static fr.wildcodeschool.gooddeals.R.*;
 
 public class DealsAdapter extends ArrayAdapter {
 
-    public DealsAdapter(@NonNull Context context, ArrayList<DealsModel> results ) {
+    public DealsAdapter(@NonNull Context context, ArrayList<Deal> results ) {
         super(context, 0, results);
     }
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // Get the data item for this position
-        DealsModel deals = (DealsModel) getItem(position);
-        // Check if an existing view is being reused, otherwise inflate the view
+
+        Deal deals = (Deal) getItem(position);
+
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(layout.item_deals, parent, false);
-
         }
-        TextView nom = (TextView) convertView.findViewById(id.name_deals);
-        nom.setText(deals.getName());
+        TextView dealName =convertView.findViewById(id.name_deals);
+        dealName.setText(deals.getName());
 
-        TextView reduction = (TextView) convertView.findViewById(id.reduction_deals);
-        reduction.setText(deals.getReduction());
 
-        TextView description = (TextView) convertView.findViewById(id.description_deals);
+        TextView description =convertView.findViewById(id.description_deals);
         description.setText(deals.getDescription());
 
-        ImageView icons = (ImageView) convertView.findViewById(id.icon_deals);
+        ImageView icons =convertView.findViewById(id.icon_deals);
         icons.setImageResource(deals.getIcon());
+
         return convertView;
     }
 }
