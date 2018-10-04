@@ -4,12 +4,14 @@ import android.Manifest;
 import android.app.Dialog;
 import android.content.pm.PackageManager;
 import android.location.Location;
-
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -25,9 +27,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 
-public class MainActivity extends NavbarActivity implements OnMapReadyCallback {
+public class MapFragment extends android.support.v4.app.Fragment implements OnMapReadyCallback {
 
-    private static final String TAG = "MainActivity";
+
+    private static final String TAG = "MapFragment";
 
     private static final int ERROR_DIALOG_REQUEST = 9001;
 
@@ -42,15 +45,19 @@ public class MainActivity extends NavbarActivity implements OnMapReadyCallback {
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
 
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
 
+        mMap = googleMap;
+        if (isServicesOK()) {
+        }
+        getLocationPermission();
         if (mLocationPermissionsGranted) {
             getDeviceLocation();
 
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+            if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
                     != PackageManager.PERMISSION_GRANTED) {
 
                 mMap.setMyLocationEnabled(true);
@@ -59,21 +66,32 @@ public class MainActivity extends NavbarActivity implements OnMapReadyCallback {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public View onCreateView(LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
 
-        initDrawer();
 
-        if (isServicesOK()) {
-            getLocationPermission();
-        }
+        return inflater.inflate(R.layout.activity_main, container, false);
 
     }
 
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
+        }
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
+
+
     private void getDeviceLocation() {
 
-        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
         try {
             if (mLocationPermissionsGranted) {
@@ -89,7 +107,7 @@ public class MainActivity extends NavbarActivity implements OnMapReadyCallback {
                             }
 
                         } else {
-                            Toast.makeText(MainActivity.this, R.string.unableCurrentLocation, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), R.string.unableCurrentLocation, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -98,14 +116,16 @@ public class MainActivity extends NavbarActivity implements OnMapReadyCallback {
         }
     }
 
+
     private void moveCamera(LatLng latLng, float zoom) {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
+
     }
 
-    private void initMap() {
+    public void initMap() {
         SupportMapFragment mapFragment =
-                (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(MainActivity.this);
+                (com.google.android.gms.maps.SupportMapFragment) getFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(MapFragment.this);
 
     }
 
@@ -113,7 +133,7 @@ public class MainActivity extends NavbarActivity implements OnMapReadyCallback {
     public boolean isServicesOK() {
 
         int available = GoogleApiAvailability.getInstance()
-                .isGooglePlayServicesAvailable(MainActivity.this);
+                .isGooglePlayServicesAvailable(getActivity());
 
         if (available == ConnectionResult.SUCCESS) {
             //everything is fine and the user can make map requests
@@ -122,10 +142,10 @@ public class MainActivity extends NavbarActivity implements OnMapReadyCallback {
         } else if (GoogleApiAvailability.getInstance().isUserResolvableError(available)) {
             //an error occured but we can resolve it
             Dialog dialog = GoogleApiAvailability.getInstance()
-                    .getErrorDialog(MainActivity.this, available, ERROR_DIALOG_REQUEST);
+                    .getErrorDialog(getActivity(), available, ERROR_DIALOG_REQUEST);
             dialog.show();
         } else {
-            Toast.makeText(this, R.string.mapRequests, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), R.string.mapRequests, Toast.LENGTH_SHORT).show();
         }
         return false;
     }
@@ -133,19 +153,20 @@ public class MainActivity extends NavbarActivity implements OnMapReadyCallback {
     private void getLocationPermission() {
         String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION};
-        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
+        if (ContextCompat.checkSelfPermission(getActivity().getApplicationContext(),
                 FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
+            if (ContextCompat.checkSelfPermission(getActivity().getApplicationContext(),
                     COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 mLocationPermissionsGranted = true;
-                initMap();
+                mMap.setMyLocationEnabled(true);
+
             } else {
-                ActivityCompat.requestPermissions(this, permissions,
+                ActivityCompat.requestPermissions(getActivity(), permissions,
                         LOCATION_PERMISSION_REQUEST_CODE);
             }
 
         } else {
-            ActivityCompat.requestPermissions(this, permissions,
+            ActivityCompat.requestPermissions(getActivity(), permissions,
                     LOCATION_PERMISSION_REQUEST_CODE);
         }
     }
