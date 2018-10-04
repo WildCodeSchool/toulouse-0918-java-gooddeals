@@ -23,6 +23,12 @@
     <string name="map">Map</string>
     <string name="liste_des_deals">Liste des deals</string>
     <string name="se_logout">Se déconnecter</string>
+    <string name="pop_up">Pop Up</string>
+    <string name="colombus">Colombus</string>
+    <string name="description">Colombus</string>
+    <string name="ColombusText">Proposer une expérience café unique… Tel est l’objectif de Columbus Café depuis ses débuts. Des allures anglo-saxonnes, un style français, un café de qualité et surtout des valeurs…</string>
+    <string name="_10">-10%</string>
+    <string name="colombus_caf_co"><![CDATA[Colombus Café & Co]]></string>
 
 </resources>
 
