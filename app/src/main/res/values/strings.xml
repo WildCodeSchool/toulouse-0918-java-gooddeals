@@ -1,5 +1,9 @@
 <resources>
 
+    <!--deals_item-->
+    <string name="name_deals_list">Nom</string>
+    <string name="reduction_list">Réduction</string>
+    <string name="description_reduction_list">Description</string>
     <string name="app_name">Good Deals</string>
     <string name="good">Good</string>
     <string name="deals">Deals</string>
@@ -21,3 +25,4 @@
     <string name="se_logout">Se déconnecter</string>
 
 </resources>
+

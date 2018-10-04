@@ -1,5 +1,12 @@
 package fr.wildcodeschool.gooddeals;
 
+
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+
 import android.Manifest;
 import android.app.Dialog;
 import android.content.pm.PackageManager;
@@ -41,7 +48,6 @@ public class MainActivity extends NavbarActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -62,6 +68,18 @@ public class MainActivity extends NavbarActivity implements OnMapReadyCallback {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        Button accept = findViewById(R.id.button);
+        accept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent goToSearch = new Intent(MainActivity.this,
+                        DealsActivity.class);
+                startActivity(goToSearch);
+            }
+        });
 
         initDrawer();
 
