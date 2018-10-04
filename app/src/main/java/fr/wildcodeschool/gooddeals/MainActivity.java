@@ -1,9 +1,17 @@
 package fr.wildcodeschool.gooddeals;
 
+
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+
 import android.Manifest;
 import android.app.Dialog;
 import android.content.pm.PackageManager;
 import android.location.Location;
+
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -26,7 +34,7 @@ import com.google.android.gms.tasks.Task;
 import java.util.ArrayList;
 
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MainActivity extends NavbarActivity implements OnMapReadyCallback {
 
     private static final String TAG = "MainActivity";
 
@@ -41,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
+
 
 
     public static ArrayList dealArrayList() {
@@ -71,7 +80,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         return deals;
     }
 
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -83,9 +91,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                     != PackageManager.PERMISSION_GRANTED) {
 
-                return;
+                mMap.setMyLocationEnabled(true);
             }
-            mMap.setMyLocationEnabled(true);
         }
     }
 
@@ -93,6 +100,20 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        Button accept = findViewById(R.id.button);
+        accept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent goToSearch = new Intent(MainActivity.this,
+                        DealsActivity.class);
+                startActivity(goToSearch);
+            }
+        });
+
+        initDrawer();
 
         if (isServicesOK()) {
             getLocationPermission();
