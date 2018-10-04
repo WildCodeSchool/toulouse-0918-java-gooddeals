@@ -18,6 +18,17 @@
                                 <PersistentState>
                                   <option name="children">
                                     <map>
+                                      <entry key="backgroundImage">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="scalingPercent" value="67" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
                                       <entry key="foregroundImage">
                                         <value>
                                           <PersistentState>
@@ -33,7 +44,11 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="foregroundImage" value="$USER_HOME$/Downloads/pCICiDjW_400x400.jpg" />
+                                      <entry key="backgroundImage" value="$USER_HOME$/Desktop/mimap/icon_beer.png" />
+                                      <entry key="backgroundLayerName" value="ic_launcher_background" />
+                                      <entry key="foregroundImage" value="$USER_HOME$/Desktop/mimap/icon_beer.png" />
+                                      <entry key="foregroundLayerName" value="ic_beer" />
+                                      <entry key="outputName" value="ic_beerb" />
                                     </map>
                                   </option>
                                 </PersistentState>
