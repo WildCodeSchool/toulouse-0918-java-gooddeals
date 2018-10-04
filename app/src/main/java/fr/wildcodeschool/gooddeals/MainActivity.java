@@ -50,7 +50,6 @@ public class MainActivity extends NavbarActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
-
     public static ArrayList dealArrayList() {
 
         ArrayList deals = new ArrayList();
@@ -79,7 +78,10 @@ public class MainActivity extends NavbarActivity implements OnMapReadyCallback {
         return deals;
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> fbc657f2c9176a7fe869100636bfa072ba69f87a
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
