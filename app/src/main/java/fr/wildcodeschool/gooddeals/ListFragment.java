@@ -7,7 +7,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import static fr.wildcodeschool.gooddeals.MainActivity.dealArrayList;
+import static fr.wildcodeschool.gooddeals.MapFragment.dealArrayList;
 
 public class ListFragment extends AppCompatActivity {
 
