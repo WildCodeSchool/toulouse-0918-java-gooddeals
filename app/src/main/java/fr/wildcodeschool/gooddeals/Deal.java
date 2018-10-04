@@ -12,11 +12,13 @@ public class Deal {
     private int image;
 
     //constructeur
-    public Deal(String name, String description, double latitude, double longitude) {
+    public Deal(String name, String description, double latitude, double longitude, int icon, int image) {
         this.name = name;
         this.description = description;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.icon=icon;
+        this.image=image;
     }
 
     //getters et setters
