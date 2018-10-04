@@ -1,8 +1,9 @@
 package fr.wildcodeschool.gooddeals;
 
-import android.app.ListActivity;
-import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentTransaction;
+import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -17,7 +18,12 @@ public class NavbarActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
-    public void initDrawer() {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.drawer_navbar);
+
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -27,7 +33,7 @@ public class NavbarActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //startActivity(new Intent(NavbarActivity.this, MainActivity.class));
+                //startActivity(new Intent(NavbarActivity.this, FilterClass.class));
             }
         });
 
@@ -39,6 +45,10 @@ public class NavbarActivity extends AppCompatActivity
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.ftMain, new MapFragment());
+        ft.commit();
     }
 
     @Override
@@ -64,8 +74,17 @@ public class NavbarActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.action_list) {
-            return true;
+
+           /*FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.ftMain, new ListFragment());
+            ft.commit();*/
         }
+        if (id == R.id.action_map){
+
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.ftMain, new MapFragment());
+            ft.commit();
+       }
 
         return super.onOptionsItemSelected(item);
     }
@@ -78,13 +97,21 @@ public class NavbarActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_login) {
+
             //  startActivity(new Intent(NavbarActivity.this, LoginActivity.class));
 
         } else if (id == R.id.nav_map) {
-            //startActivity(new Intent(NavbarActivity.this, MainActivity.class));
+
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.ftMain, new MapFragment());
+            ft.commit();
+
 
         } else if (id == R.id.nav_liste) {
-            startActivity(new Intent(NavbarActivity.this, ListActivity.class));
+
+            /*FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.ftMain, new ListFragment());
+            ft.commit();*/
 
         } else if (id == R.id.nav_logout) {
 
