@@ -23,6 +23,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.util.ArrayList;
+
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -39,6 +41,35 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
+
+
+    public static ArrayList dealArrayList() {
+
+        ArrayList deals = new ArrayList();
+
+        deals.add(new Deal("SLD Café", "-20%", 43.5996366, 1.4438431999999466));
+        deals.add(new Deal("SUBWAY", "-30%", 43.59993009999999, 1.4439228999999614));
+        deals.add(new Deal("Bagelstein", "-15%", 43.5988244, 1.4442524999999478));
+        deals.add(new Deal("Columbus Café & Co", "-10%", 43.59942960000001, 1.4440872999999783));
+        deals.add(new Deal("BDM", "HAPPY HOUR (18h-20h) demi 3E pinte 4E", 43.5998993, 1.4435880999999426));
+        deals.add(new Deal("Chocolat de Neuville", "-15%", 43.599738, 1.4444590000000517));
+        deals.add(new Deal("Magnolia Café", "-10%", 43.5993325, 1.4438192999999728));
+        deals.add(new Deal("Duck Me", "Une plache de canardises offerte pour l'achat d'une bouteille", 43.6021283, 1.4468752000000222));
+        deals.add(new Deal("Pitaya", "-15%", 43.599064, 1.4439680000000408));
+        deals.add(new Deal("Le Fénétra", "-10%", 43.6015097, 1.4428634999999304));
+        deals.add(new Deal("L'inde", "-10%", 43.5983318, 1.4442956000000322));
+        deals.add(new Deal("BWAMOA", "-15%", 43.6007651, 1.444766399999935));
+        deals.add(new Deal("Body' Minute", "Crte Abonnée gratuite qui donne accès à des tarifs réduits", 43.6007528, 1.4447450999999774));
+        deals.add(new Deal("Kreme", "-15%", 43.5990122, 1.4442180999999437));
+        deals.add(new Deal("Au Péché Mignon", "-10%", 43.5986127, 1.4454370999999355));
+        deals.add(new Deal("La Manufacture des Carmes", "-20%", 43.5986274, 1.4442845999999463));
+        deals.add(new Deal("Santosha", "10E le plat", 43.5982421, 1.4442629000000125));
+        deals.add(new Deal("JEAN-PASCAL COLLIN", "-10%", 43.5993921, 1.443273500000032));
+        deals.add(new Deal("Beach Park Toulouse", "", 43.5924694, 1.3089104000000589));
+        deals.add(new Deal("Karl Maison", "-10%", 43.6014334, 1.443336899999963));
+
+        return deals;
+    }
 
 
     @Override
@@ -104,6 +135,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(MainActivity.this);
+
 
     }
 
