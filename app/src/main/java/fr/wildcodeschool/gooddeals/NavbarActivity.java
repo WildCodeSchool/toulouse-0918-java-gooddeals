@@ -75,9 +75,9 @@ public class NavbarActivity extends AppCompatActivity
 
         if (id == R.id.action_list) {
 
-           /*FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.ftMain, new ListFragment());
-            ft.commit();*/
+            ft.commit();
         }
         if (id == R.id.action_map){
 
@@ -109,9 +109,9 @@ public class NavbarActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_liste) {
 
-            /*FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.ftMain, new ListFragment());
-            ft.commit();*/
+            ft.commit();
 
         } else if (id == R.id.nav_logout) {
 
