@@ -8,24 +8,6 @@
     android:background="@drawable/backgroundgrey"
     tools:context=".SplashActivity">
 
-    <TextView
-        android:id="@+id/text_good"
-        android:layout_width="201dp"
-        android:layout_height="159dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="152dp"
-        android:layout_marginRight="152dp"
-        android:lineSpacingExtra="18sp"
-        android:text="@string/good"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/colorGreenDark"
-        android:textIsSelectable="true"
-        android:textSize="100sp"
-        android:typeface="sans"
-        app:fontFamily="@font/aguafina_script"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageView
         android:id="@+id/image_logo"
         android:layout_width="241dp"
@@ -38,12 +20,31 @@
         app:srcCompat="@drawable/logo_vert_4x" />
 
     <TextView
+        android:id="@+id/text_good"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="100dp"
+        android:lineSpacingExtra="18sp"
+        android:text="@string/good"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/colorGreenDark"
+        android:textIsSelectable="true"
+        android:textSize="100sp"
+        android:typeface="sans"
+        app:fontFamily="@font/aguafina_script"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/text_deals"
-        android:layout_width="185dp"
-        android:layout_height="138dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:layout_marginLeft="150dp"
         android:layout_marginTop="176dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginRight="60dp"
         android:lineSpacingExtra="18sp"
         android:text="@string/deals"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -52,5 +53,6 @@
         android:typeface="sans"
         app:fontFamily="@font/aguafina_script"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
