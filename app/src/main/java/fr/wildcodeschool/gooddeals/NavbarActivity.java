@@ -35,9 +35,9 @@ public class NavbarActivity extends AppCompatActivity
         bmb = (BoomMenuButton) findViewById(R.id.bmb);
         assert bmb != null;
         bmb.setButtonEnum(ButtonEnum.Ham);
-        for (int i = 0; i < bmb.getPiecePlaceEnum().pieceNumber(); i++)
+        for (int i = 0; i < bmb.getPiecePlaceEnum().pieceNumber(); i++){
             bmb.addBuilder(getHamButtonBuilderWithDifferentPieceColor());
-
+            }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
