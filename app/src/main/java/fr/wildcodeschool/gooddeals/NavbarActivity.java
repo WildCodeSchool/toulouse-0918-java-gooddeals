@@ -1,9 +1,10 @@
 package fr.wildcodeschool.gooddeals;
 
+import android.content.Intent;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentTransaction;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -12,10 +13,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+import com.nightonke.boommenu.BoomButtons.HamButton;
+import com.nightonke.boommenu.BoomMenuButton;
+import com.nightonke.boommenu.ButtonEnum;
 
 public class NavbarActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private BoomMenuButton bmb;
+
 
 
     @Override
@@ -28,14 +34,12 @@ public class NavbarActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        bmb = (BoomMenuButton) findViewById(R.id.bmb);
+        assert bmb != null;
+        bmb.setButtonEnum(ButtonEnum.Ham);
+        for (int i = 0; i < bmb.getPiecePlaceEnum().pieceNumber(); i++)
+            bmb.addBuilder(getHamButtonBuilderWithDifferentPieceColor());
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //startActivity(new Intent(NavbarActivity.this, FilterClass.class));
-            }
-        });
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -49,6 +53,13 @@ public class NavbarActivity extends AppCompatActivity
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.ftMain, new MapFragment());
         ft.commit();
+    }
+    static HamButton.Builder getHamButtonBuilderWithDifferentPieceColor() {
+        return new HamButton.Builder()
+                .normalImageRes(R.drawable.filter_icon)
+                .normalTextRes(R.string.ColombusText)
+                .subNormalTextRes(R.string.ColombusText)
+                .pieceColor(Color.WHITE);
     }
 
     @Override
@@ -70,21 +81,6 @@ public class NavbarActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        int id = item.getItemId();
-
-        if (id == R.id.action_list) {
-
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.ftMain, new ListFragment());
-            ft.commit();
-        }
-        if (id == R.id.action_map){
-
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.ftMain, new MapFragment());
-            ft.commit();
-       }
 
         return super.onOptionsItemSelected(item);
     }
@@ -114,6 +110,11 @@ public class NavbarActivity extends AppCompatActivity
             ft.commit();
 
         } else if (id == R.id.nav_logout) {
+
+        } else if (id == R.id.atHome_web) {
+
+            Uri uri = Uri.parse("https://www.athome-startup.fr/");
+            startActivity(new Intent(Intent.ACTION_VIEW, uri));
 
         }
 

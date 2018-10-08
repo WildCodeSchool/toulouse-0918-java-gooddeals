@@ -10,15 +10,17 @@ public class Deal {
     private double longitude;
     private int icon;
     private int image;
+    private String type;
 
     //constructeur
-    public Deal(String name, String description, double latitude, double longitude, int icon, int image) {
+    public Deal(String name, String description, double latitude, double longitude, int icon, int image, String type) {
         this.name = name;
         this.description = description;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.icon=icon;
-        this.image=image;
+        this.icon = icon;
+        this.image = image;
+        this.type = type;
     }
 
     //getters et setters
@@ -69,4 +71,8 @@ public class Deal {
     public void setLongitude(float longitude) {
         this.longitude = longitude;
     }
+
+    public String getType() { return type; }
+
+    public void setType(String type) { this.type = type; }
 }
