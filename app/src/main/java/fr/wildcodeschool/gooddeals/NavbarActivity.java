@@ -110,7 +110,7 @@ public class NavbarActivity extends AppCompatActivity
 
         } else if (id == R.id.atHome_web) {
 
-            Uri uri = Uri.parse("https://www.athome-startup.fr/");
+            final Uri uri = Uri.parse("https://www.athome-startup.fr/");
             startActivity(new Intent(Intent.ACTION_VIEW, uri));
 
         }
