@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1085751875638",
+    "firebase_url": "https://gooddeals-a75b6.firebaseio.com",
+    "project_id": "gooddeals-a75b6",
+    "storage_bucket": "gooddeals-a75b6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1085751875638:android:2f3e480ad394824f",
+        "android_client_info": {
+          "package_name": "fr.wildcodeschool.gooddeals"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1085751875638-ot9bgq43lu32ru1ubbd8rce19ei1qu35.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fr.wildcodeschool.gooddeals",
+            "certificate_hash": "39b628db43a28908ea27523f960cb30720a85b93"
+          }
+        },
+        {
+          "client_id": "1085751875638-qig9d1tm5j217a8elvc842jaj7er857s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBaPiaj7dcpsnAF5zDYVIZlsloFdNhtduw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1085751875638-qig9d1tm5j217a8elvc842jaj7er857s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
