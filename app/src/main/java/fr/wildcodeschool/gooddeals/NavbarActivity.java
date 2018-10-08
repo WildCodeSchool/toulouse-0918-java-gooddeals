@@ -22,8 +22,6 @@ public class NavbarActivity extends AppCompatActivity
 
     private BoomMenuButton bmb;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +86,6 @@ public class NavbarActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-
 
         int id = item.getItemId();
 
