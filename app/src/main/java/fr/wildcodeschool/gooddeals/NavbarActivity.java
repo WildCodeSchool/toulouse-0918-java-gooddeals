@@ -21,7 +21,7 @@ public class NavbarActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private BoomMenuButton bmb;
-
+    public static final String ATHOME_URL = "https://www.athome-startup.fr/";
 
 
     @Override
@@ -34,11 +34,12 @@ public class NavbarActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        bmb = (BoomMenuButton) findViewById(R.id.bmb);
+        bmb = findViewById(R.id.bmb);
         assert bmb != null;
         bmb.setButtonEnum(ButtonEnum.Ham);
-        for (int i = 0; i < bmb.getPiecePlaceEnum().pieceNumber(); i++)
+        for (int i = 0; i < bmb.getPiecePlaceEnum().pieceNumber(); i++) {
             bmb.addBuilder(getHamButtonBuilderWithDifferentPieceColor());
+        }
 
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -113,7 +114,7 @@ public class NavbarActivity extends AppCompatActivity
 
         } else if (id == R.id.atHome_web) {
 
-            Uri uri = Uri.parse("https://www.athome-startup.fr/");
+            Uri uri = Uri.parse(ATHOME_URL);
             startActivity(new Intent(Intent.ACTION_VIEW, uri));
 
         }
