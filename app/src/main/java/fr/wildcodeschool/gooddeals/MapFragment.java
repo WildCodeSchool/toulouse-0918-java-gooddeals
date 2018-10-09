@@ -53,26 +53,26 @@ public class MapFragment extends android.support.v4.app.Fragment implements OnMa
 
         ArrayList<Deal> deals = new ArrayList<>();
 
-        deals.add(new Deal("SLD Café", "-20%", 43.5996366, 1.4438431999999466, R.mipmap.ic_beer, R.drawable.sld_cafe));
-        deals.add(new Deal("SUBWAY", "-30%", 43.59993009999999, 1.4439228999999614, R.mipmap.ic_beer, R.drawable.sld_cafe));
-        deals.add(new Deal("Bagelstein", "-15%", 43.5988244, 1.4442524999999478, R.mipmap.ic_beer, R.drawable.sld_cafe));
-        deals.add(new Deal("Columbus Café & Co", "-10%", 43.59942960000001, 1.4440872999999783, R.mipmap.ic_beer, R.drawable.sld_cafe));
-        deals.add(new Deal("BDM", "HAPPY HOUR (18h-20h) demi 3E pinte 4E", 43.5998993, 1.4435880999999426, R.mipmap.ic_beer, R.drawable.sld_cafe));
-        deals.add(new Deal("Chocolat de Neuville", "-15%", 43.599738, 1.4444590000000517, R.mipmap.ic_beer, R.drawable.sld_cafe));
-        deals.add(new Deal("Magnolia Café", "-10%", 43.5993325, 1.4438192999999728, R.mipmap.ic_beer, R.drawable.sld_cafe));
-        deals.add(new Deal("Duck Me", "Une plache de canardises offerte pour l'achat d'une bouteille", 43.6021283, 1.4468752000000222, R.mipmap.ic_beer, R.drawable.sld_cafe));
-        deals.add(new Deal("Pitaya", "-15%", 43.599064, 1.4439680000000408, R.mipmap.ic_beer, R.drawable.sld_cafe));
-        deals.add(new Deal("Le Fénétra", "-10%", 43.6015097, 1.4428634999999304, R.mipmap.ic_beer, R.drawable.sld_cafe));
-        deals.add(new Deal("L'inde", "-10%", 43.5983318, 1.4442956000000322, R.mipmap.ic_beer, R.drawable.sld_cafe));
-        deals.add(new Deal("BWAMOA", "-15%", 43.6007651, 1.444766399999935, R.mipmap.ic_beer, R.drawable.sld_cafe));
-        deals.add(new Deal("Body' Minute", "Crte Abonnée gratuite qui donne accès à des tarifs réduits", 43.6007528, 1.4447450999999774, R.mipmap.ic_beer, R.drawable.sld_cafe));
-        deals.add(new Deal("Kreme", "-15%", 43.5990122, 1.4442180999999437, R.mipmap.ic_beer, R.drawable.sld_cafe));
-        deals.add(new Deal("Au Péché Mignon", "-10%", 43.5986127, 1.4454370999999355, R.mipmap.ic_beer, R.drawable.sld_cafe));
-        deals.add(new Deal("La Manufacture des Carmes", "-20%", 43.5986274, 1.4442845999999463, R.mipmap.ic_beer, R.drawable.sld_cafe));
-        deals.add(new Deal("Santosha", "10E le plat", 43.5982421, 1.4442629000000125, R.mipmap.ic_beer, R.drawable.sld_cafe));
-        deals.add(new Deal("JEAN-PASCAL COLLIN", "-10%", 43.5993921, 1.443273500000032, R.mipmap.ic_beer, R.drawable.sld_cafe));
-        deals.add(new Deal("Beach Park Toulouse", "", 43.5924694, 1.3089104000000589, R.mipmap.ic_beer, R.drawable.sld_cafe));
-        deals.add(new Deal("Karl Maison", "-10%", 43.6014334, 1.443336899999963, R.mipmap.ic_beer, R.drawable.sld_cafe));
+        deals.add(new Deal("SLD Café", "-20%", 43.5996366, 1.4438431999999466, R.drawable.darkgreen_markeri, R.drawable.dsldcafe , "Pour Manger"));
+        deals.add(new Deal("SUBWAY", "-30%", 43.59993009999999, 1.4439228999999614, R.drawable.darkgreen_markeri, R.drawable.subway,"Pour Manger"));
+        deals.add(new Deal("Bagelstein", "-15%", 43.5988244, 1.4442524999999478, R.drawable.darkgreen_markeri, R.drawable.bagelstein,"Pour Manger"));
+        deals.add(new Deal("Columbus Café & Co", "-10%", 43.59942960000001, 1.4440872999999783, R.drawable.darkgreen_markeri, R.drawable.colombus, "Pour Manger"));
+        deals.add(new Deal("BDM", "HAPPY HOUR (18h-20h) demi 3E pinte 4E", 43.5998993, 1.4435880999999426, R.drawable.red_markeri, R.drawable.bdm,"Apéro"));
+        deals.add(new Deal("Chocolat de Neuville", "-15%", 43.599738, 1.4444590000000517, R.drawable.orange_markeri, R.drawable.cdn,"Friandises"));
+        deals.add(new Deal("Magnolia Café", "-10%", 43.5993325, 1.4438192999999728, R.drawable.darkgreen_markeri, R.drawable.magnolia,"Pour Manger"));
+        deals.add(new Deal("Duck Me", "Une planche de canardises offerte pour l'achat d'une bouteille", 43.6021283, 1.4468752000000222, R.drawable.darkgreen_markeri, R.drawable.duckme, "Pour Manger"));
+        deals.add(new Deal("Pitaya", "-15%", 43.599064, 1.4439680000000408, R.drawable.darkgreen_markeri, R.drawable.pitaya,"Pour Manger"));
+        deals.add(new Deal("Le Fénétra", "-10%", 43.6015097, 1.4428634999999304, R.drawable.darkgreen_markeri, R.drawable.fenetra,"Pour Manger"));
+        deals.add(new Deal("L'inde", "-10%", 43.5983318, 1.4442956000000322, R.drawable.darkgreen_markeri, R.drawable.inde, "Pour Manger"));
+        deals.add(new Deal("BWAMOA", "-15%", 43.6007651, 1.444766399999935, R.drawable.darkgreen_markeri, R.drawable.bwamoa, "Pour Manger"));
+        deals.add(new Deal("Body' Minute", "Carte Abonnée gratuite qui donne accès à des tarifs réduits", 43.6007528, 1.4447450999999774, R.drawable.blue_markeri, R.drawable.body,"Bien-être"));
+        deals.add(new Deal("Kreme", "-15%", 43.5990122, 1.4442180999999437, R.drawable.darkgreen_markeri, R.drawable.kreme, "Pour Manger"));
+        deals.add(new Deal("Au Péché Mignon", "-10%", 43.5986127, 1.4454370999999355, R.drawable.darkgreen_markeri, R.drawable.peche, "Pour Manger"));
+        deals.add(new Deal("La Manufacture des Carmes", "-20%", 43.5986274, 1.4442845999999463,R.drawable.darkgreen_markeri, R.drawable.manufacture,"Pour Manger"));
+        deals.add(new Deal("Santosha", "10E le plat", 43.5982421, 1.4442629000000125, R.drawable.darkgreen_markeri, R.drawable.santosha, "Pour Manger"));
+        deals.add(new Deal("JEAN-PASCAL COLLIN", "-10%", 43.5993921, 1.443273500000032, R.drawable.blue_markeri, R.drawable.jpc, "Bien-être"));
+        deals.add(new Deal("Beach Park Toulouse", "", 43.5924694, 1.3089104000000589, R.drawable.yellow_markeri, R.drawable.beach, "Loisirs"));
+        deals.add(new Deal("Karl Maison", "-10%", 43.6014334, 1.443336899999963, R.drawable.darkgreen_markeri, R.drawable.karl, "Pour Manger"));
 
         return deals;
     }
