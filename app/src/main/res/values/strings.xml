@@ -32,5 +32,14 @@
     <string name="colombus_image">Colombus image</string>
     <string name="clicliste">Cliquer sur la liste</string>
 
+    <!--Login-->
+    <string name="loginEmail">Email</string>
+    <string name="loginPassword">Password</string>
+    <string name="loginButton">Envoyer</string>
+    <string name="loginButtonRegistration">Enregistrez-vous ici!</string>
+
+
+
+
 </resources>
 
