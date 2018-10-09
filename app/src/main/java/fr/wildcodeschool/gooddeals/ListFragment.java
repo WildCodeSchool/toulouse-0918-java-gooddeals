@@ -1,6 +1,7 @@
 package fr.wildcodeschool.gooddeals;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -33,7 +34,9 @@ public class ListFragment extends android.support.v4.app.Fragment {
         listDeals.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getActivity(), R.string.clicliste, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), Popup.class);
+                startActivity(intent);
+
             }
         });
     }
