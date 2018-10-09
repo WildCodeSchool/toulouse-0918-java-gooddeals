@@ -21,6 +21,7 @@ public class NavbarActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private BoomMenuButton bmb;
+    public static final String ATHOME_URL = "https://www.athome-startup.fr/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +111,7 @@ public class NavbarActivity extends AppCompatActivity
 
         } else if (id == R.id.atHome_web) {
 
-            final Uri uri = Uri.parse("https://www.athome-startup.fr/");
+            final Uri uri = Uri.parse(ATHOME_URL);
             startActivity(new Intent(Intent.ACTION_VIEW, uri));
 
         }
