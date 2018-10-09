@@ -65,7 +65,7 @@ public class MapFragment extends android.support.v4.app.Fragment implements OnMa
         deals.add(new Deal("Le Fénétra", "-10%", 43.6015097, 1.4428634999999304, R.mipmap.ic_beer, R.drawable.sld_cafe));
         deals.add(new Deal("L'inde", "-10%", 43.5983318, 1.4442956000000322, R.mipmap.ic_beer, R.drawable.sld_cafe));
         deals.add(new Deal("BWAMOA", "-15%", 43.6007651, 1.444766399999935, R.mipmap.ic_beer, R.drawable.sld_cafe));
-        deals.add(new Deal("Body' Minute", "Crte Abonnée gratuite qui donne accès à des tarifs réduits", 43.6007528, 1.4447450999999774, R.mipmap.ic_launcher_foreground, R.drawable.sld_cafe));
+        deals.add(new Deal("Body' Minute", "Crte Abonnée gratuite qui donne accès à des tarifs réduits", 43.6007528, 1.4447450999999774, R.mipmap.ic_beer, R.drawable.sld_cafe));
         deals.add(new Deal("Kreme", "-15%", 43.5990122, 1.4442180999999437, R.mipmap.ic_beer, R.drawable.sld_cafe));
         deals.add(new Deal("Au Péché Mignon", "-10%", 43.5986127, 1.4454370999999355, R.mipmap.ic_beer, R.drawable.sld_cafe));
         deals.add(new Deal("La Manufacture des Carmes", "-20%", 43.5986274, 1.4442845999999463, R.mipmap.ic_beer, R.drawable.sld_cafe));
@@ -141,7 +141,7 @@ public class MapFragment extends android.support.v4.app.Fragment implements OnMa
                         if (task.isSuccessful()) {
                             Location currentLocation = (Location) task.getResult();
                             if (currentLocation != null) {
-                                moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), DEFAULT_ZOOM);
+                                moveCamera(new LatLng(43.6004273,1.4445871000000352), DEFAULT_ZOOM);
 
                             }
 
@@ -157,7 +157,7 @@ public class MapFragment extends android.support.v4.app.Fragment implements OnMa
 
 
     private void moveCamera(LatLng latLng, float zoom) {
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
 
     }
 
