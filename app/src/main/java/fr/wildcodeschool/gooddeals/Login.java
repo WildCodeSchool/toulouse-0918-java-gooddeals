@@ -66,7 +66,7 @@ public class Login extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
                             // TODO : faire une requête pour récupérer les données supplementaire de l'utilisateur
-
+                            updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(Login.this, "Authentication failed.",

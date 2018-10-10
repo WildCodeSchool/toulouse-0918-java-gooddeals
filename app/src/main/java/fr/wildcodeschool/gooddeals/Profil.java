@@ -27,7 +27,7 @@ public class Profil extends AppCompatActivity {
             public void onClick(View view) {
 
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(Profil.this, MapFragment.class));
+                startActivity(new Intent(Profil.this, NavbarActivity.class));
 
             }
         });
