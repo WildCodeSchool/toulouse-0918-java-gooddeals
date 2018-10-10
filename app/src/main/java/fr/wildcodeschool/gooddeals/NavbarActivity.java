@@ -13,14 +13,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
 import com.nightonke.boommenu.BoomButtons.HamButton;
+import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomMenuButton;
 import com.nightonke.boommenu.ButtonEnum;
+
+import static fr.wildcodeschool.gooddeals.BuilderManager.getHamButtonBuilderWithDifferentPieceColor;
+import static fr.wildcodeschool.gooddeals.MapFragment.dealArrayList;
 
 public class NavbarActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private String type;
     private BoomMenuButton bmb;
+    public static final String ATHOME_URL = "https://www.athome-startup.fr/";
 
 
 
@@ -37,8 +45,52 @@ public class NavbarActivity extends AppCompatActivity
         bmb = (BoomMenuButton) findViewById(R.id.bmb);
         assert bmb != null;
         bmb.setButtonEnum(ButtonEnum.Ham);
-        for (int i = 0; i < bmb.getPiecePlaceEnum().pieceNumber(); i++)
+        for (int i = 0; i < bmb.getPiecePlaceEnum().pieceNumber(); i++) {
+            int position = i;
             bmb.addBuilder(getHamButtonBuilderWithDifferentPieceColor());
+            if (position == 0){
+                new HamButton.Builder().listener(new OnBMClickListener() {
+                    @Override
+                    public void onBoomButtonClick(int index) {
+                        for (Deal deal : dealArrayList()){
+                            if (deal.getType().equals("Pour Manger")){
+
+                            }
+                        }
+                    }
+                });
+            }else if (position == 1){
+                new HamButton.Builder().listener(new OnBMClickListener() {
+                    @Override
+                    public void onBoomButtonClick(int index) {
+
+
+
+                    }
+                });
+            }else if (position ==2){
+                new HamButton.Builder().listener(new OnBMClickListener() {
+                    @Override
+                    public void onBoomButtonClick(int index) {
+
+                    }
+                });
+            }else if (position == 3){
+                new HamButton.Builder().listener(new OnBMClickListener() {
+                    @Override
+                    public void onBoomButtonClick(int index) {
+
+                    }
+                });
+            }else if (position == 4){
+                new HamButton.Builder().listener(new OnBMClickListener() {
+                    @Override
+                    public void onBoomButtonClick(int index) {
+
+                    }
+                });
+            }
+        }
 
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -53,13 +105,6 @@ public class NavbarActivity extends AppCompatActivity
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.ftMain, new MapFragment());
         ft.commit();
-    }
-    static HamButton.Builder getHamButtonBuilderWithDifferentPieceColor() {
-        return new HamButton.Builder()
-                .normalImageRes(R.drawable.filter_icon)
-                .normalTextRes(R.string.ColombusText)
-                .subNormalTextRes(R.string.ColombusText)
-                .pieceColor(Color.WHITE);
     }
 
     @Override
@@ -113,7 +158,7 @@ public class NavbarActivity extends AppCompatActivity
 
         } else if (id == R.id.atHome_web) {
 
-            Uri uri = Uri.parse("https://www.athome-startup.fr/");
+            Uri uri = Uri.parse(ATHOME_URL);
             startActivity(new Intent(Intent.ACTION_VIEW, uri));
 
         }
