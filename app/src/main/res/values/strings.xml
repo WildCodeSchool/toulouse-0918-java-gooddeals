@@ -31,6 +31,8 @@
     <string name="colombus_caf_co"><![CDATA[Colombus Café & Co]]></string>
     <string name="colombus_image">Colombus image</string>
     <string name="clicliste">Cliquer sur la liste</string>
+    <string name="athome_web">En savoir plus sur AtHome</string>
+
 
     <!--Login-->
     <string name="loginEmail">Email</string>
