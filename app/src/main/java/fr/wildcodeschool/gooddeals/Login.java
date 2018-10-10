@@ -7,83 +7,97 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
-public class MainActivity extends AppCompatActivity {
+public class Login extends AppCompatActivity {
 
-    private EditText userName ;
-    private EditText password;
-    private Button   login;
-    private TextView  attempt, btnSignUp;
-
-
-
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        userName = (EditText)findViewById(R.id.email_login);
-        password = (EditText) findViewById(R.id.button_password);
-        login  =(Button) findViewById(R.id.btnLogin);
-        btnSignUp = (TextView) findViewById(R.id.tvSingUP);
-
-        attempt.setText("No of attempts:" + counter);
-
-        firebaseAuth = FirebaseAuth.getInstance();
-
-        FirebaseUser User = firebaseAuth.getCurrentUser();
-
-        if (User !=null )
-        {
-            finish();
-            startActivity(new Intent(MainActivity.this, Profil.class));
-        }
+        setContentView(R.layout.activity_login);
 
 
-        login.setOnClickListener(new View.OnClickListener() {
+
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+
+        Button btLogin = findViewById(R.id.button_login);
+        btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                validate(userName.getText().toString(), password.getText().toString());
+                EditText etLogin = findViewById(R.id.email_login);
+                EditText etPassword = findViewById(R.id.password_login);
+                String email = etLogin.getText().toString();
+                String password = etPassword.getText().toString();
+                if (email.isEmpty() || password.isEmpty()) {
+                    Toast.makeText(Login.this, R.string.error_login_fields, Toast.LENGTH_SHORT).show();
+                } else {
+                    signInUser(email, password);
+                }
             }
         });
 
-        btnSignUp.setOnClickListener(new View.OnClickListener() {
+        Button buttonRegistrationLogin = findViewById(R.id.button_registration_login);
+        buttonRegistrationLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, Registration.class));
+                startActivity(new Intent(Login.this, Registration.class));
             }
         });
+
+
 
     }
 
-    private void validate(String userName , String pass)
+    private void signInUser(String email, String password) {
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            // TODO : faire une requête pour récupérer les données supplementaire de l'utilisateur
 
-    {
-
-        firebaseAuth.signInWithEmailAndPassword(userName, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful())
-                {
-                    Toast.makeText(MainActivity.this,"Login was Sucessfull", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(MainActivity.this, Profil.class));
-                }
-                else
-                {
-                    Toast.makeText(MainActivity.this, "Login Fail", Toast.LENGTH_SHORT).show();
-                    counter --;
-                    attempt.setText("No of attempts:" + counter);
-                    if (counter == 0)
-                    {
-                        login.setEnabled(false);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Toast.makeText(Login.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                            updateUI(null);
+                        }
                     }
-                }
-            }
-        });
+                });
+
+
     }
+
+    private void updateUI(FirebaseUser user) {
+        if (user != null) {
+            startActivity(new Intent(Login.this, Profil.class));
+        }
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        //mAuth.signOut(); // forcer la deconnexion de l'utilisateur
+        updateUI(currentUser);
+    }
+
+
+
 
 }
+
+

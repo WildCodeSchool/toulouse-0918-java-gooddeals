@@ -34,11 +34,19 @@
 
     <!--Login-->
     <string name="loginEmail">Email</string>
-    <string name="loginPassword">Password</string>
+    <string name="loginPassword">Mot de passe</string>
     <string name="loginButton">Envoyer</string>
     <string name="loginButtonRegistration">Enregistrez-vous ici!</string>
+    <string name="fill_all_fields" />
 
+    <!--Registration-->
+    <string name="registrationEmail">Email</string>
+    <string name="registrationPassword">Password</string>
+    <string name="registrationButton">Sinscrire</string>
+    <string name="error_login_fields" />
 
+    <!--Profil-->
+    <string name="deconnectButton">Déconnection</string>
 
 
 </resources>
