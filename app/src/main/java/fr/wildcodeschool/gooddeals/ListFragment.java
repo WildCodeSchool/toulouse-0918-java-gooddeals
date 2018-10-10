@@ -34,6 +34,7 @@ public class ListFragment extends android.support.v4.app.Fragment {
         listDeals.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
                 Intent intent = new Intent(getActivity(), Popup.class);
                 startActivity(intent);
 

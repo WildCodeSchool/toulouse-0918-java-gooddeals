@@ -46,6 +46,8 @@
             android:name=".NavbarActivity"
             android:label="@string/title_activity_navbar"
             android:theme="@style/AppTheme"></activity>
+
+
     </application>
 
 </manifest>

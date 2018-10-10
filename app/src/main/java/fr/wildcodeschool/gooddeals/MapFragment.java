@@ -141,7 +141,7 @@ public class MapFragment extends android.support.v4.app.Fragment implements OnMa
                         if (task.isSuccessful()) {
                             Location currentLocation = (Location) task.getResult();
                             if (currentLocation != null) {
-                                moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), DEFAULT_ZOOM);
+                                moveCamera(new LatLng(43.6004273,1.4445871000000352), DEFAULT_ZOOM);
 
                             }
 
@@ -157,7 +157,7 @@ public class MapFragment extends android.support.v4.app.Fragment implements OnMa
 
 
     private void moveCamera(LatLng latLng, float zoom) {
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
 
     }
 
