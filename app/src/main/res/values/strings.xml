@@ -50,6 +50,8 @@
     <!--Profil-->
     <string name="deconnectButton">Déconnection</string>
 
+    <string name="titleShare">Share</string>
+
 
 </resources>
 

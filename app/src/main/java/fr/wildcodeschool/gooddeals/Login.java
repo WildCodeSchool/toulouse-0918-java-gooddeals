@@ -26,7 +26,6 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
 
-
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
@@ -45,7 +44,6 @@ public class Login extends AppCompatActivity {
                 }
             }
         });
-
         Button buttonRegistrationLogin = findViewById(R.id.button_registration_login);
         buttonRegistrationLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,10 +52,7 @@ public class Login extends AppCompatActivity {
             }
         });
 
-
-
     }
-
     private void signInUser(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -76,7 +71,6 @@ public class Login extends AppCompatActivity {
                     }
                 });
 
-
     }
 
     private void updateUI(FirebaseUser user) {
@@ -84,8 +78,6 @@ public class Login extends AppCompatActivity {
             startActivity(new Intent(Login.this, Profil.class));
         }
     }
-
-
     @Override
     public void onStart() {
         super.onStart();
@@ -94,10 +86,6 @@ public class Login extends AppCompatActivity {
         //mAuth.signOut(); // forcer la deconnexion de l'utilisateur
         updateUI(currentUser);
     }
-
-
-
-
 }
 
 
