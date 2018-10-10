@@ -27,14 +27,18 @@ public class ListFragment extends android.support.v4.app.Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ListView listDeals = getView().findViewById(R.id.list_view_deals);
+        final ListView listDeals = getView().findViewById(R.id.list_view_deals);
         DealsAdapter adapter = new DealsAdapter(listDeals.getContext(), dealArrayList());
         listDeals.setAdapter(adapter);
 
         listDeals.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Deal deal = dealArrayList().get(i);
                 Intent intent = new Intent(getActivity(), Popup.class);
+                intent.putExtra("EXTRA_DESCRIPTION", deal.getDescription());
+                intent.putExtra("EXTRA_TITLE", deal.getName());
+                intent.putExtra("EXTRA_IMAGE", deal.getImage());
                 startActivity(intent);
 
             }
