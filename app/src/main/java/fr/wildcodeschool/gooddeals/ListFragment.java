@@ -37,6 +37,7 @@ public class ListFragment extends android.support.v4.app.Fragment {
                 Intent intent = new Intent(getActivity(), Popup.class);
                 startActivity(intent);
 
+
             }
         });
     }
