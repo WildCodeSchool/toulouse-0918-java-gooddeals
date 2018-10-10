@@ -14,14 +14,28 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListAdapter;
+import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.nightonke.boommenu.BoomButtons.HamButton;
 import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomMenuButton;
 import com.nightonke.boommenu.ButtonEnum;
 
+
 import static fr.wildcodeschool.gooddeals.BuilderManager.getHamButtonBuilderWithDifferentPieceColor;
+import static fr.wildcodeschool.gooddeals.BuilderManager.getTypeDeals;
 import static fr.wildcodeschool.gooddeals.MapFragment.dealArrayList;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class NavbarActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -29,6 +43,7 @@ public class NavbarActivity extends AppCompatActivity
     private String type;
     private BoomMenuButton bmb;
     public static final String ATHOME_URL = "https://www.athome-startup.fr/";
+
 
 
 
@@ -42,47 +57,60 @@ public class NavbarActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        bmb = (BoomMenuButton) findViewById(R.id.bmb);
+        bmb = findViewById(R.id.bmb);
         assert bmb != null;
         bmb.setButtonEnum(ButtonEnum.Ham);
         for (int i = 0; i < bmb.getPiecePlaceEnum().pieceNumber(); i++) {
             int position = i;
             bmb.addBuilder(getHamButtonBuilderWithDifferentPieceColor());
-            if (position == 0){
+            if (position == 0) {
                 new HamButton.Builder().listener(new OnBMClickListener() {
                     @Override
                     public void onBoomButtonClick(int index) {
-                        for (Deal deal : dealArrayList()){
-                            if (deal.getType().equals("Pour Manger")){
+                        
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        final DatabaseReference dealsRef = database.getReference("deal");
+                        dealsRef.orderByChild("type").equalTo("Pour Manger")
+                                .addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        dealArrayList().clear();
+                                        ArrayList<MapFragment> deals = new ArrayList<>();;
+                                        for (DataSnapshot dealsSnapshot : dataSnapshot.getChildren()) {
 
-                            }
-                        }
+                                            deals.add(dealsSnapshot.getValue(MapFragment.class));
+
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {}
+                                });
                     }
                 });
-            }else if (position == 1){
+            } else if (position == 1) {
                 new HamButton.Builder().listener(new OnBMClickListener() {
                     @Override
                     public void onBoomButtonClick(int index) {
 
 
-
                     }
                 });
-            }else if (position ==2){
+            } else if (position == 2) {
                 new HamButton.Builder().listener(new OnBMClickListener() {
                     @Override
                     public void onBoomButtonClick(int index) {
 
                     }
                 });
-            }else if (position == 3){
+            } else if (position == 3) {
                 new HamButton.Builder().listener(new OnBMClickListener() {
                     @Override
                     public void onBoomButtonClick(int index) {
 
                     }
                 });
-            }else if (position == 4){
+            } else if (position == 4) {
                 new HamButton.Builder().listener(new OnBMClickListener() {
                     @Override
                     public void onBoomButtonClick(int index) {
@@ -91,6 +119,7 @@ public class NavbarActivity extends AppCompatActivity
                 });
             }
         }
+
 
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -105,6 +134,11 @@ public class NavbarActivity extends AppCompatActivity
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.ftMain, new MapFragment());
         ft.commit();
+
+        // Write a message to the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("message");
+        myRef.setValue("Hello, World!");
     }
 
     @Override
@@ -133,7 +167,6 @@ public class NavbarActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-
 
         int id = item.getItemId();
 
