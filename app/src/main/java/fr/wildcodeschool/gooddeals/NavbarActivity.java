@@ -43,6 +43,8 @@ public class NavbarActivity extends AppCompatActivity
     private String type;
     private BoomMenuButton bmb;
     public static final String ATHOME_URL = "https://www.athome-startup.fr/";
+    private ArrayList dealArrayList = new ArrayList<>();
+    private DealsAdapter mAdapter;
 
 
 
@@ -68,24 +70,7 @@ public class NavbarActivity extends AppCompatActivity
                     @Override
                     public void onBoomButtonClick(int index) {
                         
-                        FirebaseDatabase database = FirebaseDatabase.getInstance();
-                        final DatabaseReference dealsRef = database.getReference("deal");
-                        dealsRef.orderByChild("type").equalTo("Pour Manger")
-                                .addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        dealArrayList().clear();
-                                        ArrayList<MapFragment> deals = new ArrayList<>();;
-                                        for (DataSnapshot dealsSnapshot : dataSnapshot.getChildren()) {
 
-                                            deals.add(dealsSnapshot.getValue(MapFragment.class));
-
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {}
-                                });
                     }
                 });
             } else if (position == 1) {

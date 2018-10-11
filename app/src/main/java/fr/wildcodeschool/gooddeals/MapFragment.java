@@ -28,6 +28,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -48,6 +53,10 @@ public class MapFragment extends android.support.v4.app.Fragment implements OnMa
     private Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
+
+
+
+
 
     public static ArrayList<Deal> dealArrayList() {
 
@@ -105,11 +114,16 @@ public class MapFragment extends android.support.v4.app.Fragment implements OnMa
 
     }
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-
         return inflater.inflate(R.layout.activity_main, container, false);
+
+
+    }
+    public void getClassifiedFromDb(final ArrayList<Deal> dealArrayList){
 
     }
 
