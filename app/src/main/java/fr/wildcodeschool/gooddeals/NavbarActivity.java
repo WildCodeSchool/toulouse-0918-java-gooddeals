@@ -16,9 +16,10 @@ import android.view.MenuItem;
 import com.nightonke.boommenu.BoomButtons.HamButton;
 import com.nightonke.boommenu.BoomMenuButton;
 import com.nightonke.boommenu.ButtonEnum;
-
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
 
 public class NavbarActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -26,6 +27,7 @@ public class NavbarActivity extends AppCompatActivity
     private BoomMenuButton bmb;
     public static final String ATHOME_URL = "https://www.athome-startup.fr/";
 
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +104,7 @@ public class NavbarActivity extends AppCompatActivity
 
         if (id == R.id.nav_login) {
 
-            //  startActivity(new Intent(NavbarActivity.this, LoginActivity.class));
+            startActivity(new Intent(NavbarActivity.this, Login.class));
 
         } else if (id == R.id.nav_map) {
 
