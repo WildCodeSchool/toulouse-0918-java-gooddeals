@@ -2,22 +2,20 @@ package fr.wildcodeschool.gooddeals;
 
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
 public class Profil extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private static final int SELECT_PICTURE = 1;
-
     private String selectedImagePath;
 
     @Override
@@ -36,7 +34,7 @@ public class Profil extends AppCompatActivity {
             }
         });
 
-        ((Button) findViewById(R.id.button2))
+        ((Button) findViewById(R.id.button_photo_gallery))
                 .setOnClickListener(new View.OnClickListener() {
 
                     public void onClick(View arg0) {
@@ -50,6 +48,16 @@ public class Profil extends AppCompatActivity {
                                 "Select Picture"), SELECT_PICTURE);
                     }
                 });
+        ((Button)findViewById(R.id.buttonPhoto))
+                .setOnClickListener(new View.OnClickListener() {
+        ImageView imageView = (ImageView)findViewById(R.id.imageViewPhoto);
+                    @Override
+                    public void onClick(View view) {
+
+
+                    }
+                });
+
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
