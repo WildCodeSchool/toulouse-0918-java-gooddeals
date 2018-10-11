@@ -30,11 +30,13 @@ import static fr.wildcodeschool.gooddeals.BuilderManager.getHamButtonBuilderWith
 import static fr.wildcodeschool.gooddeals.BuilderManager.getTypeDeals;
 import static fr.wildcodeschool.gooddeals.MapFragment.dealArrayList;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 
 public class NavbarActivity extends AppCompatActivity
@@ -48,6 +50,7 @@ public class NavbarActivity extends AppCompatActivity
 
 
 
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +72,7 @@ public class NavbarActivity extends AppCompatActivity
                 new HamButton.Builder().listener(new OnBMClickListener() {
                     @Override
                     public void onBoomButtonClick(int index) {
-                        
+
 
                     }
                 });
@@ -104,7 +107,6 @@ public class NavbarActivity extends AppCompatActivity
                 });
             }
         }
-
 
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -157,7 +159,7 @@ public class NavbarActivity extends AppCompatActivity
 
         if (id == R.id.nav_login) {
 
-            //  startActivity(new Intent(NavbarActivity.this, LoginActivity.class));
+            startActivity(new Intent(NavbarActivity.this, Login.class));
 
         } else if (id == R.id.nav_map) {
 
