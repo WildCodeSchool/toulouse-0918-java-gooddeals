@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/backgroundgrey">
 
     <EditText
         android:id="@+id/email_login"
@@ -18,6 +19,7 @@
         android:ems="10"
         android:hint="@string/loginEmail"
         android:inputType="textPersonName"
+        android:background="@color/cardview_dark_background"
         app:layout_constraintBottom_toTopOf="@+id/password_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
@@ -37,6 +39,7 @@
         android:ems="10"
         android:hint="@string/loginPassword"
         android:inputType="textPassword"
+        android:background="@color/cardview_dark_background"
         app:layout_constraintBottom_toTopOf="@+id/button_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
