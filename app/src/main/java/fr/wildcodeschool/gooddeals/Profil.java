@@ -1,6 +1,7 @@
 package fr.wildcodeschool.gooddeals;
 
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -9,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -17,14 +19,31 @@ public class Profil extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private static final int SELECT_PICTURE = 1;
     private String selectedImagePath;
-
+    private boolean mIsResolving = false;
+    private boolean mShouldResolve = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil);
 
-        Button btLogOut = findViewById(R.id.log_out_button);
-        btLogOut.setOnClickListener(new View.OnClickListener() {
+        //Method for button Google sign in
+        findViewById(R.id.google_sign_in).setOnClickListener((View.OnClickListener) this);
+
+
+
+
+        //Button for logout
+        ImageButton btOnline = findViewById(R.id.imageButtonOnline);
+        btOnline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Profil.this, NavbarActivity.class));
+
+            }
+        });
+
+            Button btLogOut = findViewById(R.id.log_out_button);
+            btLogOut.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -48,6 +67,9 @@ public class Profil extends AppCompatActivity {
                                 "Select Picture"), SELECT_PICTURE);
                     }
                 });
+
+
+
         ((Button)findViewById(R.id.buttonPhoto))
                 .setOnClickListener(new View.OnClickListener() {
         ImageView imageView = (ImageView)findViewById(R.id.imageViewPhoto);
@@ -57,6 +79,7 @@ public class Profil extends AppCompatActivity {
 
                     }
                 });
+
 
     }
 
