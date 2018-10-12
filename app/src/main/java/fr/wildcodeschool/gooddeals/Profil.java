@@ -30,8 +30,6 @@ public class Profil extends AppCompatActivity {
         findViewById(R.id.google_sign_in).setOnClickListener((View.OnClickListener) this);
 
 
-
-
         //Button for logout
         ImageButton btOnline = findViewById(R.id.imageButtonOnline);
         btOnline.setOnClickListener(new View.OnClickListener() {
@@ -69,20 +67,16 @@ public class Profil extends AppCompatActivity {
                 });
 
 
-
         ((Button)findViewById(R.id.buttonPhoto))
                 .setOnClickListener(new View.OnClickListener() {
         ImageView imageView = (ImageView)findViewById(R.id.imageViewPhoto);
                     @Override
                     public void onClick(View view) {
 
-
                     }
                 });
 
-
     }
-
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             if (requestCode == SELECT_PICTURE) {
