@@ -13,6 +13,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -25,6 +26,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -43,6 +45,7 @@ public class MapFragment extends android.support.v4.app.Fragment implements OnMa
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
     private static final float DEFAULT_ZOOM = 15f;
+    private LatLng esquirol = new LatLng(43.6004273,1.4445871000000352);
 
     //vars
     private Boolean mLocationPermissionsGranted = false;
@@ -99,9 +102,11 @@ public class MapFragment extends android.support.v4.app.Fragment implements OnMa
             MarkerOptions markerOptions = new MarkerOptions()
                     .icon(BitmapDescriptorFactory.fromResource(deal.getIcon()))
                     .title(deal.getName());
+
             markerOptions.position(new LatLng(deal.getLatitude(), deal.getLongitude()));
             mMap.addMarker(markerOptions);
         }
+
 
     }
 
@@ -141,8 +146,7 @@ public class MapFragment extends android.support.v4.app.Fragment implements OnMa
                         if (task.isSuccessful()) {
                             Location currentLocation = (Location) task.getResult();
                             if (currentLocation != null) {
-                                moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), DEFAULT_ZOOM);
-
+                                moveCamera(esquirol, DEFAULT_ZOOM);
                             }
 
                         } else {
