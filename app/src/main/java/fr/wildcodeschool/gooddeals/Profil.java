@@ -36,7 +36,7 @@ public class Profil extends AppCompatActivity {
             }
         });
 
-        ((Button) findViewById(R.id.button2))
+        ((Button) findViewById(R.id.button_photo_gallery))
                 .setOnClickListener(new View.OnClickListener() {
 
                     public void onClick(View arg0) {
