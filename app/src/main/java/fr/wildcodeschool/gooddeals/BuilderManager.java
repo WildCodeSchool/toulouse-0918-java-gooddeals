@@ -1,10 +1,18 @@
 package fr.wildcodeschool.gooddeals;
 
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.util.Pair;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.nightonke.boommenu.BoomButtons.ButtonPlaceEnum;
 import com.nightonke.boommenu.BoomButtons.HamButton;
+import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomButtons.SimpleCircleButton;
 import com.nightonke.boommenu.BoomButtons.TextInsideCircleButton;
 import com.nightonke.boommenu.BoomButtons.TextOutsideCircleButton;
@@ -90,6 +98,51 @@ public class BuilderManager {
                 .pieceColor(R.color.grayAtHome);
     }
 
+    static HamButton.Builder getHamButtonBuilderFilter(final String type) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference dealRef = database.getReference("deal");
+        return new HamButton.Builder()
+                .normalImageRes(getImageResource())
+                .normalText(getTypeDeals())
+                .subNormalText(getSousTypeDeals())
+                .pieceColor(R.color.grayAtHome)
+                .listener(new OnBMClickListener() {
+            @Override
+            public void onBoomButtonClick(int index) {
+                Query pourManger = dealRef.orderByChild("type").equalTo(type);
+                pourManger.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot dealSnapshot : dataSnapshot.getChildren()) {
+                            Deal deal = dealSnapshot.getValue(Deal.class);
+                            int icon = R.drawable.red_markeri;
+                            switch (deal.getType()){
+
+                                case "Pour Manger":
+                                    icon = R.drawable.darkgreen_markeri;
+                                    break;
+                            }
+
+                            //TODO mettre a jour les markers
+
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+
+            }
+
+        });
+    }
+
+
+
     static List<String> getCircleButtonData(ArrayList<Pair> piecesAndButtons) {
         List<String> data = new ArrayList<>();
         for (int p = 0; p < PiecePlaceEnum.values().length - 1; p++) {
@@ -159,3 +212,5 @@ public class BuilderManager {
     }
 
 }
+
+

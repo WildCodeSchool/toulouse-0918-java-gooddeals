@@ -52,7 +52,7 @@
                 app:bmb_hideDuration="2000"
                 app:bmb_piecePlaceEnum="piecePlace_ham_5"
                 app:bmb_showDuration="2000"
-                app:bmb_use3DTransformAnimation="true"
+                app:bmb_use3DTransformAnimation="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

@@ -53,7 +53,7 @@ public class Popup extends AppCompatActivity {
                 String shareSub = "Your subject here";
                 myIntent.putExtra(Intent.EXTRA_SUBJECT, shareBody);
                 myIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
-               // startActivity(Intent.createChooser(myIntent, getString(R.string.titleShare)));
+                startActivity(Intent.createChooser(myIntent, getString(R.string.titleShare)));
 
             }
         });

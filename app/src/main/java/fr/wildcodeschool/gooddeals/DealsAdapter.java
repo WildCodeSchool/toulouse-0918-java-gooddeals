@@ -34,10 +34,6 @@ public class DealsAdapter extends ArrayAdapter {
         TextView dealName =convertView.findViewById(id.name_deals);
         dealName.setText(deals.getName());
 
-
-        TextView description =convertView.findViewById(id.description_deals);
-        description.setText(deals.getDescription());
-
         ImageView icons =convertView.findViewById(id.icon_deals);
         icons.setImageResource(deals.getIcon());
 

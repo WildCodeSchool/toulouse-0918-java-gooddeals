@@ -1,9 +1,9 @@
 package fr.wildcodeschool.gooddeals;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,12 +13,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ListAdapter;
-import android.widget.Toast;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.nightonke.boommenu.BoomButtons.HamButton;
 import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
@@ -26,27 +28,25 @@ import com.nightonke.boommenu.BoomMenuButton;
 import com.nightonke.boommenu.ButtonEnum;
 
 
+import static fr.wildcodeschool.gooddeals.BuilderManager.getHamButtonBuilderFilter;
 import static fr.wildcodeschool.gooddeals.BuilderManager.getHamButtonBuilderWithDifferentPieceColor;
-import static fr.wildcodeschool.gooddeals.BuilderManager.getTypeDeals;
-import static fr.wildcodeschool.gooddeals.MapFragment.dealArrayList;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 
 public class NavbarActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private String type;
+
     private BoomMenuButton bmb;
     public static final String ATHOME_URL = "https://www.athome-startup.fr/";
-    private ArrayList dealArrayList = new ArrayList<>();
-    private DealsAdapter mAdapter;
+    private ArrayList<Deal> deals = new ArrayList<>();
+
 
 
 
@@ -57,54 +57,36 @@ public class NavbarActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.drawer_navbar);
 
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference dealRef = database.getReference("deal");
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+
+
         bmb = findViewById(R.id.bmb);
         assert bmb != null;
         bmb.setButtonEnum(ButtonEnum.Ham);
         for (int i = 0; i < bmb.getPiecePlaceEnum().pieceNumber(); i++) {
-            int position = i;
-            bmb.addBuilder(getHamButtonBuilderWithDifferentPieceColor());
-            if (position == 0) {
-                new HamButton.Builder().listener(new OnBMClickListener() {
-                    @Override
-                    public void onBoomButtonClick(int index) {
 
-
-                    }
-                });
-            } else if (position == 1) {
-                new HamButton.Builder().listener(new OnBMClickListener() {
-                    @Override
-                    public void onBoomButtonClick(int index) {
-
-
-                    }
-                });
-            } else if (position == 2) {
-                new HamButton.Builder().listener(new OnBMClickListener() {
-                    @Override
-                    public void onBoomButtonClick(int index) {
-
-                    }
-                });
-            } else if (position == 3) {
-                new HamButton.Builder().listener(new OnBMClickListener() {
-                    @Override
-                    public void onBoomButtonClick(int index) {
-
-                    }
-                });
-            } else if (position == 4) {
-                new HamButton.Builder().listener(new OnBMClickListener() {
-                    @Override
-                    public void onBoomButtonClick(int index) {
-
-                    }
-                });
+            if (i == 0) {
+                HamButton.Builder builder = getHamButtonBuilderFilter("Pour Manger");
+                bmb.addBuilder(builder);
+            } else if (i == 1) {
+                HamButton.Builder builder = getHamButtonBuilderFilter("Apéro");
+                bmb.addBuilder(builder);
+            } else if (i == 2) {
+                HamButton.Builder builder = getHamButtonBuilderFilter("Friandises");
+                bmb.addBuilder(builder);
+            } else if (i == 3) {
+                HamButton.Builder builder = getHamButtonBuilderFilter("Bien-être");
+                bmb.addBuilder(builder);
+            } else if (i == 4) {
+                HamButton.Builder builder = getHamButtonBuilderFilter("Loisirs");
+                bmb.addBuilder(builder);
             }
         }
 
@@ -123,9 +105,8 @@ public class NavbarActivity extends AppCompatActivity
         ft.commit();
 
         // Write a message to the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
-        myRef.setValue("Hello, World!");
+
+
     }
 
     @Override

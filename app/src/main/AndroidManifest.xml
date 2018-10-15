@@ -36,7 +36,8 @@
         </activity>
 
         <activity
-            android:name=".Popup">
+            android:name=".Popup"
+            android:theme="@style/AppTheme.CustomTheme">
         </activity>
 
         <meta-data
