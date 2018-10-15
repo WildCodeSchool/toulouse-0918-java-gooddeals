@@ -27,7 +27,6 @@ import java.util.ArrayList;
 
 public class ListFragment extends android.support.v4.app.Fragment {
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.activity_deals, container, false);
@@ -63,7 +62,6 @@ public class ListFragment extends android.support.v4.app.Fragment {
 
 
         listDeals.setAdapter(adapter);
-
         listDeals.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -73,7 +71,6 @@ public class ListFragment extends android.support.v4.app.Fragment {
                 intent.putExtra("EXTRA_TITLE", deal.getName());
                 intent.putExtra("EXTRA_IMAGE", deal.getImage());
                 startActivity(intent);
-
             }
         });
     }
