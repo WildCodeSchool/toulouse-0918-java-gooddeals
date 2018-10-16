@@ -51,11 +51,8 @@
     <string name="profilTextView">Bienvenue Boby</string>
     <string name="buttonPhotoGallery">Galerie</string>
 
-
     <!--PopUp-->
-
-
-
+    <string name="pour_manger">Pour Manger</string>
 
 
 </resources>

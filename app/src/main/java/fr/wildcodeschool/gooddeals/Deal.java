@@ -23,6 +23,9 @@ public class Deal {
         this.type = type;
     }
 
+    public Deal() {
+
+    }
     //getters et setters
     public String getName() {
         return name;

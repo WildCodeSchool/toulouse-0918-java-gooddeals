@@ -30,7 +30,6 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_gravity="center"
-                android:fontFamily="@font/aguafina_script"
                 android:text="@string/app_name"
                 android:textAllCaps="false"
                 android:textColor="@color/colorGreenDark"
@@ -53,7 +52,7 @@
                 app:bmb_hideDuration="2000"
                 app:bmb_piecePlaceEnum="piecePlace_ham_5"
                 app:bmb_showDuration="2000"
-                app:bmb_use3DTransformAnimation="true"
+                app:bmb_use3DTransformAnimation="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
