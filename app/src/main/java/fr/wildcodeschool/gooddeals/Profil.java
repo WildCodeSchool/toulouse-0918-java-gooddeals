@@ -1,6 +1,5 @@
 package fr.wildcodeschool.gooddeals;
 
-
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-
 import com.google.firebase.auth.FirebaseAuth;
 
 public class Profil extends AppCompatActivity {
@@ -27,17 +25,13 @@ public class Profil extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil);
 
-
         //Method for button Google sign in
-
-
         //Button for logout
         ImageButton btOnline = findViewById(R.id.imageButtonOnline);
         btOnline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Profil.this, NavbarActivity.class));
-
             }
         });
 
@@ -46,7 +40,6 @@ public class Profil extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(Profil.this, NavbarActivity.class));
             }
@@ -56,7 +49,6 @@ public class Profil extends AppCompatActivity {
                 .setOnClickListener(new View.OnClickListener() {
 
                     public void onClick(View arg0) {
-
                         // in onCreate or any event where your want the user to
                         // select a file
                         Intent intent = new Intent();
