@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -22,6 +23,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
 import com.nightonke.boommenu.BoomButtons.HamButton;
 import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomMenuButton;
@@ -105,8 +107,6 @@ public class NavbarActivity extends AppCompatActivity
         ft.commit();
 
         // Write a message to the database
-
-
     }
 
     @Override
@@ -139,31 +139,22 @@ public class NavbarActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_login) {
-
             startActivity(new Intent(NavbarActivity.this, Login.class));
-
         } else if (id == R.id.nav_map) {
-
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.ftMain, new MapFragment());
             ft.commit();
-
-
         } else if (id == R.id.nav_liste) {
-
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.ftMain, new ListFragment());
             ft.commit();
-
         } else if (id == R.id.nav_logout) {
-
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(NavbarActivity.this, NavbarActivity.class));
         } else if (id == R.id.atHome_web) {
-
             Uri uri = Uri.parse(ATHOME_URL);
             startActivity(new Intent(Intent.ACTION_VIEW, uri));
-
         }
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
