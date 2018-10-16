@@ -19,7 +19,7 @@
         android:background="@color/cardview_dark_background"
         android:ems="10"
         android:hint="@string/loginEmail"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         app:layout_constraintBottom_toTopOf="@+id/password_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
