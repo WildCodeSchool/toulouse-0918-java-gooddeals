@@ -141,34 +141,22 @@ public class NavbarActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_login) {
-
             startActivity(new Intent(NavbarActivity.this, Login.class));
-
         } else if (id == R.id.nav_map) {
-
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.ftMain, new MapFragment());
             ft.commit();
-
-
         } else if (id == R.id.nav_liste) {
-
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.ftMain, new ListFragment());
             ft.commit();
-
         } else if (id == R.id.nav_logout) {
-
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(NavbarActivity.this, NavbarActivity.class));
-
         } else if (id == R.id.atHome_web) {
-
             Uri uri = Uri.parse(ATHOME_URL);
             startActivity(new Intent(Intent.ACTION_VIEW, uri));
-
         }
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
