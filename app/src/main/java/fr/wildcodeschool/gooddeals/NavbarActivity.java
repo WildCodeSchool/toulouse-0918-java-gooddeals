@@ -107,8 +107,6 @@ public class NavbarActivity extends AppCompatActivity
         ft.commit();
 
         // Write a message to the database
-
-
     }
 
     @Override
