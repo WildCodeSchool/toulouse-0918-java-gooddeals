@@ -22,7 +22,6 @@ public class Profil extends AppCompatActivity {
     private String selectedImagePath;
     private boolean mIsResolving = false;
     private boolean mShouldResolve = false;
-    ImageView mImageViewMenu = findViewById(R.id.imageDeal);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +74,6 @@ public class Profil extends AppCompatActivity {
                     public void onClick(View view) {
                         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         startActivityForResult(cameraIntent, CAMERA_REQUEST);
-
                     }
                 });
     }
@@ -87,7 +85,6 @@ public class Profil extends AppCompatActivity {
         Bundle extras = data.getExtras();
         Bitmap imageBitmap = (Bitmap) extras.get("data");
         mImageView.setImageBitmap(imageBitmap);
-        mImageViewMenu.setImageBitmap(imageBitmap);
     }
 
     public String getPath(Uri uri) {
