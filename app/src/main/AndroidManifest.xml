@@ -7,6 +7,11 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-feature android:name="android.hardware.camera"
+        android:required="true" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
 
 
 
@@ -36,7 +41,8 @@
         </activity>
 
         <activity
-            android:name=".Popup">
+            android:name=".Popup"
+            android:theme="@style/AppTheme.CustomTheme">
         </activity>
 
         <meta-data
@@ -50,6 +56,18 @@
         <activity android:name=".Login" />
         <activity android:name=".Registration" />
         <activity android:name=".Profil" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.android.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"></meta-data>
+        </provider>
+
+
     </application>
 
 </manifest>

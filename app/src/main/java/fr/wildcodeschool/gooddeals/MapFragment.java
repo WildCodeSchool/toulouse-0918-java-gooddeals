@@ -54,7 +54,7 @@ public class MapFragment extends android.support.v4.app.Fragment implements OnMa
 
     //vars
     private Boolean mLocationPermissionsGranted = false;
-    private GoogleMap mMap;
+    private  GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
 
@@ -62,8 +62,6 @@ public class MapFragment extends android.support.v4.app.Fragment implements OnMa
     public void onMapReady(GoogleMap googleMap) {
 
         mMap = googleMap;
-        if (isServicesOK()) {
-        }
         getLocationPermission();
         if (mLocationPermissionsGranted) {
             getDeviceLocation();
@@ -126,7 +124,6 @@ public class MapFragment extends android.support.v4.app.Fragment implements OnMa
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-
         return inflater.inflate(R.layout.activity_main, container, false);
 
     }
@@ -138,8 +135,6 @@ public class MapFragment extends android.support.v4.app.Fragment implements OnMa
         if (mapFragment != null) {
             mapFragment.getMapAsync(this);
         }
-
-
     }
 
     @Override
