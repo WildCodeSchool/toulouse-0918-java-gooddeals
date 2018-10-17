@@ -13,41 +13,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-<<<<<<< HEAD
-=======
-import android.widget.Toast;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
->>>>>>> c7a23c107301d50495e884dc24f0477c2b80db44
 import com.nightonke.boommenu.BoomButtons.HamButton;
 import com.nightonke.boommenu.BoomMenuButton;
 import com.nightonke.boommenu.ButtonEnum;
 import static fr.wildcodeschool.gooddeals.BuilderManager.getHamButtonBuilderFilter;
-<<<<<<< HEAD
-=======
-import static fr.wildcodeschool.gooddeals.BuilderManager.getHamButtonBuilderWithDifferentPieceColor;
->>>>>>> c7a23c107301d50495e884dc24f0477c2b80db44
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import java.util.ArrayList;
 
 public class NavbarActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private BoomMenuButton bmb;
     public static final String ATHOME_URL = "https://www.athome-startup.fr/";
-    private ArrayList<Deal> deals = new ArrayList<>();
-<<<<<<< HEAD
-=======
-    private FirebaseAuth mAuth;
->>>>>>> c7a23c107301d50495e884dc24f0477c2b80db44
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,10 +84,6 @@ public class NavbarActivity extends AppCompatActivity
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.ftMain, new MapFragment());
         ft.commit();
-<<<<<<< HEAD
-=======
-
->>>>>>> c7a23c107301d50495e884dc24f0477c2b80db44
     }
 
     @Override
@@ -158,10 +132,7 @@ public class NavbarActivity extends AppCompatActivity
             Uri uri = Uri.parse(ATHOME_URL);
             startActivity(new Intent(Intent.ACTION_VIEW, uri));
         }
-<<<<<<< HEAD
-=======
 
->>>>>>> c7a23c107301d50495e884dc24f0477c2b80db44
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
