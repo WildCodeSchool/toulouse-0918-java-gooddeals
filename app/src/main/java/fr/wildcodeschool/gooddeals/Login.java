@@ -4,11 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -37,7 +40,10 @@ public class Login extends AppCompatActivity {
                 String email = etLogin.getText().toString();
                 String password = etPassword.getText().toString();
                 if (email.isEmpty() || password.isEmpty()) {
-                    Toast.makeText(Login.this, R.string.error_login_fields, Toast.LENGTH_SHORT).show();
+                    Toast toast = Toast.makeText(Login.this, R.string.error_login_fields, Toast.LENGTH_SHORT);
+                    TextView v = toast.getView().findViewById(android.R.id.message);
+                    if( v != null) v.setGravity(Gravity.CENTER);
+                    toast.show();
                 } else {
                     signInUser(email, password);
                 }
@@ -50,6 +56,9 @@ public class Login extends AppCompatActivity {
                 startActivity(new Intent(Login.this, Registration.class));
             }
         });
+
+
+
 
     }
     private void signInUser(String email, String password) {
@@ -84,6 +93,7 @@ public class Login extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         //mAuth.signOut(); // forcer la deconnexion de l'utilisateur
         updateUI(currentUser);
+
     }
 }
 

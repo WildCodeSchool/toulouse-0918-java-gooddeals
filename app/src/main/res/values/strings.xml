@@ -42,7 +42,7 @@
     <string name="registrationPassword">Mot de passe</string>
     <string name="registrationButton">Sinscrire</string>
     <string name="registrationTextView">Good Deals</string>
-    <string name="error_login_fields" />
+    <string name="error_login_fields">Merci de renseigner votre email et votre mot de passe</string>
 
     <!--Profil-->
     <string name="deconnectButton">Déconnexion</string>
@@ -53,6 +53,8 @@
     <!--PopUp-->
     <string name="pour_manger">Pour Manger</string>
     <string name="titleShare" />
+    <string name="choisir_une_image">CHOISIR UNE IMAGE DE LA GALLERIE</string>
+    <string name="prendre_une_photo">PRENDRE UNE PHOTO</string>
 
 
 </resources>
