@@ -39,10 +39,13 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:16.0.3'
     implementation 'com.google.firebase:firebase-storage:16.0.3'
     implementation 'com.google.firebase:firebase-auth:16.0.4'
-    implementation 'com.google.firebase:firebase-core:16.0.4' 
+    implementation 'com.google.firebase:firebase-core:16.0.4'
 
-    //Biblio Picasso pour load les images (photo login)
-    implementation 'com.squareup.picasso:picasso:2.5.0'
+    //Biblio Glide
+    implementation 'com.github.bumptech.glide:glide:4.3.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.3.1'
+
+
 
 
 }
