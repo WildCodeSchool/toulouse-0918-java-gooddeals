@@ -2,24 +2,22 @@ package fr.wildcodeschool.gooddeals;
 
 import android.content.ContentResolver;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,50 +29,40 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
-public class Profil extends AppCompatActivity {
+import static android.app.Activity.RESULT_OK;
+
+public class ProfilFragment extends android.support.v4.app.Fragment {
     static final int CAMERA_REQUEST = 1;
     private static final int SELECT_PICTURE = 1;
     private FirebaseAuth mAuth;
     private String selectedImagePath;
     private boolean mIsResolving = false;
     private boolean mShouldResolve = false;
-
     private Uri mImageUri; //load image
     private StorageReference mStorageRef;
     private DatabaseReference mDatabaseRef; //ne sert pas car pas d'envoie de titleFile
     private ProgressBar mProgressBar;
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profil);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        //Method for button Google sign in
-        //Button for logout
-        ImageButton btOnline = findViewById(R.id.imageButtonOnline);
-        btOnline.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Profil.this, NavbarActivity.class));
-            }
-        });
+        View rootView =  inflater.inflate(R.layout.activity_profil, container, false);
 
-        Button btLogOut = findViewById(R.id.log_out_button);
+        Button btLogOut = rootView.findViewById(R.id.log_out_button);
         btLogOut.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(Profil.this, NavbarActivity.class));
+                startActivity(new Intent(getActivity(), NavbarActivity.class));
             }
         });
 
-        ((Button) findViewById(R.id.button_photo_gallery))
+        ((Button) rootView.findViewById(R.id.button_photo_gallery))
                 .setOnClickListener(new View.OnClickListener() {
 
                     public void onClick(View arg0) {
-                        // in onCreate or any event where your want the user to
-                        // select a file
                         Intent intent = new Intent();
                         intent.setType("image/*");
                         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -83,7 +71,7 @@ public class Profil extends AppCompatActivity {
                     }
                 });
 
-        ((Button) findViewById(R.id.buttonPhoto))
+        ((Button) rootView.findViewById(R.id.buttonPhoto))
                 .setOnClickListener(new View.OnClickListener() {
 
                     @Override
@@ -98,7 +86,7 @@ public class Profil extends AppCompatActivity {
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
 
         // BUTTON POUR UPLOAD TO FIREBASE STORAGE + BIND A LA METHOD UPLOADFILE()
-        Button uploadButton = findViewById(R.id.uploadButton);
+        Button uploadButton = rootView.findViewById(R.id.uploadButton);
 
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,37 +95,51 @@ public class Profil extends AppCompatActivity {
             }
         });
 
-         mProgressBar = findViewById(R.id.progressBar);
+        mProgressBar = rootView.findViewById(R.id.progressBar);
 
+        return rootView;
+    }
+
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data); //modif
-        ImageView mImageView = findViewById(R.id.imageViewPhoto);
+        ImageView mImageView = getView().findViewById(R.id.imageViewPhoto);
         if (requestCode == SELECT_PICTURE && resultCode == RESULT_OK // si on selectionne image
-            && data != null && data.getData() != null) {
+                && data != null && data.getData() != null) {
             mImageUri = data.getData();
 
-            Picasso.with(this).load(mImageUri).into(mImageView);
         }
 
+        Picasso.with(getActivity()).load(mImageUri).into(mImageView);
 
     }
+
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+    }
+
 
     // METHODE POUR GERER L'EXTENSION DE L'IMAGE (JPEG...)
     private String getFileExtension(Uri uri) {
-        ContentResolver cR = getContentResolver();
+        ContentResolver cR = getActivity().getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
+
     // METHODE UPLOAD POUR LE BUTTON
     // POUR ATTACHER UN TITRE A L'IMAGE : EditText mEditTextFileName = findViewById(R.id.edit_text_file_name);
-    public void uploadFile () {
+    public void uploadFile() {
         if (mImageUri != null) {
             StorageReference fileReference = mStorageRef.child(System.currentTimeMillis()
-            + "." + getFileExtension(mImageUri));
+                    + "." + getFileExtension(mImageUri));
             fileReference.putFile(mImageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -150,7 +152,7 @@ public class Profil extends AppCompatActivity {
                                 }
                             }, 5000); // 5secondes
 
-                            Toast.makeText(Profil.this,"Upload Successful",Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), "Upload Successful", Toast.LENGTH_LONG).show();
 
                             // CODE POUR CREER UNE ID UNIQUE "uploadID" et la rattacher à l'uploadfile= .setValue(upload)
                             /*Upload upload = new Upload(mEditTextFileName.getText().toString().trim(),
@@ -164,7 +166,7 @@ public class Profil extends AppCompatActivity {
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(Profil.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     })
                     // POUR LA PROGRESS BAR
@@ -176,7 +178,7 @@ public class Profil extends AppCompatActivity {
                         }
                     });
         } else {
-            Toast.makeText(this,"No file selected", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "No file selected", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -185,7 +187,7 @@ public class Profil extends AppCompatActivity {
 
     public String getPath(Uri uri) {
         String[] projection = {MediaStore.Images.Media.DATA};
-        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        Cursor cursor = getActivity().managedQuery(uri, projection, null, null, null);
         int column_index = cursor
                 .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToFirst();
@@ -196,6 +198,7 @@ public class Profil extends AppCompatActivity {
 
 
 }
+
 
 
 

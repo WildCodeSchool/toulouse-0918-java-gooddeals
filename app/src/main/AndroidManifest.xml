@@ -53,7 +53,6 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".Login" />
         <activity android:name=".Registration" />
-        <activity android:name=".Profil" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
