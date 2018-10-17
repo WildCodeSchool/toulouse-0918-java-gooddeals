@@ -34,8 +34,6 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        //Method for button Google sign in
-        //Button for logout
         ImageButton btOnline = getView().findViewById(R.id.imageButtonOnline);
         btOnline.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,8 +56,6 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
                 .setOnClickListener(new View.OnClickListener() {
 
                     public void onClick(View arg0) {
-                        // in onCreate or any event where your want the user to
-                        // select a file
                         Intent intent = new Intent();
                         intent.setType("image/*");
                         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -77,15 +73,11 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
                         startActivityForResult(cameraIntent, CAMERA_REQUEST);
                     }
                 });
-
-
-
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
 
     }
 
