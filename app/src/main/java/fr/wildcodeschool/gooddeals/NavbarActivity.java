@@ -3,7 +3,6 @@ package fr.wildcodeschool.gooddeals;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,31 +13,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
-
-
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-
 import com.nightonke.boommenu.BoomButtons.HamButton;
-import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomMenuButton;
 import com.nightonke.boommenu.ButtonEnum;
-
-
 import static fr.wildcodeschool.gooddeals.BuilderManager.getHamButtonBuilderFilter;
-import static fr.wildcodeschool.gooddeals.BuilderManager.getHamButtonBuilderWithDifferentPieceColor;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.ArrayList;
 
 
@@ -51,11 +32,6 @@ public class NavbarActivity extends AppCompatActivity
     public static final String ATHOME_URL = "https://www.athome-startup.fr/";
     private ArrayList<Deal> deals = new ArrayList<>();
 
-
-
-
-    private FirebaseAuth mAuth;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,12 +40,9 @@ public class NavbarActivity extends AppCompatActivity
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference dealRef = database.getReference("deal");
 
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-
 
         bmb = findViewById(R.id.bmb);
         assert bmb != null;
@@ -94,7 +67,6 @@ public class NavbarActivity extends AppCompatActivity
             }
         }
 
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -117,11 +89,7 @@ public class NavbarActivity extends AppCompatActivity
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.ftMain, new MapFragment());
         ft.commit();
-
-        // Write a message to the database
     }
-
-
 
     @Override
     public void onBackPressed() {
@@ -169,11 +137,6 @@ public class NavbarActivity extends AppCompatActivity
             Uri uri = Uri.parse(ATHOME_URL);
             startActivity(new Intent(Intent.ACTION_VIEW, uri));
         }
-        /* else if (id == R.id.headerNav){
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.ftMain, new ProfilFragment());
-            ft.commit();
-        }*/
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
