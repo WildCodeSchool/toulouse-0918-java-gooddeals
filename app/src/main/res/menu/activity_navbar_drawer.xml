@@ -24,6 +24,10 @@
             android:id="@+id/atHome_web"
             android:icon="@drawable/ic_action_info"
             android:title="@string/athome_web" />
+        <item
+            android:id="@+id/profil_nav"
+            android:icon="@drawable/ic_action_info"
+            android:title="Profil" />
     </group>
 
 </menu>
