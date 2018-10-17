@@ -50,10 +50,6 @@ public class NavbarActivity extends AppCompatActivity
     private BoomMenuButton bmb;
     public static final String ATHOME_URL = "https://www.athome-startup.fr/";
     private ArrayList<Deal> deals = new ArrayList<>();
-
-
-
-
     private FirebaseAuth mAuth;
 
     @Override
@@ -64,12 +60,9 @@ public class NavbarActivity extends AppCompatActivity
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference dealRef = database.getReference("deal");
 
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-
 
         bmb = findViewById(R.id.bmb);
         assert bmb != null;
@@ -118,10 +111,7 @@ public class NavbarActivity extends AppCompatActivity
         ft.replace(R.id.ftMain, new MapFragment());
         ft.commit();
 
-        // Write a message to the database
     }
-
-
 
     @Override
     public void onBackPressed() {
@@ -169,11 +159,7 @@ public class NavbarActivity extends AppCompatActivity
             Uri uri = Uri.parse(ATHOME_URL);
             startActivity(new Intent(Intent.ACTION_VIEW, uri));
         }
-        /* else if (id == R.id.headerNav){
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.ftMain, new ProfilFragment());
-            ft.commit();
-        }*/
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
