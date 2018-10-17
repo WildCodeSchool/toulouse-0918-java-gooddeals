@@ -40,7 +40,9 @@ dependencies {
 
     //Firebase
 
-
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.3.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.3.1'
 
 }
 

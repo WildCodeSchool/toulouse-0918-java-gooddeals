@@ -25,9 +25,8 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".ListFragment" />
-
-        <activity android:name=".SplashActivity">
+        <activity android:name=".SplashActivity"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -36,7 +35,8 @@
         </activity>
 
         <activity
-            android:name=".Popup">
+            android:name=".Popup"
+            android:theme="@style/AppTheme.CustomTheme">
         </activity>
 
         <meta-data

@@ -14,14 +14,12 @@
         android:layout_centerHorizontal="true"
         android:layout_marginEnd="1dp"
         android:layout_marginRight="1dp"
-        android:contentDescription="@string/colombus_image"
         app:layout_constraintBottom_toTopOf="@+id/titleDeal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:srcCompat="@drawable/colombus" />
+        app:layout_constraintVertical_bias="0.0"/>
 
 
     <TextView
@@ -32,7 +30,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="24dp"
         android:textColor="@android:color/background_dark"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:fontFamily="serif"
         app:layout_constraintBottom_toTopOf="@+id/textPresentation"
@@ -43,17 +41,17 @@
 
     <TextView
         android:id="@+id/textPresentation"
-        android:layout_width="266dp"
-        android:layout_height="121dp"
+        android:layout_width="163dp"
+        android:layout_height="68dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:textColor="@android:color/background_dark"
-        android:textSize="30sp"
         android:textAlignment="center"
+        android:textColor="@android:color/background_dark"
+        android:textSize="18sp"
         app:fontFamily="serif"
         app:layout_constraintBottom_toTopOf="@+id/shareButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -72,6 +70,19 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
          />
+
+    <ImageButton
+        android:id="@+id/bt_itinerary"
+        android:layout_width="55dp"
+        android:layout_height="57dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:drawable/ic_menu_directions"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textPresentation" />
 
 
 </android.support.constraint.ConstraintLayout>

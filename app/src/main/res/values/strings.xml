@@ -43,7 +43,9 @@
     <string name="registrationButton">Sinscrire</string>
     <string name="error_login_fields" />
     <string name="deconnectButton">Déconnexion</string>
-    <string name="titleShare">Share</string>
+    <string name="profilTextView">Bienvenue</string>
+    <string name="buttonPhotoGallery">Gelirie</string>
+
   
 </resources>
 

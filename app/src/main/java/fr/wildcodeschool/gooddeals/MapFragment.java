@@ -3,6 +3,7 @@ package fr.wildcodeschool.gooddeals;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -41,11 +42,8 @@ import java.util.ArrayList;
 
 public class MapFragment extends android.support.v4.app.Fragment implements OnMapReadyCallback {
 
-
     private static final String TAG = "MapFragment";
-
     private static final int ERROR_DIALOG_REQUEST = 9001;
-
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
@@ -57,31 +55,23 @@ public class MapFragment extends android.support.v4.app.Fragment implements OnMa
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
-
         mMap = googleMap;
-        if (isServicesOK()) {
-        }
         getLocationPermission();
         if (mLocationPermissionsGranted) {
             getDeviceLocation();
-
             if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
                     != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
                     != PackageManager.PERMISSION_GRANTED) {
-
                 mMap.setMyLocationEnabled(true);
             }
         }
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-        DatabaseReference dealRef = database.getReference("deal");
+        final DatabaseReference dealRef = database.getReference("deal");
         dealRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                //dealArrayList().clear();
                 for (DataSnapshot dealSnapshot : dataSnapshot.getChildren()) {
                     Deal deal = dealSnapshot.getValue(Deal.class);
                     int icon = R.drawable.red_markeri;
@@ -103,43 +93,44 @@ public class MapFragment extends android.support.v4.app.Fragment implements OnMa
                             icon = R.drawable.yellow_markeri;
                             break;
                     }
-
                     MarkerOptions markerOptions = new MarkerOptions()
                             .icon(BitmapDescriptorFactory.fromResource(icon))
                             .title(deal.getName());
-
                     markerOptions.position(new LatLng(deal.getLatitude(), deal.getLongitude()));
-                    mMap.addMarker(markerOptions);
+                    Marker marker =mMap.addMarker(markerOptions);
+                    marker.setTag(deal);
                 }
+                mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                    @Override
+                    public boolean onMarkerClick(Marker marker) {
+                        Deal deal = (Deal) marker.getTag();
+                        Intent intent = new Intent(getActivity(), Popup.class);
+                        intent.putExtra("EXTRA_TITLE", deal.getName());
+                        intent.putExtra("EXTRA_DESCRIPTION", deal.getDescription());
+                        intent.putExtra("EXTRA_IMAGE", deal.getImage());
+                        startActivity(intent);
+                        return false;
+                    }
+                });
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
-
-
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-
         return inflater.inflate(R.layout.activity_main, container, false);
-
     }
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
-
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-
         if (mapFragment != null) {
             mapFragment.getMapAsync(this);
         }
-
-
     }
 
     @Override
@@ -147,11 +138,8 @@ public class MapFragment extends android.support.v4.app.Fragment implements OnMa
         super.onActivityCreated(savedInstanceState);
     }
 
-
     private void getDeviceLocation() {
-
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
-
         try {
             if (mLocationPermissionsGranted) {
                 final Task location = mFusedLocationProviderClient.getLastLocation();
@@ -163,7 +151,6 @@ public class MapFragment extends android.support.v4.app.Fragment implements OnMa
                             if (currentLocation != null) {
                                 moveCamera(esquirol, DEFAULT_ZOOM);
                             }
-
                         } else {
                             Toast.makeText(getActivity(), R.string.unableCurrentLocation, Toast.LENGTH_SHORT).show();
                         }
@@ -174,38 +161,14 @@ public class MapFragment extends android.support.v4.app.Fragment implements OnMa
         }
     }
 
-
     private void moveCamera(LatLng latLng, float zoom) {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
-
     }
 
     public void initMap() {
         SupportMapFragment mapFragment =
                 (com.google.android.gms.maps.SupportMapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(MapFragment.this);
-
-    }
-
-
-    public boolean isServicesOK() {
-
-        int available = GoogleApiAvailability.getInstance()
-                .isGooglePlayServicesAvailable(getActivity());
-
-        if (available == ConnectionResult.SUCCESS) {
-            //everything is fine and the user can make map requests
-            return true;
-
-        } else if (GoogleApiAvailability.getInstance().isUserResolvableError(available)) {
-            //an error occured but we can resolve it
-            Dialog dialog = GoogleApiAvailability.getInstance()
-                    .getErrorDialog(getActivity(), available, ERROR_DIALOG_REQUEST);
-            dialog.show();
-        } else {
-            Toast.makeText(getActivity(), R.string.mapRequests, Toast.LENGTH_SHORT).show();
-        }
-        return false;
     }
 
     private void getLocationPermission() {
@@ -217,12 +180,10 @@ public class MapFragment extends android.support.v4.app.Fragment implements OnMa
                     COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 mLocationPermissionsGranted = true;
                 mMap.setMyLocationEnabled(true);
-
             } else {
                 ActivityCompat.requestPermissions(getActivity(), permissions,
                         LOCATION_PERMISSION_REQUEST_CODE);
             }
-
         } else {
             ActivityCompat.requestPermissions(getActivity(), permissions,
                     LOCATION_PERMISSION_REQUEST_CODE);
@@ -249,6 +210,4 @@ public class MapFragment extends android.support.v4.app.Fragment implements OnMa
             }
         }
     }
-
-
 }
