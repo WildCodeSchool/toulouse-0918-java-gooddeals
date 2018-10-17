@@ -108,6 +108,8 @@ public class MapFragment extends android.support.v4.app.Fragment implements OnMa
                         intent.putExtra("EXTRA_TITLE", deal.getName());
                         intent.putExtra("EXTRA_DESCRIPTION", deal.getDescription());
                         intent.putExtra("EXTRA_IMAGE", deal.getImage());
+                        intent.putExtra("EXTRA_LATITUDE", deal.getLatitude());
+                        intent.putExtra("EXTRA_LONGITUDE", deal.getLongitude());
                         startActivity(intent);
                         return false;
                     }
