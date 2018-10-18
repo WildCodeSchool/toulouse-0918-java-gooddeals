@@ -1,7 +1,6 @@
 package fr.wildcodeschool.gooddeals;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -13,9 +12,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import com.nightonke.boommenu.BoomButtons.HamButton;
 import com.nightonke.boommenu.BoomMenuButton;
 import com.nightonke.boommenu.ButtonEnum;
+import static fr.wildcodeschool.gooddeals.BuilderManager.getHamButtonBuilderFilter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -34,6 +35,8 @@ public class NavbarActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.drawer_navbar);
 
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference dealRef = database.getReference("deal");
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -43,9 +46,24 @@ public class NavbarActivity extends AppCompatActivity
         assert bmb != null;
         bmb.setButtonEnum(ButtonEnum.Ham);
         for (int i = 0; i < bmb.getPiecePlaceEnum().pieceNumber(); i++) {
-            bmb.addBuilder(getHamButtonBuilderWithDifferentPieceColor());
-        }
 
+            if (i == 0) {
+                HamButton.Builder builder = getHamButtonBuilderFilter("Pour Manger");
+                bmb.addBuilder(builder);
+            } else if (i == 1) {
+                HamButton.Builder builder = getHamButtonBuilderFilter("Apéro");
+                bmb.addBuilder(builder);
+            } else if (i == 2) {
+                HamButton.Builder builder = getHamButtonBuilderFilter("Friandises");
+                bmb.addBuilder(builder);
+            } else if (i == 3) {
+                HamButton.Builder builder = getHamButtonBuilderFilter("Bien-être");
+                bmb.addBuilder(builder);
+            } else if (i == 4) {
+                HamButton.Builder builder = getHamButtonBuilderFilter("Loisirs");
+                bmb.addBuilder(builder);
+            }
+        }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -54,23 +72,21 @@ public class NavbarActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
+        View headerview = navigationView.getHeaderView(0);
+        headerview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.ftMain, new ProfilFragment());
+                ft.commit();
+            }
+        });
+        
         navigationView.setNavigationItemSelectedListener(this);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.ftMain, new MapFragment());
         ft.commit();
-
-        // Write a message to the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
-        myRef.setValue("Hello, World!");
-    }
-    static HamButton.Builder getHamButtonBuilderWithDifferentPieceColor() {
-        return new HamButton.Builder()
-                .normalImageRes(R.drawable.filter_icon)
-                .normalTextRes(R.string.ColombusText)
-                .subNormalTextRes(R.string.ColombusText)
-                .pieceColor(Color.WHITE);
     }
 
     @Override
@@ -103,29 +119,21 @@ public class NavbarActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_login) {
-
             startActivity(new Intent(NavbarActivity.this, Login.class));
-
         } else if (id == R.id.nav_map) {
-
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.ftMain, new MapFragment());
             ft.commit();
-
-
         } else if (id == R.id.nav_liste) {
-
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.ftMain, new ListFragment());
             ft.commit();
-
         } else if (id == R.id.nav_logout) {
-
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(NavbarActivity.this, NavbarActivity.class));
         } else if (id == R.id.atHome_web) {
-
             Uri uri = Uri.parse(ATHOME_URL);
             startActivity(new Intent(Intent.ACTION_VIEW, uri));
-
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

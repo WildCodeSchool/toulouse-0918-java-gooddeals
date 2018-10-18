@@ -52,7 +52,7 @@ public class MapFragment extends android.support.v4.app.Fragment implements OnMa
 
     //vars
     private Boolean mLocationPermissionsGranted = false;
-    private GoogleMap mMap;
+    private  GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
     @Override

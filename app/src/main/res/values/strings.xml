@@ -37,14 +37,22 @@
     <string name="loginPassword">Mot de passe</string>
     <string name="loginButton">Envoyer</string>
     <string name="loginButtonRegistration">Enregistrez-vous ici!</string>
+    <string name="loginTextView">Good Deals</string>
     <string name="fill_all_fields" />
     <string name="registrationEmail">Email</string>
-    <string name="registrationPassword">Password</string>
+    <string name="registrationPassword">Mot de passe</string>
     <string name="registrationButton">Sinscrire</string>
+    <string name="registrationTextView">Good Deals</string>
     <string name="error_login_fields" />
+
+    <!--Profil-->
     <string name="deconnectButton">Déconnexion</string>
-    <string name="profilTextView">Bienvenue</string>
-    <string name="buttonPhotoGallery">Gelirie</string>
+    <string name="buttonPhoto">Photo</string>
+    <string name="profilTextView">Bienvenue Boby</string>
+    <string name="buttonPhotoGallery">Galerie</string>
+
+    <!--PopUp-->
+    <string name="pour_manger">Pour Manger</string>
 
   
 </resources>
