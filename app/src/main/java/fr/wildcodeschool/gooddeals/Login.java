@@ -18,7 +18,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-
 public class Login extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
@@ -56,10 +55,6 @@ public class Login extends AppCompatActivity {
                 startActivity(new Intent(Login.this, Registration.class));
             }
         });
-
-
-
-
     }
     private void signInUser(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)
@@ -78,12 +73,13 @@ public class Login extends AppCompatActivity {
                         }
                     }
                 });
-
     }
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
+
             startActivity(new Intent(Login.this, NavbarActivity.class));
+
         }
     }
     @Override
@@ -93,7 +89,6 @@ public class Login extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         //mAuth.signOut(); // forcer la deconnexion de l'utilisateur
         updateUI(currentUser);
-
     }
 }
 

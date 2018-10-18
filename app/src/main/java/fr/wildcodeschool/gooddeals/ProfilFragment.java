@@ -51,7 +51,7 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.activity_profil, container, false);
+        View rootView =  inflater.inflate(R.layout.activity_profil, container, false);
 
         Button btLogOut = rootView.findViewById(R.id.log_out_button);
         btLogOut.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +75,6 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
                     }
                 });
 
-
         ((Button) rootView.findViewById(R.id.buttonPhoto))
                 .setOnClickListener(new View.OnClickListener() {
 
@@ -86,26 +85,21 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
                     }
                 });
 
-
         // FIREBASE pour envoie sur STORAGE
         mStorageRef = FirebaseStorage.getInstance().getReference("uploads"); // creation dossier uploads
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
 
         // BUTTON POUR UPLOAD TO FIREBASE STORAGE + BIND A LA METHOD UPLOADFILE()
         Button uploadButton = rootView.findViewById(R.id.uploadButton);
-
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 uploadFile();
             }
         });
-
         mProgressBar = rootView.findViewById(R.id.progressBar);
-
         return rootView;
     }
-
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -141,17 +135,13 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
     }
-
-
     // METHODE POUR GERER L'EXTENSION DE L'IMAGE (JPEG...)
     private String getFileExtension(Uri uri) {
         ContentResolver cR = getActivity().getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
-
     // METHODE UPLOAD POUR LE BUTTON
     // POUR ATTACHER UN TITRE A L'IMAGE : EditText mEditTextFileName = findViewById(R.id.edit_text_file_name);
     public void uploadFile() {
@@ -169,16 +159,7 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
                                     mProgressBar.setProgress(0);
                                 }
                             }, 5000); // 5secondes
-
                             Toast.makeText(getActivity(), "Upload Successful", Toast.LENGTH_LONG).show();
-
-                            // CODE POUR CREER UNE ID UNIQUE "uploadID" et la rattacher à l'uploadfile= .setValue(upload)
-                            /*Upload upload = new Upload(mEditTextFileName.getText().toString().trim(),
-                                    taskSnapshot.getDownloadUrl().toString()); //METHODE GETDOWNLOADURL OBSOLETE
-                            String uploadId = mDatabaseRef.push().getKey();
-                            mDatabaseRef.child(uploadId).setValue(upload); */
-
-
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -199,21 +180,6 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
             Toast.makeText(getActivity(), "No file selected", Toast.LENGTH_SHORT).show();
         }
     }
-
-
-    /*
-
-    public String getPath(Uri uri) {
-        String[] projection = {MediaStore.Images.Media.DATA};
-        Cursor cursor = getActivity().managedQuery(uri, projection, null, null, null);
-        int column_index = cursor
-                .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        cursor.moveToFirst();
-        return cursor.getString(column_index);
-    }
-
-    */
-
 
 }
 
