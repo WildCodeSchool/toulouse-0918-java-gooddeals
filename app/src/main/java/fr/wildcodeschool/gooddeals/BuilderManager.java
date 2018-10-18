@@ -56,10 +56,10 @@ public class BuilderManager {
 
     private static String[] sousTypeDeals = new String[]{
             "Une petite Faim ?",
-            "Un besoin de décompresser ?",
-            "Une petite douceur ?",
-            "Un besoin d'évasion ?",
-            "Une envie de se défouler ?",
+            "Besoin de décompresser ?",
+            "Petite douceur ?",
+            "Besoin d'évasion ?",
+            "Envie de se défouler ?",
     };
 
     private static int sousTypeDealsIndex = 0;

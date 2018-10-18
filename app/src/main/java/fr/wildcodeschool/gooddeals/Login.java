@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -19,6 +21,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -29,6 +32,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 
 public class Login extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener{
+
 
     private FirebaseAuth mAuth;
     SignInButton signInButton;
@@ -66,7 +70,10 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                 String email = etLogin.getText().toString();
                 String password = etPassword.getText().toString();
                 if (email.isEmpty() || password.isEmpty()) {
-                    Toast.makeText(Login.this, R.string.error_login_fields, Toast.LENGTH_SHORT).show();
+                    Toast toast = Toast.makeText(Login.this, R.string.error_login_fields, Toast.LENGTH_SHORT);
+                    TextView v = toast.getView().findViewById(android.R.id.message);
+                    if( v != null) v.setGravity(Gravity.CENTER);
+                    toast.show();
                 } else {
                     signInUser(email, password);
                 }
@@ -156,7 +163,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                         }
                     }
                 });
-
     }
 
     private void updateUI(FirebaseUser user) {
