@@ -1,6 +1,7 @@
 package fr.wildcodeschool.gooddeals;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -33,7 +34,6 @@ public class Registration extends AppCompatActivity implements GoogleApiClient.O
     private static final String TAG = "SignInActivity";
     SignInButton signInButton;
     GoogleApiClient mGoogleApiClient;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,18 +150,24 @@ public class Registration extends AppCompatActivity implements GoogleApiClient.O
     @Override
     public void onStart() {
         super.onStart();
-
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);
     }
 
     private void updateUI(FirebaseUser currentUser) {
         if (currentUser != null) {
-            String uId = currentUser.getUid(); // identifiant unique de l'utilisateur
+            String uId = currentUser.getUid();
+            GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+            if (acct != null) {
+                String personName = acct.getDisplayName();
+                String personGivenName = acct.getGivenName();
+                String personFamilyName = acct.getFamilyName();
+                String personEmail = acct.getEmail();
+                String personId = acct.getId();
+                Uri personPhoto = acct.getPhotoUrl();// identifiant unique de l'utilisateur
             // TODO changer l'utilisateur de page pour aller sur MainActivity
-            Toast.makeText(this, uId, Toast.LENGTH_SHORT).show();
-
             startActivity (new Intent (Registration.this, NavbarActivity.class));
-        }
+            }
+         }
     }
 }
