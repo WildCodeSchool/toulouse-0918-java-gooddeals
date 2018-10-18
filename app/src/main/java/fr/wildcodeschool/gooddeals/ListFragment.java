@@ -40,7 +40,6 @@ public class ListFragment extends android.support.v4.app.Fragment {
         final DealsAdapter adapter = new DealsAdapter(listDeals.getContext(), deals);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-
         DatabaseReference dealRef = database.getReference("deal");
         dealRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

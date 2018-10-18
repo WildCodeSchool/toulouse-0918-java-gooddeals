@@ -14,9 +14,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
-
 
 public class Popup extends AppCompatActivity {
 
@@ -55,6 +53,10 @@ public class Popup extends AppCompatActivity {
             public void onClick(View view) {
                 Intent myIntent = new Intent(Intent.ACTION_SEND);
                 myIntent.setType("Text/Plain");
+                String shareBody = "Your body here";
+                String titleShare = "Your subject here";
+                myIntent.putExtra(Intent.EXTRA_SUBJECT, shareBody);
+                myIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
                 startActivity(Intent.createChooser(myIntent, getString(R.string.titleShare)));
             }
         });

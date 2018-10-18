@@ -32,10 +32,9 @@
     <string name="colombus_image">Colombus image</string>
     <string name="clicliste">Cliquer sur la liste</string>
     <string name="athome_web">En savoir plus sur AtHome</string>
-    <string name="titleShare">SHARE YOUR GOOD DEAL</string>
     <string name="loginEmail">Email</string>
     <string name="loginPassword">Mot de passe</string>
-    <string name="loginButton">Envoyer</string>
+    <string name="loginButton">Se Connecter</string>
     <string name="loginButtonRegistration">Enregistrez-vous ici!</string>
     <string name="loginTextView">Good Deals</string>
     <string name="fill_all_fields" />
@@ -43,7 +42,7 @@
     <string name="registrationPassword">Mot de passe</string>
     <string name="registrationButton">Sinscrire</string>
     <string name="registrationTextView">Good Deals</string>
-    <string name="error_login_fields" />
+    <string name="error_login_fields">Merci de renseigner votre email et votre mot de passe</string>
 
     <!--Profil-->
     <string name="deconnectButton">Déconnexion</string>
@@ -53,6 +52,11 @@
 
     <!--PopUp-->
     <string name="pour_manger">Pour Manger</string>
+    <string name="titleShare" />
+    <string name="choisir_une_image">CHOISIR UNE IMAGE DE LA GALLERIE</string>
+    <string name="choisir_cette_photo">CHOISIR CETTE PHOTO</string>
+    <string name="prendre_une_photo">PRENDRE UNE PHOTO</string>
+    <string name="nom_fichier">Nom du Fichier</string>
 
   
 </resources>
