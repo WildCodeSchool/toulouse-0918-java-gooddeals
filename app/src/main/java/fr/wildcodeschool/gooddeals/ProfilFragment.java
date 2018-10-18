@@ -2,6 +2,8 @@ package fr.wildcodeschool.gooddeals;
 
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,11 +15,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,12 +29,14 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
+
+
+import java.io.ByteArrayOutputStream;
 
 import static android.app.Activity.RESULT_OK;
 
 public class ProfilFragment extends android.support.v4.app.Fragment {
-    static final int CAMERA_REQUEST = 1;
+    static final int CAMERA_REQUEST = 3456;
     private static final int SELECT_PICTURE = 1;
     private FirebaseAuth mAuth;
     private String selectedImagePath;
@@ -47,7 +51,7 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView =  inflater.inflate(R.layout.activity_profil, container, false);
+        View rootView = inflater.inflate(R.layout.activity_profil, container, false);
 
         Button btLogOut = rootView.findViewById(R.id.log_out_button);
         btLogOut.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +75,7 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
                     }
                 });
 
+
         ((Button) rootView.findViewById(R.id.buttonPhoto))
                 .setOnClickListener(new View.OnClickListener() {
 
@@ -80,6 +85,7 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
                         startActivityForResult(cameraIntent, CAMERA_REQUEST);
                     }
                 });
+
 
         // FIREBASE pour envoie sur STORAGE
         mStorageRef = FirebaseStorage.getInstance().getReference("uploads"); // creation dossier uploads
@@ -114,11 +120,23 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
         if (requestCode == SELECT_PICTURE && resultCode == RESULT_OK // si on selectionne image
                 && data != null && data.getData() != null) {
             mImageUri = data.getData();
+        }
+        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK){
+            Bitmap bmp = (Bitmap) data.getExtras().get("data");
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
 
+            bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] byteArray = stream.toByteArray();
+
+            // convert byte array to Bitmap
+            Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0,
+                    byteArray.length);
+            mImageView.setImageBitmap(bitmap);
+            mImageUri = data.getData();
         }
 
-        Picasso.with(getActivity()).load(mImageUri).into(mImageView);
 
+        Glide.with(getActivity()).load(mImageUri).into(mImageView);
     }
 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
