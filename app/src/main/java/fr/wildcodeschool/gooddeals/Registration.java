@@ -99,7 +99,6 @@ public class Registration extends AppCompatActivity implements GoogleApiClient.O
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
-
             } catch (ApiException e) {
                 Log.w(TAG, "Google sign in failed", e);
             }
@@ -129,8 +128,6 @@ public class Registration extends AppCompatActivity implements GoogleApiClient.O
                 });
     }
 
-
-
     private void signUpUser(String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(Registration.this, new OnCompleteListener<AuthResult>() {
@@ -157,7 +154,6 @@ public class Registration extends AppCompatActivity implements GoogleApiClient.O
         updateUI(currentUser);
     }
 
-
     private void updateUI(FirebaseUser currentUser) {
         if (currentUser != null) {
             String uId = currentUser.getUid();
@@ -171,6 +167,7 @@ public class Registration extends AppCompatActivity implements GoogleApiClient.O
                 Uri personPhoto = acct.getPhotoUrl();// identifiant unique de l'utilisateur
             // TODO changer l'utilisateur de page pour aller sur MainActivity
             startActivity (new Intent (Registration.this, NavbarActivity.class));
-        }
+            }
+         }
     }
-}}
+}

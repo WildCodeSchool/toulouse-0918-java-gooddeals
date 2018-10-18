@@ -35,7 +35,24 @@ public class DealsAdapter extends ArrayAdapter {
         dealName.setText(deals.getName());
 
         ImageView icons =convertView.findViewById(id.icon_deals);
-        icons.setImageResource(deals.getIcon());
+        switch (deals.getType()){
+
+            case "Pour Manger":
+                icons.setImageResource(R.drawable.darkgreen_markeri);
+                break;
+            case "Apéro":
+                icons.setImageResource(R.drawable.red_markeri);
+                break;
+            case "Friandises":
+                icons.setImageResource(R.drawable.orange_markeri);
+                break;
+            case "Bien-être":
+                icons.setImageResource(R.drawable.blue_markeri);
+                break;
+            case "Loisirs":
+                icons.setImageResource(R.drawable.yellow_markeri);
+                break;
+        }
 
         return convertView;
     }
