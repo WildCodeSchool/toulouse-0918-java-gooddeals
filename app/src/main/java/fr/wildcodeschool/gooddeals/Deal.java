@@ -2,7 +2,6 @@ package fr.wildcodeschool.gooddeals;
 
 public class Deal {
 
-
     //Attributs
     private String name;
     private String description;

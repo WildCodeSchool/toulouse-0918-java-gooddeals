@@ -44,22 +44,17 @@ public class ListFragment extends android.support.v4.app.Fragment {
         dealRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                //dealArrayList().clear();
                 for (DataSnapshot dealSnapshot : dataSnapshot.getChildren()) {
                     Deal deal = dealSnapshot.getValue(Deal.class);
                     deals.add(deal);
-
                 }
                 adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
-
-
         listDeals.setAdapter(adapter);
         listDeals.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -69,6 +64,8 @@ public class ListFragment extends android.support.v4.app.Fragment {
                 intent.putExtra("EXTRA_DESCRIPTION", deal.getDescription());
                 intent.putExtra("EXTRA_TITLE", deal.getName());
                 intent.putExtra("EXTRA_IMAGE", deal.getImage());
+                intent.putExtra("EXTRA_LATITUDE", deal.getLatitude());
+                intent.putExtra("EXTRA_LONGITUDE", deal.getLongitude());
                 startActivity(intent);
             }
         });
