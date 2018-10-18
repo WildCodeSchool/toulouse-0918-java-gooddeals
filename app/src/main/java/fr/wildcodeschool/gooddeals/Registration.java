@@ -35,6 +35,7 @@ public class Registration extends AppCompatActivity implements GoogleApiClient.O
     SignInButton signInButton;
     GoogleApiClient mGoogleApiClient;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,8 +53,10 @@ public class Registration extends AppCompatActivity implements GoogleApiClient.O
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
-        signInButton = findViewById(R.id.google_sign_in);
+        signInButton = findViewById(R.id.google_sign_in_login);
         signInButton.setOnClickListener(this);
+        Button buttonSignOut = findViewById(R.id.button_logout);
+        buttonSignOut.setOnClickListener(this);
 
         Button btRegistration = findViewById(R.id.registrationBtn);
         btRegistration.setOnClickListener(new View.OnClickListener() {
@@ -78,9 +81,13 @@ public class Registration extends AppCompatActivity implements GoogleApiClient.O
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.google_sign_in:
+            case R.id.google_sign_in_login:
                 signIn();
             break;
+            case R.id.button_logout:
+                FirebaseAuth.getInstance().signOut();
+            break;
+
         }
     }
 
