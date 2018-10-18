@@ -2,18 +2,17 @@ package fr.wildcodeschool.gooddeals;
 
 public class Deal {
 
-
     //Attributs
     private String name;
     private String description;
     private double latitude;
     private double longitude;
     private int icon;
-    private int image;
+    private String image;
     private String type;
 
     //constructeur
-    public Deal(String name, String description, double latitude, double longitude, int icon, int image, String type) {
+    public Deal(String name, String description, double latitude, double longitude, int icon, String image, String type) {
         this.name = name;
         this.description = description;
         this.latitude = latitude;
@@ -51,11 +50,11 @@ public class Deal {
         this.icon = icon;
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

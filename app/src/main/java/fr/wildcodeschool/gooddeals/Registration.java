@@ -34,6 +34,7 @@ public class Registration extends AppCompatActivity implements GoogleApiClient.O
     SignInButton signInButton;
     GoogleApiClient mGoogleApiClient;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -149,6 +150,7 @@ public class Registration extends AppCompatActivity implements GoogleApiClient.O
     @Override
     public void onStart() {
         super.onStart();
+
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);
     }
@@ -158,6 +160,7 @@ public class Registration extends AppCompatActivity implements GoogleApiClient.O
             String uId = currentUser.getUid(); // identifiant unique de l'utilisateur
             // TODO changer l'utilisateur de page pour aller sur MainActivity
             Toast.makeText(this, uId, Toast.LENGTH_SHORT).show();
+
             startActivity (new Intent (Registration.this, NavbarActivity.class));
         }
     }
