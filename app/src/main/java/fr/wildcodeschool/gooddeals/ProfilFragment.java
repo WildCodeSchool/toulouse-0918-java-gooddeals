@@ -26,7 +26,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -143,8 +142,7 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
     }
 
 
-    // METHODE UPLOAD POUR LE BUTTON
-    // POUR ATTACHER UN TITRE A L'IMAGE : EditText mEditTextFileName = findViewById(R.id.edit_text_file_name);
+    // METHODE UPLOAD GALLERY
     public void uploadFile() {
         if (mImageUri != null) {
             //TROUVER LE CHEMIN DANS LE PHONE
@@ -180,38 +178,6 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
                 }
             });
         }
-
-        //ANCIEN CODE SANS getDownloadUrl() APRES +getFileExtension
-            /* fileReference.putFile(mImageUri)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Handler handler = new Handler();
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    mProgressBar.setProgress(0);
-                                }
-                            }, 5000); // 5secondes
-                            Toast.makeText(getActivity(), "Upload Successful", Toast.LENGTH_LONG).show();
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    // POUR LA PROGRESS BAR
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-                            mProgressBar.setProgress((int) progress); //casté en int sinon pas accépté
-                        }
-                    });
-        } */
-
 
     }
 }
