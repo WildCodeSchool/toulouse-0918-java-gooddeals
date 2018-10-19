@@ -71,7 +71,7 @@ public class Registration extends AppCompatActivity {
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(Registration.this, "Authentication failed",
+                            Toast.makeText(Registration.this, R.string.auth_fail,
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
