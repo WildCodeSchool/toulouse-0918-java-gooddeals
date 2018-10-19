@@ -140,7 +140,7 @@ public class NavbarActivity extends AppCompatActivity
             ft.commit();
         } else if (id == R.id.nav_logout) {
             FirebaseAuth.getInstance().signOut();
-            Toast.makeText(this, "Vous êtes déconnecté", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.disconnected, Toast.LENGTH_SHORT).show();
             startActivity(new Intent(NavbarActivity.this, NavbarActivity.class));
         } else if (id == R.id.atHome_web) {
             Uri uri = Uri.parse(ATHOME_URL);
