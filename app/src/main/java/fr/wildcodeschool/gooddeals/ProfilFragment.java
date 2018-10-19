@@ -2,9 +2,10 @@ package fr.wildcodeschool.gooddeals;
 
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,8 +19,9 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -28,20 +30,25 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
+
 import static android.app.Activity.RESULT_OK;
 
 public class ProfilFragment extends android.support.v4.app.Fragment {
-    static final int CAMERA_REQUEST = 1;
-    private static final int SELECT_PICTURE = 1;
-    private Uri mImageUri; //load image
+    static final int CAMERA_REQUEST = 3245;
+    private static final int SELECT_PICTURE = 1000;
+    private Uri mImageUri; //Uri object used to tell a ContentProvider(Glide) what we want to access by reference.
+    private Bitmap bmp;
     private StorageReference mStorageRef;
+    private StorageReference photoStorageRef;
     private DatabaseReference mDatabaseRef; //ne sert pas car pas d'envoie de titleFile
     private ProgressBar mProgressBar;
+    private UploadTask uploadTask;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView =  inflater.inflate(R.layout.activity_profil, container, false);
+        View rootView = inflater.inflate(R.layout.activity_profil, container, false);
         Button btLogOut = rootView.findViewById(R.id.log_out_button);
         btLogOut.setOnClickListener(new View.OnClickListener() {
 
@@ -76,6 +83,7 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
 
         // FIREBASE pour envoie sur STORAGE
         mStorageRef = FirebaseStorage.getInstance().getReference("uploads"); // creation dossier uploads
+        photoStorageRef = FirebaseStorage.getInstance().getReference("upload photos"); // ref CAMERA to FB
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
 
         // BUTTON POUR UPLOAD TO FIREBASE STORAGE + BIND A LA METHOD UPLOADFILE()
@@ -98,31 +106,83 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data); //modif
+        super.onActivityResult(requestCode, resultCode, data);
+        // GALLERY
         ImageView mImageView = getView().findViewById(R.id.imageViewPhoto);
         if (requestCode == SELECT_PICTURE && resultCode == RESULT_OK // si on selectionne image
                 && data != null && data.getData() != null) {
             mImageUri = data.getData();
+            Glide.with(getActivity()).load(mImageUri).into(mImageView);
         }
-        Glide.with(getActivity()).load(mImageUri).into(mImageView);
+        // CAMERA
+        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
+            bmp = (Bitmap) data.getExtras().get("data");
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+
+            bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] byteArray = stream.toByteArray();
+
+            // convert byte array to Bitmap
+            Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0,
+                    byteArray.length);
+            mImageView.setImageBitmap(bitmap);
+        }
     }
+
 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
+
+
     // METHODE POUR GERER L'EXTENSION DE L'IMAGE (JPEG...)
     private String getFileExtension(Uri uri) {
         ContentResolver cR = getActivity().getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
+
+
     // METHODE UPLOAD POUR LE BUTTON
     // POUR ATTACHER UN TITRE A L'IMAGE : EditText mEditTextFileName = findViewById(R.id.edit_text_file_name);
     public void uploadFile() {
         if (mImageUri != null) {
+            //TROUVER LE CHEMIN DANS LE PHONE
             StorageReference fileReference = mStorageRef.child(System.currentTimeMillis()
                     + "." + getFileExtension(mImageUri));
-            fileReference.putFile(mImageUri)
+
+            //NEW CODE REMPLACEMENT getDownloadUrl
+            final String fileconext = fileReference.toString();
+            final StorageReference ref = mStorageRef.child("uploads");
+            uploadTask = ref.putFile(mImageUri);
+
+            Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                @Override
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
+                    }
+
+                    // Continue with the task to get the download URL
+                    return ref.getDownloadUrl();
+                }
+                // DOWNLOAD URI CHEMIN DE LA PHOTO VERS GOOGLE
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if (task.isSuccessful()) {
+                        Uri downloadUri = task.getResult();
+                        Toast.makeText(getActivity(), downloadUri.toString(), Toast.LENGTH_LONG).show();
+                    } else {
+                        // Handle failures
+                        // ...
+                    }
+                }
+            });
+        }
+
+        //ANCIEN CODE SANS getDownloadUrl() APRES +getFileExtension
+            /* fileReference.putFile(mImageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -150,12 +210,13 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
                             mProgressBar.setProgress((int) progress); //casté en int sinon pas accépté
                         }
                     });
-        } else {
-            Toast.makeText(getActivity(), "No file selected", Toast.LENGTH_SHORT).show();
-        }
-    }
+        } */
 
+
+    }
 }
+
+
 
 
 
