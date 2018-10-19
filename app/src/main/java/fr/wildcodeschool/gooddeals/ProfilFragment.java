@@ -19,7 +19,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -41,7 +40,7 @@ import static android.app.Activity.RESULT_OK;
 public class ProfilFragment extends android.support.v4.app.Fragment {
     static final int CAMERA_REQUEST = 3456;
     private static final int SELECT_PICTURE = 1;
-    private FirebaseAuth mAuth;
+    public FirebaseAuth mAuth;
     private String selectedImagePath;
     private boolean mIsResolving = false;
     private boolean mShouldResolve = false;
@@ -54,40 +53,7 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        // Initialize Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
         View rootView = inflater.inflate(R.layout.activity_profil, container, false);
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-
-        final EditText etPseudo = rootView.findViewById(R.id.edit_text_pseudo);
-        final DatabaseReference userRef = database.getReference("user");
-        final String userId = mAuth.getUid();
-
-        userRef.child(userId).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                UserModel user = dataSnapshot.getValue(UserModel.class);
-                etPseudo.setText(user.getPseudo());
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        Button updatePseudo = rootView.findViewById(R.id.button_update_pseudo);
-        updatePseudo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String pseudo = etPseudo.getText().toString();
-                userRef.child(userId).setValue(new UserModel(pseudo));
-
-            }
-        });
-
-
 
         Button btLogOut = rootView.findViewById(R.id.log_out_button);
         btLogOut.setOnClickListener(new View.OnClickListener() {

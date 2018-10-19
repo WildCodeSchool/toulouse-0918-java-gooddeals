@@ -32,6 +32,7 @@
     <string name="colombus_image">Colombus image</string>
     <string name="clicliste">Cliquer sur la liste</string>
     <string name="athome_web">En savoir plus sur AtHome</string>
+    <string name="titleShare">SHARE YOUR GOOD DEAL</string>
     <string name="loginEmail">Email</string>
     <string name="loginPassword">Mot de passe</string>
     <string name="loginButton">Se Connecter</string>
@@ -57,8 +58,15 @@
 
     <!--PopUp-->
     <string name="pour_manger">Pour Manger</string>
-    <string name="titleShare" />
 
-  
+
+    <string name="se_d_connecter">Se déconnecter</string>
+    <string name="nom_fichier">Nom du Fichier</string>
+    <string name="auth_fail">Authentication failed</string>
+    <string name="connected">vous êtes connecté</string>
+    <string name="disconnected">Vous êtes déconnecté</string>
+
+
+
 </resources>
 

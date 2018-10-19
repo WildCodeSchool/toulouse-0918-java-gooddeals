@@ -2,11 +2,11 @@ package fr.wildcodeschool.gooddeals;
 
 public class UserModel {
 
-    private String pseudo;
+    private String mPseudo;
 
 
     public UserModel(String pseudo) {
-        this.pseudo = pseudo;
+        mPseudo = pseudo;
 
     }
 
@@ -14,11 +14,11 @@ public class UserModel {
     }
 
     public String getPseudo() {
-        return pseudo;
+        return mPseudo;
     }
 
     public void setPseudo(String pseudo) {
-        this.pseudo = pseudo;
+        this.mPseudo = pseudo;
     }
 
 }
