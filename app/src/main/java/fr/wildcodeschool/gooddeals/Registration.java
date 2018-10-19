@@ -27,13 +27,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 
-public class Registration extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
+public class Registration extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    private static final int RC_SIGN_IN = 9001;
-    private static final String TAG = "SignInActivity";
-    SignInButton signInButton;
-    GoogleApiClient mGoogleApiClient;
+
+
 
 
     @Override
@@ -43,20 +41,6 @@ public class Registration extends AppCompatActivity implements GoogleApiClient.O
 
         mAuth = FirebaseAuth.getInstance();
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this, this)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
-
-        signInButton = findViewById(R.id.google_sign_in_login);
-        signInButton.setOnClickListener(this);
-        Button buttonSignOut = findViewById(R.id.button_logout);
-        buttonSignOut.setOnClickListener(this);
 
         Button btRegistration = findViewById(R.id.registrationBtn);
         btRegistration.setOnClickListener(new View.OnClickListener() {
@@ -75,65 +59,6 @@ public class Registration extends AppCompatActivity implements GoogleApiClient.O
         });
     }
 
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult){}
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.google_sign_in_login:
-                signIn();
-            break;
-            case R.id.button_logout:
-                FirebaseAuth.getInstance().signOut();
-            break;
-
-        }
-    }
-
-    private void signIn(){
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == RC_SIGN_IN){
-
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                firebaseAuthWithGoogle(account);
-            } catch (ApiException e) {
-                Log.w(TAG, "Google sign in failed", e);
-            }
-
-        }
-    }
-
-    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
-
-        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
-                        } else {
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(Registration.this, R.string.error_login_fields, Toast.LENGTH_SHORT).show();
-                            updateUI(null);
-                        }
-
-                    }
-                });
-    }
 
     private void signUpUser(String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -146,7 +71,7 @@ public class Registration extends AppCompatActivity implements GoogleApiClient.O
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(Registration.this, "Authentication failed",
+                            Toast.makeText(Registration.this, R.string.auth_fail,
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
@@ -164,17 +89,11 @@ public class Registration extends AppCompatActivity implements GoogleApiClient.O
     private void updateUI(FirebaseUser currentUser) {
         if (currentUser != null) {
             String uId = currentUser.getUid();
-            GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
-            if (acct != null) {
-                String personName = acct.getDisplayName();
-                String personGivenName = acct.getGivenName();
-                String personFamilyName = acct.getFamilyName();
-                String personEmail = acct.getEmail();
-                String personId = acct.getId();
-                Uri personPhoto = acct.getPhotoUrl();// identifiant unique de l'utilisateur
             // TODO changer l'utilisateur de page pour aller sur MainActivity
-            startActivity (new Intent (Registration.this, NavbarActivity.class));
+            Intent intent = new Intent(this,NavbarActivity.class);
+            intent.putExtra("fragmentNumber",1); //for example
+            startActivity(intent);
             }
          }
     }
-}
+

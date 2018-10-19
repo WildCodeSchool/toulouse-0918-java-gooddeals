@@ -16,7 +16,7 @@
         android:text="@string/name_deals_list"
         android:textAlignment="center"
         android:textAllCaps="false"
-        android:textColor="#00c145"
+        android:textColor="@color/colorGreenDark"
         android:textSize="20sp"
         app:fontFamily="@font/lobster"
         app:layout_constraintStart_toEndOf="@+id/icon_deals"

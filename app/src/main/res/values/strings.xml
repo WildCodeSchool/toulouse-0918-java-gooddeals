@@ -58,7 +58,10 @@
     <string name="choisir_cette_photo">CHOISIR CETTE PHOTO</string>
     <string name="prendre_une_photo">PRENDRE UNE PHOTO</string>
     <string name="nom_fichier">Nom du Fichier</string>
+    <string name="auth_fail">Authentication failed</string>
+    <string name="connected">vous êtes connecté</string>
+    <string name="disconnected">Vous êtes déconnecté</string>
 
-  
+
 </resources>
 
