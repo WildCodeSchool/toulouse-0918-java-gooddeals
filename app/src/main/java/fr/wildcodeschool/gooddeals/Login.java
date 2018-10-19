@@ -58,8 +58,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
         signInButton = findViewById(R.id.google_sign_in_login);
         signInButton.setOnClickListener(this);
-        Button logout = findViewById(R.id.bSign_out);
-        logout.setOnClickListener(this);
+
 
         Button btLogin = findViewById(R.id.button_login);
         btLogin.setOnClickListener(new View.OnClickListener() {
@@ -97,9 +96,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             case R.id.google_sign_in_login:
                 signIn();
             break;
-            case R.id.bSign_out:
-                FirebaseAuth.getInstance().signOut();
-            break;
         }
     }
 
@@ -134,6 +130,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            Toast.makeText(Login.this, "Connecté", Toast.LENGTH_SHORT).show();
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
@@ -152,6 +149,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            Toast.makeText(Login.this, "Connecté", Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
                             // TODO : faire une requête pour récupérer les données supplementaire de l'utilisateur
                             updateUI(user);
@@ -176,7 +174,9 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                 String personId = acct.getId();
                 Uri personPhoto = acct.getPhotoUrl();
 
-                startActivity(new Intent(Login.this, NavbarActivity.class));
+                Intent intent = new Intent(this,NavbarActivity.class);
+                intent.putExtra("fragmentNumber",1); //for example
+                startActivity(intent);
             }
 
         }

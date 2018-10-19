@@ -13,6 +13,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
 import com.nightonke.boommenu.BoomButtons.HamButton;
 import com.nightonke.boommenu.BoomMenuButton;
 import com.nightonke.boommenu.ButtonEnum;
@@ -89,6 +91,12 @@ public class NavbarActivity extends AppCompatActivity
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.ftMain, new MapFragment());
         ft.commit();
+
+        if(getIntent().getIntExtra("fragmentNumber",0)==1){
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.ftMain, new ProfilFragment());
+            fragmentTransaction.commit();
+        }
     }
 
     @Override
@@ -132,6 +140,7 @@ public class NavbarActivity extends AppCompatActivity
             ft.commit();
         } else if (id == R.id.nav_logout) {
             FirebaseAuth.getInstance().signOut();
+            Toast.makeText(this, "Vous êtes déconnecté", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(NavbarActivity.this, NavbarActivity.class));
         } else if (id == R.id.atHome_web) {
             Uri uri = Uri.parse(ATHOME_URL);
