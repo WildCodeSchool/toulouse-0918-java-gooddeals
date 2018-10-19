@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -23,13 +24,15 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
 
 import java.io.ByteArrayOutputStream;
 
@@ -51,7 +54,40 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView =  inflater.inflate(R.layout.activity_profil, container, false);
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+        View rootView = inflater.inflate(R.layout.activity_profil, container, false);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+
+        final EditText etPseudo = rootView.findViewById(R.id.edit_text_pseudo);
+        final DatabaseReference userRef = database.getReference("user");
+        final String userId = mAuth.getUid();
+
+        userRef.child(userId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                UserModel user = dataSnapshot.getValue(UserModel.class);
+                etPseudo.setText(user.getPseudo());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        Button updatePseudo = rootView.findViewById(R.id.button_update_pseudo);
+        updatePseudo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String pseudo = etPseudo.getText().toString();
+                userRef.child(userId).setValue(new UserModel(pseudo));
+
+            }
+        });
+
+
 
         Button btLogOut = rootView.findViewById(R.id.log_out_button);
         btLogOut.setOnClickListener(new View.OnClickListener() {
@@ -85,6 +121,7 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
                     }
                 });
 
+
         // FIREBASE pour envoie sur STORAGE
         mStorageRef = FirebaseStorage.getInstance().getReference("uploads"); // creation dossier uploads
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
@@ -115,7 +152,7 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
                 && data != null && data.getData() != null) {
             mImageUri = data.getData();
         }
-        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK){
+        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
             Bitmap bmp = (Bitmap) data.getExtras().get("data");
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
 
@@ -136,12 +173,14 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
+
     // METHODE POUR GERER L'EXTENSION DE L'IMAGE (JPEG...)
     private String getFileExtension(Uri uri) {
         ContentResolver cR = getActivity().getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
+
     // METHODE UPLOAD POUR LE BUTTON
     // POUR ATTACHER UN TITRE A L'IMAGE : EditText mEditTextFileName = findViewById(R.id.edit_text_file_name);
     public void uploadFile() {

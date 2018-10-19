@@ -49,14 +49,15 @@
     <string name="buttonPhoto">Photo</string>
     <string name="profilTextView">Bienvenue Boby</string>
     <string name="buttonPhotoGallery">Galerie</string>
+    <string name="choisir_une_image">CHOISIR UNE IMAGE DE LA GALLERIE</string>
+    <string name="choisir_cette_photo">CHOISIR CETTE PHOTO</string>
+    <string name="prendre_une_photo">PRENDRE UNE PHOTO</string>
+    <string name="nom_pseudo">Choisissez un peudo...</string>
+    <string name="button_pseudo">Mettre à jour</string>
 
     <!--PopUp-->
     <string name="pour_manger">Pour Manger</string>
     <string name="titleShare" />
-    <string name="choisir_une_image">CHOISIR UNE IMAGE DE LA GALLERIE</string>
-    <string name="choisir_cette_photo">CHOISIR CETTE PHOTO</string>
-    <string name="prendre_une_photo">PRENDRE UNE PHOTO</string>
-    <string name="nom_fichier">Nom du Fichier</string>
 
   
 </resources>
