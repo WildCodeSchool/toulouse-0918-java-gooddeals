@@ -61,6 +61,7 @@
     <string name="auth_fail">Authentication failed</string>
     <string name="connected">vous êtes connecté</string>
     <string name="disconnected">Vous êtes déconnecté</string>
+    <string name="erreur_chargement">Erreur de chragement de la base de données</string>
 
 
 </resources>

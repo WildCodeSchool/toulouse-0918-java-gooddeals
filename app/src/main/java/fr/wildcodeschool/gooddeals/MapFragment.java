@@ -2,7 +2,6 @@ package fr.wildcodeschool.gooddeals;
 
 
 import android.Manifest;
-import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -14,11 +13,8 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -31,11 +27,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -48,11 +39,11 @@ public class MapFragment extends android.support.v4.app.Fragment implements OnMa
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
     private static final float DEFAULT_ZOOM = 15f;
-    private LatLng esquirol = new LatLng(43.6004273,1.4445871000000352);
+    private LatLng esquirol = new LatLng(43.6004273, 1.4445871000000352);
 
     //vars
     private Boolean mLocationPermissionsGranted = false;
-    private  GoogleMap mMap;
+    private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
     @Override
@@ -67,60 +58,50 @@ public class MapFragment extends android.support.v4.app.Fragment implements OnMa
                 mMap.setMyLocationEnabled(true);
             }
         }
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference dealRef = database.getReference("deal");
-        dealRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot dealSnapshot : dataSnapshot.getChildren()) {
-                    Deal deal = dealSnapshot.getValue(Deal.class);
-                    int icon = R.drawable.red_markeri;
-                    switch (deal.getType()){
 
-                        case "Pour Manger":
-                            icon = R.drawable.darkgreen_markeri;
-                            break;
-                        case "Apéro":
-                            icon = R.drawable.red_markeri;
-                            break;
-                        case "Friandises":
-                            icon = R.drawable.orange_markeri;
-                            break;
-                        case "Bien-être":
-                            icon = R.drawable.blue_markeri;
-                            break;
-                        case "Loisirs":
-                            icon = R.drawable.yellow_markeri;
-                            break;
-                    }
-                    MarkerOptions markerOptions = new MarkerOptions()
-                            .icon(BitmapDescriptorFactory.fromResource(icon))
-                            .title(deal.getName());
-                    markerOptions.position(new LatLng(deal.getLatitude(), deal.getLongitude()));
-                    Marker marker =mMap.addMarker(markerOptions);
-                    marker.setTag(deal);
-                }
-                mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                    @Override
-                    public boolean onMarkerClick(Marker marker) {
-                        Deal deal = (Deal) marker.getTag();
-                        Intent intent = new Intent(getActivity(), Popup.class);
-                        intent.putExtra("EXTRA_TITLE", deal.getName());
-                        intent.putExtra("EXTRA_DESCRIPTION", deal.getDescription());
-                        intent.putExtra("EXTRA_IMAGE", deal.getImage());
-                        intent.putExtra("EXTRA_LATITUDE", deal.getLatitude());
-                        intent.putExtra("EXTRA_LONGITUDE", deal.getLongitude());
-                        startActivity(intent);
-                        return false;
-                    }
-                });
+        DealSingleton dealSingleton = DealSingleton.getInstance();
+        final ArrayList<Deal> deals = dealSingleton.getDealArrayList();
+        for (Deal deal : deals) {
+            int icon = R.drawable.red_markeri;
+            switch (deal.getType()) {
+
+                case "Pour Manger":
+                    icon = R.drawable.darkgreen_markeri;
+                    break;
+                case "Apéro":
+                    icon = R.drawable.red_markeri;
+                    break;
+                case "Friandises":
+                    icon = R.drawable.orange_markeri;
+                    break;
+                case "Bien-être":
+                    icon = R.drawable.blue_markeri;
+                    break;
+                case "Loisirs":
+                    icon = R.drawable.yellow_markeri;
+                    break;
             }
-
+            MarkerOptions markerOptions = new MarkerOptions()
+                    .icon(BitmapDescriptorFactory.fromResource(icon))
+                    .title(deal.getName());
+            markerOptions.position(new LatLng(deal.getLatitude(), deal.getLongitude()));
+            Marker marker = mMap.addMarker(markerOptions);
+            marker.setTag(deal);
+        }
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public boolean onMarkerClick(Marker marker) {
+                Deal deal = (Deal) marker.getTag();
+                Intent intent = new Intent(getActivity(), Popup.class);
+                intent.putExtra("EXTRA_TITLE", deal.getName());
+                intent.putExtra("EXTRA_DESCRIPTION", deal.getDescription());
+                intent.putExtra("EXTRA_IMAGE", deal.getImage());
+                intent.putExtra("EXTRA_LATITUDE", deal.getLatitude());
+                intent.putExtra("EXTRA_LONGITUDE", deal.getLongitude());
+                startActivity(intent);
+                return false;
             }
         });
-
     }
 
     @Override
