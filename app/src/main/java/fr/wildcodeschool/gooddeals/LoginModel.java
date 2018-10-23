@@ -7,31 +7,39 @@ import android.os.Parcelable;
 public class LoginModel implements Parcelable {
 
         private String email;
-        private String password;
+        private String photo;
+        private String pseudo;
 
-        public LoginModel(String email, String password) {
+        public LoginModel(String email, String photo, String pseudo) {
             this.email = email;
-            this.password = password;
+            this.photo = photo;
+            this.pseudo = pseudo;
         }
 
         public String getEmail() {
             return email;
         }
 
-        public String getPassword() {
-            return password;
+        public String getPhoto() {
+            return photo;
         }
+        public String getPseudo() {
+            return pseudo;
+        }
+
 
 
     protected LoginModel(Parcel in) {
         email = in.readString();
-        password = in.readString();
+        photo = in.readString();
+        pseudo = in.readString();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(email);
-        dest.writeString(password);
+        dest.writeString(photo);
+        dest.writeString(pseudo);
     }
 
     @Override

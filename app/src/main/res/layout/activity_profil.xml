@@ -7,7 +7,7 @@
     android:background="@color/colorPrimary">
 
     <TextView
-        android:id="@+id/profil_text_view"
+        android:id="@+id/monprofil_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -73,7 +73,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profil_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/monprofil_text_view"
         tools:layout_constraintCircleRadius="45dp" />
 
     <ProgressBar

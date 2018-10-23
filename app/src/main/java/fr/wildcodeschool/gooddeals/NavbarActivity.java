@@ -3,8 +3,8 @@ package fr.wildcodeschool.gooddeals;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,22 +13,25 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.nightonke.boommenu.BoomButtons.HamButton;
-import com.nightonke.boommenu.BoomMenuButton;
-import com.nightonke.boommenu.ButtonEnum;
-import static fr.wildcodeschool.gooddeals.BuilderManager.getHamButtonBuilderFilter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.nightonke.boommenu.BoomButtons.HamButton;
+import com.nightonke.boommenu.BoomMenuButton;
+import com.nightonke.boommenu.ButtonEnum;
+
 import java.util.ArrayList;
+
+import static fr.wildcodeschool.gooddeals.BuilderManager.getHamButtonBuilderFilter;
 
 public class NavbarActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private BoomMenuButton bmb;
     public static final String ATHOME_URL = "https://www.athome-startup.fr/";
+    private BoomMenuButton bmb;
     private ArrayList<Deal> deals = new ArrayList<>();
 
     private FirebaseAuth mAuth;
@@ -75,27 +78,35 @@ public class NavbarActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
-        View headerview = navigationView.getHeaderView(0);
-        headerview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.ftMain, new ProfilFragment());
-                ft.commit();
-                drawer.closeDrawers();
-            }
-        });
-        
+
         navigationView.setNavigationItemSelectedListener(this);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.ftMain, new MapFragment());
         ft.commit();
 
-        if(getIntent().getIntExtra("fragmentNumber",0)==1){
+        if (getIntent().getIntExtra("fragmentNumber", 0) == 1) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.ftMain, new ProfilFragment());
             fragmentTransaction.commit();
+        }
+        View headerview = navigationView.getHeaderView(0);
+        TextView headerEmailUser = headerview.findViewById(R.id.emailUser_text_view);
+        Singleton singleton = Singleton.getInstance();
+        if (singleton.getLogModel() != null) {
+            headerEmailUser.setVisibility(View.VISIBLE);
+            headerEmailUser.setText(singleton.getLogModel().getEmail());
+            headerview.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                    ft.replace(R.id.ftMain, new ProfilFragment());
+                    ft.commit();
+                    drawer.closeDrawers();
+                }
+            });
+
         }
     }
 
@@ -140,6 +151,7 @@ public class NavbarActivity extends AppCompatActivity
             ft.commit();
         } else if (id == R.id.nav_logout) {
             FirebaseAuth.getInstance().signOut();
+            Singleton.getInstance().singleClear();
             Toast.makeText(this, R.string.disconnected, Toast.LENGTH_SHORT).show();
             startActivity(new Intent(NavbarActivity.this, NavbarActivity.class));
         } else if (id == R.id.atHome_web) {
