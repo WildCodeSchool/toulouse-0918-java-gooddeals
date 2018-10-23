@@ -41,7 +41,7 @@
     <string name="fill_all_fields" />
     <string name="registrationEmail">Email</string>
     <string name="registrationPassword">Mot de passe</string>
-    <string name="registrationButton">Sinscrire</string>
+    <string name="registrationButton">S\'\inscrire</string>
     <string name="registrationTextView">Good Deals</string>
     <string name="error_login_fields">Merci de renseigner votre email et votre mot de passe</string>
 
@@ -65,6 +65,7 @@
     <string name="auth_fail">Authentication failed</string>
     <string name="connected">vous êtes connecté</string>
     <string name="disconnected">Vous êtes déconnecté</string>
+    <string name="text_view_registration">Rejoignez-nous aujourd\'\ hui !</string>
 
 
 

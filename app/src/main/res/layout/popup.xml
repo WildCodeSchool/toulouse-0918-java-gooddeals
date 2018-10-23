@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroundgrey">
+    android:background="#EBE2BF">
 
     <ImageView
         android:id="@+id/imageDeal"
@@ -19,7 +19,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"/>
+        app:layout_constraintVertical_bias="0.0" />
 
 
     <TextView
@@ -32,7 +32,7 @@
         android:textColor="@android:color/background_dark"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:fontFamily="serif"
+        app:fontFamily="@font/lobster"
         app:layout_constraintBottom_toTopOf="@+id/textPresentation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +52,7 @@
         android:textAlignment="center"
         android:textColor="@android:color/background_dark"
         android:textSize="18sp"
-        app:fontFamily="serif"
+        app:fontFamily="@font/lobster"
         app:layout_constraintBottom_toTopOf="@+id/shareButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,13 +63,12 @@
         android:id="@+id/shareButton"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
         android:background="@drawable/ic_action_share"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-         />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
         android:id="@+id/bt_itinerary"
