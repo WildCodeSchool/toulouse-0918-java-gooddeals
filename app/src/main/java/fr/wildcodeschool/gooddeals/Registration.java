@@ -60,12 +60,15 @@ public class Registration extends AppCompatActivity {
     }
 
 
-    private void signUpUser(String email, String password) {
+    private void signUpUser(final String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(Registration.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            LoginModel logModel = new LoginModel(email, null, null);
+                            Singleton singleton = Singleton.getInstance();
+                            singleton.setLogModel(logModel);
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
