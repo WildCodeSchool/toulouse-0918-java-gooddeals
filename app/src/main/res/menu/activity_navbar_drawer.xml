@@ -17,13 +17,15 @@
             android:icon="@drawable/ic_format_list_bulleted"
             android:title="@string/liste_des_deals" />
         <item
-            android:id="@+id/nav_logout"
-            android:icon="@drawable/ic_action_exit"
-            android:title="@string/se_logout" />
-        <item
             android:id="@+id/atHome_web"
             android:icon="@drawable/ic_action_info"
             android:title="@string/athome_web" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_action_exit"
+            android:title="@string/se_logout"
+            android:visible="false" />
+
 
     </group>
 
