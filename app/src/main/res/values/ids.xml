@@ -3,4 +3,5 @@
     <item name="log_out_button" type="id" />
     <item name="button_update_pseudo" type="id" />
     <item name="google_sign_in_login" type="id" />
+    <item name="registrationEmail" type="id" />
 </resources>

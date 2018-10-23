@@ -3,54 +3,56 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light">
 
 
     <TextView
-        android:id="@+id/textViewRegistration"
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:text="@string/registrationTextView"
-        android:textColor="#EBE2BF"
+        android:textColor="@color/grayAtHome"
         android:textSize="60sp"
-        android:textStyle="italic"
-        app:fontFamily="@font/lobster"
+        app:fontFamily="@font/montserrat"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="282dp"
-        android:layout_height="314dp"
+        android:layout_height="336dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="#CECECE"
+        android:background="#FDEEE7"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
-        <EditText
-            android:id="@+id/registrationEmail"
+
+        <TextView
+            android:id="@+id/textViewRegistration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginRight="32dp"
+            android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="40dp"
-            android:background="@color/cardview_dark_background"
+            android:layout_marginTop="52dp"
+            android:background="@android:color/background_light"
             android:ems="10"
             android:hint="@string/registrationEmail"
-            app:fontFamily="@font/lobster"
             android:inputType="textEmailAddress"
+            android:textColorHint="@color/grayAtHome"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.505"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -59,55 +61,40 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginRight="32dp"
+            android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
-            android:background="@color/cardview_dark_background"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/background_light"
             android:ems="10"
             android:hint="@string/registrationPassword"
-            app:fontFamily="@font/lobster"
             android:inputType="textPassword"
+            android:textColorHint="@color/grayAtHome"
             app:layout_constraintBottom_toTopOf="@+id/registrationBtn"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.51"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/registrationEmail"
-            app:layout_constraintVertical_bias="0.049" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewRegistration"
+            app:layout_constraintVertical_bias="0.242" />
 
         <Button
             android:id="@+id/registrationBtn"
-            android:layout_width="122dp"
-            android:layout_height="46dp"
-            android:layout_marginBottom="64dp"
+            android:layout_width="99dp"
+            android:layout_height="44dp"
+            android:layout_marginBottom="108dp"
             android:layout_marginEnd="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
             android:background="@drawable/backgroundgreen"
             android:text="@string/registrationButton"
-            app:fontFamily="@font/lobster"
+            android:textColor="@color/grayAtHome"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent" />
-    </android.support.constraint.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/text_view_registration"
-        android:textColor="@android:color/background_light"
-        app:fontFamily="@font/lobster"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewRegistration" />
+    </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>

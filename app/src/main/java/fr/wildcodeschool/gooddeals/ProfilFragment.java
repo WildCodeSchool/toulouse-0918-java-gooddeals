@@ -1,45 +1,52 @@
 package fr.wildcodeschool.gooddeals;
 
+import android.app.AlertDialog;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 
 import static android.app.Activity.RESULT_OK;
 
 public class ProfilFragment extends android.support.v4.app.Fragment {
-    public FirebaseAuth mAuth;
     static final int CAMERA_REQUEST = 3245;
     private static final int SELECT_PICTURE = 1000;
+    public FirebaseAuth mAuth;
     private Uri mImageUri; //Uri object used to tell a ContentProvider(Glide) what we want to access by reference.
     private Bitmap bmp;
     private StorageReference mStorageRef;
@@ -50,6 +57,10 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // FIREBASE pour envoie sur STORAGE
+        mStorageRef = FirebaseStorage.getInstance().getReference("uploads"); // creation dossier uploads
+        photoStorageRef = FirebaseStorage.getInstance().getReference("upload photos"); // ref CAMERA to FB
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
 
         View rootView = inflater.inflate(R.layout.activity_profil, container, false);
 
@@ -75,20 +86,18 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
                     }
                 });
 
-        ((Button) rootView.findViewById(R.id.buttonPhoto))
-                .setOnClickListener(new View.OnClickListener() {
+        /*((Button) rootView.findViewById(R.id.buttonPhoto))
+                .setOnClickListener(new View.OnClickListener() {*/
+        ImageView imgFavorite = rootView.findViewById(R.id.imageViewPhoto);
+        imgFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent, CAMERA_REQUEST);
 
-                    @Override
-                    public void onClick(View view) {
-                        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        startActivityForResult(cameraIntent, CAMERA_REQUEST);
-                    }
-                });
-
-        // FIREBASE pour envoie sur STORAGE
-        mStorageRef = FirebaseStorage.getInstance().getReference("uploads"); // creation dossier uploads
-        photoStorageRef = FirebaseStorage.getInstance().getReference("upload photos"); // ref CAMERA to FB
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
+            }
+        });
+        
 
         // BUTTON POUR UPLOAD TO FIREBASE STORAGE + BIND A LA METHOD UPLOADFILE()
         Button uploadButton = rootView.findViewById(R.id.uploadButton);
@@ -130,6 +139,7 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
             Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0,
                     byteArray.length);
             mImageView.setImageBitmap(bitmap);
+
         }
     }
 
@@ -185,6 +195,8 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
 
     }
 }
+
+
 
 
 

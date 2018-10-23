@@ -32,10 +32,10 @@
         app:fontFamily="@font/lobster" />
 
     <TextView
-        android:id="@+id/profil_text_view"
+        android:id="@+id/emailUser_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/nav_header_subtitle"
-        app:fontFamily="@font/lobster" />
+        android:visibility="invisible" />
 
 </LinearLayout>

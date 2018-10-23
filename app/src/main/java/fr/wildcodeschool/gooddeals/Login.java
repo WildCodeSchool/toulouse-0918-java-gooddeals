@@ -143,7 +143,8 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                     }
                 });
     }
-    private void signInUser(String email, String password) {
+    private void signInUser(final String email, String password) {
+        mAuth.getCurrentUser().getEmail();
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -152,6 +153,9 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                             Toast.makeText(Login.this, R.string.connected, Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
                             // TODO : faire une requête pour récupérer les données supplementaire de l'utilisateur
+                            Singleton singleton = Singleton.getInstance();
+                            LoginModel loginModel = new LoginModel(email,null, null);
+                            singleton.setLogModel(loginModel);
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
