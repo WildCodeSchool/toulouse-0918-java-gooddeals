@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroundgrey">
+    android:background="@color/colorPrimary">
 
 
     <EditText
@@ -12,10 +12,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:background="@color/cardview_dark_background"
+        android:background="@color/colorPrimaryDark"
         android:ems="10"
         android:hint="@string/registrationEmail"
         android:inputType="textEmailAddress"
+        android:textColorHint="@color/grayAtHome"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewRegistration" />
@@ -25,10 +26,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@color/cardview_dark_background"
+        android:background="@color/colorPrimaryDark"
         android:ems="10"
         android:hint="@string/registrationPassword"
         android:inputType="textPassword"
+        android:textColorHint="@color/grayAtHome"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registrationEmail" />
@@ -39,7 +41,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:background="@color/colorAccent"
         android:text="@string/registrationButton"
+        android:textColor="@color/grayAtHome"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registrationPassword" />
@@ -51,9 +55,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="@string/registrationTextView"
-        android:textColor="#00C145"
+        android:textColor="@color/grayAtHome"
         android:textSize="60sp"
-        app:fontFamily="@font/aguafina_script"
+        app:fontFamily="@font/montserrat"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

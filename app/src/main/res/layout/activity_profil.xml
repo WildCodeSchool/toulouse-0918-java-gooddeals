@@ -4,21 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroundgrey">
+    android:background="@color/colorPrimary">
 
     <TextView
         android:id="@+id/profil_text_view"
-        android:layout_width="171dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text=""
-        android:textColor="@color/colorPrimaryDark"
+        android:text="MON PROFIL"
+        android:textColor="@color/grayAtHome"
         android:textSize="30dp"
+        app:fontFamily="@font/montserrat"
         app:layout_constraintBottom_toTopOf="@+id/imageViewPhoto"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,10 +29,13 @@
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/deconnectButton"
+        android:layout_marginBottom="16dp"
+        android:background="@color/colorPrimary"
+        android:text="Supprimer mon compte"
+        android:textColor="@color/grayAtHome"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -47,31 +47,29 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:text="@string/choisir_une_image"
+        android:background="@color/colorAccent"
+        android:text="GALERIE"
+        android:textColor="@color/grayAtHome"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonPhoto" />
+        app:layout_constraintStart_toEndOf="@+id/buttonPhoto"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewPhoto" />
 
     <Button
         android:id="@+id/buttonPhoto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorAccent"
         android:text="@string/prendre_une_photo"
-        app:layout_constraintBottom_toTopOf="@+id/button_photo_gallery"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewPhoto" />
+        android:textColor="@color/grayAtHome"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewPhoto"
+        tools:layout_editor_absoluteX="16dp" />
 
     <ImageView
         android:id="@+id/imageViewPhoto"
-        android:layout_width="289dp"
-        android:layout_height="192dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonPhoto"
+        android:layout_width="185dp"
+        android:layout_height="174dp"
+        android:background="@mipmap/ic_launcher_round"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -95,12 +93,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/choisir_cette_photo"
+        android:background="@color/colorAccent"
+        android:text="valider"
+        android:textColor="@color/grayAtHome"
         app:layout_constraintBottom_toTopOf="@+id/log_out_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_file_name" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_file_name"
+        app:layout_constraintVertical_bias="0.061" />
 
     <EditText
         android:id="@+id/edit_text_file_name"
@@ -108,8 +108,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="@string/nom_fichier"
+        android:hint="Choisis ton pseudo"
         android:inputType="textPersonName"
+        android:textColorHint="@color/grayAtHome"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_photo_gallery" />
