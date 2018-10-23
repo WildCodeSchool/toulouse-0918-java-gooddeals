@@ -65,7 +65,8 @@
     <string name="auth_fail">Authentication failed</string>
     <string name="connected">vous êtes connecté</string>
     <string name="disconnected">Vous êtes déconnecté</string>
-    <string name="text_view_registration">Rejoignez-nous aujourd\'\ hui !</string>
+    <string name="suppression_compte">Vous êtes sûr de vouloir supprimer votre compte ?</string>
+    <string name="oui">Oui</string>
 
 
 

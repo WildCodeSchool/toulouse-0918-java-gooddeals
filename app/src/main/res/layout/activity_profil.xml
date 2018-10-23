@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/log_out_button"
+        android:id="@+id/profile_activity_button_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -33,6 +33,8 @@
         android:background="@color/colorPrimary"
         android:text="Supprimer mon compte"
         android:textColor="@color/grayAtHome"
+        android:stateListAnimator="@null"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
@@ -49,6 +51,7 @@
         android:layout_marginTop="8dp"
         android:background="@color/colorAccent"
         android:text="GALERIE"
+        android:textAllCaps="false"
         android:textColor="@color/grayAtHome"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.764"
@@ -90,7 +93,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/log_out_button" />
+        app:layout_constraintTop_toBottomOf="@+id/profile_activity_button_delete" />
 
     <Button
         android:id="@+id/uploadButton"
@@ -100,7 +103,7 @@
         android:background="@color/colorAccent"
         android:text="valider"
         android:textColor="@color/grayAtHome"
-        app:layout_constraintBottom_toTopOf="@+id/log_out_button"
+        app:layout_constraintBottom_toTopOf="@+id/profile_activity_button_delete"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintVertical_bias="0.061" />

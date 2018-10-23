@@ -1,19 +1,15 @@
 package fr.wildcodeschool.gooddeals;
 
-import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +24,7 @@ import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -35,11 +32,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -54,6 +46,8 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
     private DatabaseReference mDatabaseRef; //ne sert pas car pas d'envoie de titleFile
     private ProgressBar mProgressBar;
     private UploadTask uploadTask;
+    final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    final FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -62,15 +56,32 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
         photoStorageRef = FirebaseStorage.getInstance().getReference("upload photos"); // ref CAMERA to FB
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
 
-        View rootView = inflater.inflate(R.layout.activity_profil, container, false);
 
-        Button btLogOut = rootView.findViewById(R.id.log_out_button);
-        btLogOut.setOnClickListener(new View.OnClickListener() {
+        final View rootView = inflater.inflate(R.layout.activity_profil, container, false);
+        Button delete = rootView.findViewById(R.id.profile_activity_button_delete);
+        delete.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(getActivity(), NavbarActivity.class));
+                new android.support.v7.app.AlertDialog.Builder(getContext())
+                        .setMessage(R.string.suppression_compte)
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.oui, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                //Deleting user info from database
+                                mDatabase.getReference().child(user.getUid()).removeValue();
+                                //Deleting user.
+                                user.delete();
+                                //Signing out and back to login.
+                                FirebaseAuth.getInstance().signOut();
+                                Singleton.getInstance().singleClear();
+                                startActivity(new Intent(getActivity(), NavbarActivity.class));
+
+                            }
+                        })
+                        .setNegativeButton("Non", null)
+                        .show();
+
             }
         });
 
