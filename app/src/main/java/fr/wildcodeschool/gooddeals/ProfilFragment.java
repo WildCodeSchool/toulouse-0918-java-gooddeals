@@ -1,6 +1,7 @@
 package fr.wildcodeschool.gooddeals;
 
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -23,6 +24,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -34,6 +37,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -98,46 +102,25 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
                         })
                         .setNegativeButton("Non", null)
                         .show();
-
             }
         });
 
-       /* ((Button) rootView.findViewById(R.id.button_photo_gallery))
-                .setOnClickListener(new View.OnClickListener() {
-
-                    public void onClick(View arg0) {
-                        Intent intent = new Intent();
-                        intent.setType("image/*");
-                        intent.setAction(Intent.ACTION_GET_CONTENT);
-                        startActivityForResult(Intent.createChooser(intent,
-                                "Select Picture"), SELECT_PICTURE);
-                    }
-                });*/
-
-        /*((Button) rootView.findViewById(R.id.buttonPhoto))
-                .setOnClickListener(new View.OnClickListener() {*/
         ImageView imgFavorite = rootView.findViewById(R.id.imageViewPhoto);
         imgFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                //startActivityForResult(cameraIntent, CAMERA_REQUEST);
                 selectImage();
+
             }
         });
 
 
         mProgressBar = rootView.findViewById(R.id.progressBar);
-        /*Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
-        TextView titleProfil = toolbar.findViewById(R.id.toolbar_title);
-        titleProfil.setText("MON PROFIL");*/
 
         return rootView;
-
     }
 
     private void selectImage() {
-
 
             final CharSequence[] options = {"Take Photo", "Choose from Gallery", "Cancel"};
 
@@ -184,23 +167,19 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
             });
 
             builder.show();
-
         }
-
-
-
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        // GALLERY
         ImageView mImageView = getView().findViewById(R.id.imageViewPhoto);
+
+
         /*if (requestCode == SELECT_PICTURE && resultCode == RESULT_OK // si on selectionne image
                 && data != null && data.getData() != null) {
             mImageUri = data.getData();
@@ -220,6 +199,8 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
             mImageView.setImageBitmap(bitmap);
 
         }*/
+
+
         if (resultCode == RESULT_OK) {
 
             if (requestCode == 3245) {
@@ -253,10 +234,13 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
 
 
                     mImageView.setImageBitmap(bitmap);
+                    //mImageUri = data.getData();
+                    Glide.with(getActivity())
+                            .load(bitmap)
+                            .apply(RequestOptions.circleCropTransform())
+                            .into(mImageView);
 
-
-
-                    String path = android.os.Environment
+                    String path = Environment
 
                             .getExternalStorageDirectory()
 
@@ -323,7 +307,11 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
                 Log.w("image from gallery", picturePath+"");
 
                 mImageView.setImageBitmap(thumbnail);
-
+                mImageUri = data.getData();
+                Glide.with(getActivity())
+                        .load(mImageUri)
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(mImageView);
 
             }
 
@@ -332,15 +320,18 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
     }
 
 
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
-
     // METHODE POUR GERER L'EXTENSION DE L'IMAGE (JPEG...)
     private String getFileExtension(Uri uri) {
         ContentResolver cR = getActivity().getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
+    }
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
     }
 
     // METHODE UPLOAD GALLERY
