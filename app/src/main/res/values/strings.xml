@@ -67,6 +67,8 @@
     <string name="bien_etre_filter">Bien être</string>
     <string name="loisir_filter">Loisir</string>
     <string name="text_butfilter">OK</string>
+    <string name="erreur_chargement">Erreur de chragement de la base de données</string>
+
 
 
 </resources>
