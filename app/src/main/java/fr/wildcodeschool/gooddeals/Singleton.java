@@ -3,6 +3,7 @@ package fr.wildcodeschool.gooddeals;
 class Singleton {
 
     private static final Singleton ourInstance = new Singleton();
+
     private LoginModel logModel = null;
 
     public LoginModel getLogModel() {
@@ -12,8 +13,6 @@ class Singleton {
     public void setLogModel(LoginModel logModel) {
         this.logModel = logModel;
     }
-
-
 
     static Singleton getInstance() {
 

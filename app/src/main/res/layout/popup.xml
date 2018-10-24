@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroundgrey">
+    android:background="#EBE2BF">
 
     <ImageView
         android:id="@+id/imageDeal"
@@ -12,14 +12,12 @@
         android:layout_height="0dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginEnd="1dp"
-        android:layout_marginRight="1dp"
         app:layout_constraintBottom_toTopOf="@+id/titleDeal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"/>
+        app:layout_constraintVertical_bias="0.0" />
 
 
     <TextView
@@ -27,12 +25,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:textColor="@android:color/background_dark"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:fontFamily="serif"
+        app:fontFamily="@font/montserrat"
         app:layout_constraintBottom_toTopOf="@+id/textPresentation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,15 +44,15 @@
         android:layout_width="163dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:textAlignment="center"
-        android:textColor="@android:color/background_dark"
+        android:textColor="@color/colorAccent"
         android:textSize="18sp"
-        app:fontFamily="serif"
+        app:fontFamily="@font/montserrat"
         app:layout_constraintBottom_toTopOf="@+id/shareButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,26 +63,21 @@
         android:id="@+id/shareButton"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
         android:background="@drawable/ic_action_share"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-         />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
         android:id="@+id/bt_itinerary"
         android:layout_width="55dp"
         android:layout_height="57dp"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
         android:background="@android:drawable/ic_menu_directions"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textPresentation" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>

@@ -10,18 +10,21 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -40,6 +43,7 @@ import static android.app.Activity.RESULT_OK;
 public class ProfilFragment extends android.support.v4.app.Fragment {
     static final int CAMERA_REQUEST = 3245;
     private static final int SELECT_PICTURE = 1000;
+    public FirebaseAuth mAuth;
     private Uri mImageUri; //Uri object used to tell a ContentProvider(Glide) what we want to access by reference.
     private Bitmap bmp;
     private StorageReference mStorageRef;
@@ -52,14 +56,38 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+        // FIREBASE pour envoie sur STORAGE
+        mStorageRef = FirebaseStorage.getInstance().getReference("uploads"); // creation dossier uploads
+        photoStorageRef = FirebaseStorage.getInstance().getReference("upload photos"); // ref CAMERA to FB
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
         final View rootView = inflater.inflate(R.layout.activity_profil, container, false);
         Button delete = rootView.findViewById(R.id.profile_activity_button_delete);
+        ImageView imgFavorite = rootView.findViewById(R.id.imageViewPhoto);
+        final String personGivenName = user.getDisplayName();
+        EditText editPseudo = rootView.findViewById(R.id.edit_text_pseudo);
+
+        Singleton singleton = Singleton.getInstance();
+        if (singleton.getLogModel() != null) {
+            editPseudo.getText().append(personGivenName);
+            Glide.with(getActivity())
+                    .load(singleton.getLogModel().getPhoto())
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(imgFavorite);
+
+
+        }else{
+
+            Glide.with(getActivity())
+                    .load(R.drawable.licorne)
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(imgFavorite);
+        }
+
         delete.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                new AlertDialog.Builder(getContext())
+                new android.support.v7.app.AlertDialog.Builder(getContext())
                         .setMessage(R.string.suppression_compte)
                         .setCancelable(false)
                         .setPositiveButton(R.string.oui, new DialogInterface.OnClickListener() {
@@ -93,20 +121,18 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
                     }
                 });
 
-        ((Button) rootView.findViewById(R.id.buttonPhoto))
-                .setOnClickListener(new View.OnClickListener() {
+        /*((Button) rootView.findViewById(R.id.buttonPhoto))
+                .setOnClickListener(new View.OnClickListener() {*/
 
-                    @Override
-                    public void onClick(View view) {
-                        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        startActivityForResult(cameraIntent, CAMERA_REQUEST);
-                    }
-                });
+        imgFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent, CAMERA_REQUEST);
 
-        // FIREBASE pour envoie sur STORAGE
-        mStorageRef = FirebaseStorage.getInstance().getReference("uploads"); // creation dossier uploads
-        photoStorageRef = FirebaseStorage.getInstance().getReference("upload photos"); // ref CAMERA to FB
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
+            }
+        });
+        
 
         // BUTTON POUR UPLOAD TO FIREBASE STORAGE + BIND A LA METHOD UPLOADFILE()
         Button uploadButton = rootView.findViewById(R.id.uploadButton);
@@ -117,6 +143,10 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
             }
         });
         mProgressBar = rootView.findViewById(R.id.progressBar);
+        /*Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        TextView titleProfil = toolbar.findViewById(R.id.toolbar_title);
+        titleProfil.setText("MON PROFIL");*/
+
         return rootView;
     }
 
@@ -148,6 +178,7 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
             Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0,
                     byteArray.length);
             mImageView.setImageBitmap(bitmap);
+
         }
     }
 
@@ -156,7 +187,6 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
         super.onViewCreated(view, savedInstanceState);
     }
 
-
     // METHODE POUR GERER L'EXTENSION DE L'IMAGE (JPEG...)
     private String getFileExtension(Uri uri) {
         ContentResolver cR = getActivity().getContentResolver();
@@ -164,8 +194,8 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
 
-
     // METHODE UPLOAD GALLERY
+
     public void uploadFile() {
         if (mImageUri != null) {
             //TROUVER LE CHEMIN DANS LE PHONE
@@ -204,6 +234,8 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
 
     }
 }
+
+
 
 
 

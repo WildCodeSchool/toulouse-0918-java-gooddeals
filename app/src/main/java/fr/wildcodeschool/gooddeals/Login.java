@@ -128,6 +128,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         final String personEmail = acct.getEmail();
         final Uri personPhotoUri = acct.getPhotoUrl();
         final String personPhoto = personPhotoUri.toString();
+        final String personName = acct.getDisplayName();
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
@@ -139,7 +140,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             Singleton singleton = Singleton.getInstance();
-                            LoginModel loginModel = new LoginModel(personEmail,personPhoto, personGivenName);
+                            LoginModel loginModel = new LoginModel(personEmail,personPhoto, personName);
                             singleton.setLogModel(loginModel);
                             updateUI(user);
                         } else {
@@ -147,7 +148,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                             Toast.makeText(Login.this, R.string.error_login_fields, Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
-
                     }
                 });
     }
@@ -177,6 +177,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
+
             GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
             if (acct != null) {
                 String personName = acct.getDisplayName();
@@ -190,6 +191,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                 //intent.putExtra("fragmentNumber",1); //for example
                 startActivity(intent);
             }
+
 
         }
     }

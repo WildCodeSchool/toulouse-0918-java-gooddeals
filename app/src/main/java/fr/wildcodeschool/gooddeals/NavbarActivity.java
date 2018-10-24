@@ -82,8 +82,6 @@ public class NavbarActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
-
-
         navigationView.setNavigationItemSelectedListener(this);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -124,6 +122,11 @@ public class NavbarActivity extends AppCompatActivity
                 }
             });
 
+        }else{
+            Glide.with(getApplicationContext())
+                    .load(R.drawable.licorne)
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(imageUser);
         }
     }
 
