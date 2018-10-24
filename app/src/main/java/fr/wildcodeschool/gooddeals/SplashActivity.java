@@ -1,9 +1,9 @@
 package fr.wildcodeschool.gooddeals;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -12,6 +12,11 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -35,26 +40,24 @@ public class SplashActivity extends AppCompatActivity {
         logo.setAnimation(fromBottom);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        Singleton singleton = Singleton.getInstance();
         if (user != null) {
-            final String personEmail = user.getEmail();
-            final String personGivenName = user.getDisplayName();
-            final Uri personPhotoUri = user.getPhotoUrl();
-            final String personPhoto = personPhotoUri.toString();
-            if (!personGivenName.isEmpty() && !personPhoto.isEmpty()) {
-                LoginModel loginModel = new LoginModel(personEmail, personPhoto, personGivenName);
-                singleton.setLogModel(loginModel);
-            }else if (personGivenName.isEmpty() && !personPhoto.isEmpty()){
-                LoginModel loginModel = new LoginModel(personEmail, personPhoto, null);
-                singleton.setLogModel(loginModel);
-            }else if (!personGivenName.isEmpty() && personPhoto.isEmpty()){
-                LoginModel loginModel = new LoginModel(personEmail, null,personGivenName);
-                singleton.setLogModel(loginModel);
-            }
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference("User");
+            myRef.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    LoginModel logModel = dataSnapshot.getValue(LoginModel.class);
+                    Singleton singleton = Singleton.getInstance();
+                    singleton.setLogModel(logModel);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
         }
-
-
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

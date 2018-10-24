@@ -1,9 +1,9 @@
 package fr.wildcodeschool.gooddeals;
 
-import android.content.ClipData;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -82,18 +82,17 @@ public class NavbarActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
-
-
         navigationView.setNavigationItemSelectedListener(this);
 
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.ftMain, new MapFragment());
-        ft.commit();
 
         if (getIntent().getIntExtra("fragmentNumber", 0) == 1) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.ftMain, new ProfilFragment());
             fragmentTransaction.commit();
+        } else {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.ftMain, new MapFragment());
+            ft.commit();
         }
         View headerview = navigationView.getHeaderView(0);
         ImageView imageUser = headerview.findViewById(R.id.imageDeal);
@@ -101,6 +100,7 @@ public class NavbarActivity extends AppCompatActivity
         TextView headerEmailUser = headerview.findViewById(R.id.emailUser_text_view);
         Menu navigationViewMenu = navigationView.getMenu();
         Singleton singleton = Singleton.getInstance();
+        boolean hasPhoto = false;
         if (singleton.getLogModel() != null) {
             headerEmailUser.setVisibility(View.VISIBLE);
             pseudoTv.setVisibility(View.VISIBLE);
@@ -108,10 +108,14 @@ public class NavbarActivity extends AppCompatActivity
             navigationViewMenu.findItem(R.id.nav_logout).setVisible(true);
             headerEmailUser.setText(singleton.getLogModel().getEmail());
             pseudoTv.setText(singleton.getLogModel().getPseudo());
-            Glide.with(getApplicationContext())
-                    .load(singleton.getLogModel().getPhoto())
-                    .apply(RequestOptions.circleCropTransform())
-                    .into(imageUser);
+            if (singleton.getLogModel().getPhoto() != null) {
+                hasPhoto = true;
+                Glide.with(getApplicationContext())
+                        .load(singleton.getLogModel().getPhoto())
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(imageUser);
+            }
+
 
             headerview.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -125,15 +129,34 @@ public class NavbarActivity extends AppCompatActivity
             });
 
         }
+        if (!hasPhoto) {
+            Glide.with(getApplicationContext())
+                    .load(R.drawable.licorne)
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(imageUser);
+        }
     }
 
+    boolean doubleBackToExitPressedOnce = false;
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (doubleBackToExitPressedOnce){
+                finish();
+                super.onBackPressed();
+                return;
+            }
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Clickez une deuxième fois pour fermer l'appli", Toast.LENGTH_SHORT).show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 1000);
         }
     }
 
@@ -170,7 +193,10 @@ public class NavbarActivity extends AppCompatActivity
             FirebaseAuth.getInstance().signOut();
             Singleton.getInstance().singleClear();
             Toast.makeText(this, R.string.disconnected, Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(NavbarActivity.this, NavbarActivity.class));
+            Intent intent = new Intent(NavbarActivity.this, NavbarActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         } else if (id == R.id.atHome_web) {
             Uri uri = Uri.parse(ATHOME_URL);
             startActivity(new Intent(Intent.ACTION_VIEW, uri));

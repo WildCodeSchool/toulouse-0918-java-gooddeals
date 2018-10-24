@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -67,10 +68,12 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
         photoStorageRef = FirebaseStorage.getInstance().getReference("upload photos"); // ref CAMERA to FB
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
 
+
         final View rootView = inflater.inflate(R.layout.activity_profil, container, false);
 
         // BUTTON POUR UPLOAD TO FIREBASE STORAGE + BIND A LA METHOD UPLOADFILE()
         Button uploadButton = rootView.findViewById(R.id.uploadButton1);
+        mProgressBar = rootView.findViewById(R.id.progressBar);
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,6 +83,33 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
 
         // Button delete
         Button delete = rootView.findViewById(R.id.profile_activity_button_delete);
+        ImageView imgFavorite = rootView.findViewById(R.id.imageViewPhoto);
+        EditText editPseudo = rootView.findViewById(R.id.edit_text_pseudo);
+
+        Singleton singleton = Singleton.getInstance();
+        LoginModel loginModel = singleton.getLogModel();
+        boolean hasPhoto = false;
+        if (loginModel != null) {
+            if(loginModel.getPseudo() != null) {
+                editPseudo.getText().append(loginModel.getPseudo());
+            }
+            if (loginModel.getPhoto() != null) {
+                hasPhoto = true;
+                Glide.with(getActivity())
+                        .load(singleton.getLogModel().getPhoto())
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(imgFavorite);
+            }
+
+        }
+        if (!hasPhoto) {
+
+            Glide.with(getActivity())
+                    .load(R.drawable.licorne)
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(imgFavorite);
+        }
+
         delete.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -105,66 +135,67 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
             }
         });
 
-        ImageView imgFavorite = rootView.findViewById(R.id.imageViewPhoto);
         imgFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 selectImage();
-
             }
         });
 
 
-        mProgressBar = rootView.findViewById(R.id.progressBar);
+
 
         return rootView;
     }
 
     private void selectImage() {
 
-            final CharSequence[] options = {"Take Photo", "Choose from Gallery", "Cancel"};
+
+        final CharSequence[] options = {"Prendre une photo", "Choisir dans la galerie", "Annuler"};
 
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-            builder.setTitle("Add Photo!");
+        builder.setTitle("Ajouter une photo!");
 
-            builder.setItems(options, new DialogInterface.OnClickListener() {
+        builder.setItems(options, new DialogInterface.OnClickListener() {
 
-                @Override
+            @Override
 
-                public void onClick(DialogInterface dialog, int item) {
+            public void onClick(DialogInterface dialog, int item) {
 
-                    if (options[item].equals("Take Photo"))
+                if (options[item].equals("Ajouter une photo!"))
 
-                    {
+                {
 
-                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-                        File f = new File(android.os.Environment.getExternalStorageDirectory(), "temp.jpg");
+                    File f = new File(android.os.Environment.getExternalStorageDirectory(), "temp.jpg");
 
-                        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
 
-                        startActivityForResult(intent, 3245);
+                    startActivityForResult(intent, 3245);
 
-                    } else if (options[item].equals("Choose from Gallery"))
+                } else if (options[item].equals("Choisir dans la galerie"))
 
-                    {
+                {
 
-                        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
-                        startActivityForResult(intent, 1000);
+                    startActivityForResult(intent, 1000);
 
 
-                    } else if (options[item].equals("Cancel")) {
+                } else if (options[item].equals("Annuler")) {
 
-                        dialog.dismiss();
+                    dialog.dismiss();
 
-                    }
 
                 }
 
-            });
+            }
+
+        });
+
 
             builder.show();
         }
@@ -178,8 +209,6 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         ImageView mImageView = getView().findViewById(R.id.imageViewPhoto);
-
-
         /*if (requestCode == SELECT_PICTURE && resultCode == RESULT_OK // si on selectionne image
                 && data != null && data.getData() != null) {
             mImageUri = data.getData();
@@ -199,8 +228,6 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
             mImageView.setImageBitmap(bitmap);
 
         }*/
-
-
         if (resultCode == RESULT_OK) {
 
             if (requestCode == 3245) {
@@ -287,12 +314,11 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
             } else if (requestCode == 1000) {
 
 
-
                 Uri selectedImage = data.getData();
 
-                String[] filePath = { MediaStore.Images.Media.DATA };
+                String[] filePath = {MediaStore.Images.Media.DATA};
 
-                Cursor c = getActivity().getContentResolver().query(selectedImage,filePath, null, null, null);
+                Cursor c = getActivity().getContentResolver().query(selectedImage, filePath, null, null, null);
 
                 c.moveToFirst();
 
@@ -304,7 +330,7 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
 
                 Bitmap thumbnail = (BitmapFactory.decodeFile(picturePath));
 
-                Log.w("image from gallery", picturePath+"");
+                Log.w("image from gallery", picturePath + "");
 
                 mImageView.setImageBitmap(thumbnail);
                 mImageUri = data.getData();
@@ -315,9 +341,10 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
 
             }
 
+            }
+
         }
 
-    }
 
 
     // METHODE POUR GERER L'EXTENSION DE L'IMAGE (JPEG...)
