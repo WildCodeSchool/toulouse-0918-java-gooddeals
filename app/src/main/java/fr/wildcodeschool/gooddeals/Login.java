@@ -152,7 +152,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                 });
     }
     private void signInUser(final String email, String password) {
-        mAuth.getCurrentUser().getEmail();
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -177,7 +176,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-
             GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
             if (acct != null) {
                 String personName = acct.getDisplayName();

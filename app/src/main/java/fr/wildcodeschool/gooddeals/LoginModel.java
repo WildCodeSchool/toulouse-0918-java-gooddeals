@@ -19,7 +19,6 @@ public class LoginModel implements Parcelable {
         public String getEmail() {
             return email;
         }
-
         public String getPhoto() {
             return photo;
         }

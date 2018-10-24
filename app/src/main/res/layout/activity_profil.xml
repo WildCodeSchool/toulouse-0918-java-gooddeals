@@ -25,44 +25,12 @@
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/button_photo_gallery"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorAccent"
-        android:text="GALERIE"
-        android:textAllCaps="false"
-        android:textColor="@color/grayAtHome"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.764"
-        app:layout_constraintStart_toEndOf="@+id/buttonPhoto"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewPhoto" />
-
-    <Button
-        android:id="@+id/buttonPhoto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorAccent"
-        android:text="@string/prendre_une_photo"
-        android:textColor="@color/grayAtHome"
-        app:layout_constraintBottom_toTopOf="@+id/edit_text_pseudo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewPhoto" />
-
     <ImageView
         android:id="@+id/imageViewPhoto"
         android:layout_width="200sp"
         android:layout_height="200sp"
         android:layout_marginTop="32dp"
+        android:background="@color/backgroundbeige"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,44 +49,37 @@
         app:layout_constraintTop_toBottomOf="@+id/profile_activity_button_delete" />
 
     <Button
-        android:id="@+id/uploadButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:background="@color/colorAccent"
+        android:id="@+id/uploadButton1"
+        android:layout_width="84dp"
+        android:layout_height="37dp"
+        android:layout_marginBottom="84dp"
+        android:background="@drawable/greybutton"
+        android:clickable="true"
         android:text="valider"
         android:textColor="@color/grayAtHome"
         app:layout_constraintBottom_toTopOf="@+id/profile_activity_button_delete"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="0.061" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
     <EditText
         android:id="@+id/edit_text_pseudo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/shape_view"
         android:ems="10"
         android:hint="Choisis ton pseudo"
         android:inputType="textPersonName"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:textColorHint="@color/grayAtHome"
+        app:layout_constraintBottom_toTopOf="@+id/uploadButton1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.615"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_photo_gallery" />
-
-    <Button
-        android:id="@+id/buttton_update_pseudo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/button_pseudo"
-        app:layout_constraintBottom_toTopOf="@+id/uploadButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_pseudo"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewPhoto"
+        app:layout_constraintVertical_bias="0.312" />
 
     <ImageView
         android:id="@+id/imageView2"

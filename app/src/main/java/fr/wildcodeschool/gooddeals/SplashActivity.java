@@ -38,20 +38,21 @@ public class SplashActivity extends AppCompatActivity {
 
         Singleton singleton = Singleton.getInstance();
         if (user != null) {
-            final String personEmail = user.getEmail();
-            final String personGivenName = user.getDisplayName();
-            final Uri personPhotoUri = user.getPhotoUrl();
-            final String personPhoto = personPhotoUri.toString();
-            if (!personGivenName.isEmpty() && !personPhoto.isEmpty()) {
-                LoginModel loginModel = new LoginModel(personEmail, personPhoto, personGivenName);
-                singleton.setLogModel(loginModel);
-            }else if (personGivenName.isEmpty() && !personPhoto.isEmpty()){
-                LoginModel loginModel = new LoginModel(personEmail, personPhoto, null);
-                singleton.setLogModel(loginModel);
-            }else if (!personGivenName.isEmpty() && personPhoto.isEmpty()){
-                LoginModel loginModel = new LoginModel(personEmail, null,personGivenName);
-                singleton.setLogModel(loginModel);
+            String personEmail = user.getEmail();
+            String personGivenName = user.getDisplayName();
+            Uri personPhoto = user.getPhotoUrl();
+
+            String photoPath = null;
+            if (personPhoto != null) {
+                photoPath = personPhoto.toString();
             }
+
+            if (personGivenName != null && personGivenName.isEmpty()) {
+                personGivenName = null;
+            }
+
+            LoginModel loginModel = new LoginModel(personEmail, photoPath, personGivenName);
+            singleton.setLogModel(loginModel);
         }
 
 

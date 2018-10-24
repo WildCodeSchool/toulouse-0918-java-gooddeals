@@ -69,6 +69,7 @@ public class Registration extends AppCompatActivity {
                             LoginModel logModel = new LoginModel(email, null, null);
                             Singleton singleton = Singleton.getInstance();
                             singleton.setLogModel(logModel);
+
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
