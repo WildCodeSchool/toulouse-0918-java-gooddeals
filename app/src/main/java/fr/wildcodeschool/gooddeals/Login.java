@@ -75,6 +75,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                     toast.show();
                 } else {
                     signInUser(email, password);
+                    startActivity(new Intent(Login.this, NavbarActivity.class));
                 }
             }
         });
@@ -123,6 +124,10 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
+        final String personGivenName = acct.getGivenName();
+        final String personEmail = acct.getEmail();
+        final Uri personPhotoUri = acct.getPhotoUrl();
+        final String personPhoto = personPhotoUri.toString();
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
@@ -133,6 +138,9 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                             Toast.makeText(Login.this,R.string.connected, Toast.LENGTH_SHORT).show();
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            Singleton singleton = Singleton.getInstance();
+                            LoginModel loginModel = new LoginModel(personEmail,personPhoto, personGivenName);
+                            singleton.setLogModel(loginModel);
                             updateUI(user);
                         } else {
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -168,6 +176,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
+
             GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
             if (acct != null) {
                 String personName = acct.getDisplayName();
@@ -178,9 +187,9 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                 Uri personPhoto = acct.getPhotoUrl();
 
                 Intent intent = new Intent(this,NavbarActivity.class);
-                intent.putExtra("fragmentNumber",1); //for example
                 startActivity(intent);
             }
+
 
         }
     }

@@ -3,27 +3,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group android:checkableBehavior="single"
+        >
         <item
             android:id="@+id/nav_login"
-            android:icon="@drawable/ic_exit_to_app"
+            android:icon="@drawable/icons8_login_24"
             android:title="@string/se_connecter" />
         <item
             android:id="@+id/nav_map"
-            android:icon="@android:drawable/ic_dialog_map"
+            android:icon="@drawable/icons_map_88"
             android:title="@string/map" />
         <item
             android:id="@+id/nav_liste"
-            android:icon="@drawable/ic_format_list_bulleted"
+            android:icon="@drawable/icons8_list_24"
             android:title="@string/liste_des_deals" />
+        <item
+            android:id="@+id/atHome_web"
+            android:icon="@drawable/icons8_info_24"
+            android:title="@string/athome_web" />
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_action_exit"
-            android:title="@string/se_logout" />
-        <item
-            android:id="@+id/atHome_web"
-            android:icon="@drawable/ic_action_info"
-            android:title="@string/athome_web" />
+            android:title="@string/se_logout"
+            android:visible="false" />
+
 
     </group>
 

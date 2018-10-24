@@ -18,10 +18,12 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@drawable/gradationn"
+        android:background="#EBE2BF"
         android:fitsSystemWindows="true"
+        app:fontFamily="@font/montserrat"
         app:headerLayout="@layout/nav_header_navbar"
-        app:menu="@menu/activity_navbar_drawer"
-        app:itemTextColor="@color/whiteAtHome"/>
+        app:itemIconTint="@color/cardview_dark_background"
+        app:itemTextColor="@color/grayAtHome"
+        app:menu="@menu/activity_navbar_drawer" />
 
 </android.support.v4.widget.DrawerLayout>

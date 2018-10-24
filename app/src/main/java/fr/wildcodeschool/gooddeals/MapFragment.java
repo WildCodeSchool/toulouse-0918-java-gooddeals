@@ -2,6 +2,7 @@ package fr.wildcodeschool.gooddeals;
 
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -13,8 +14,12 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -27,6 +32,11 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -38,8 +48,8 @@ public class MapFragment extends android.support.v4.app.Fragment implements OnMa
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
-    private static final float DEFAULT_ZOOM = 15f;
-    private LatLng esquirol = new LatLng(43.6004273, 1.4445871000000352);
+    private static final float DEFAULT_ZOOM = 17f;
+    private LatLng esquirol = new LatLng(43.6004273,1.4445871000000352);
 
     //vars
     private Boolean mLocationPermissionsGranted = false;
@@ -191,5 +201,30 @@ public class MapFragment extends android.support.v4.app.Fragment implements OnMa
                 }
             }
         }
+    }
+
+    public void showFilters(TextView tvFiltre) {
+        tvFiltre.setVisibility(View.VISIBLE);
+
+    }
+
+    public void dontShowFilters(TextView tvFiltre, TextView tvFiltreAlpinisme, TextView tvFiltreAviron, TextView tvFiltreCanoe
+            , TextView tvFiltreCanyonisme, TextView tvFiltreCourse, TextView tvFiltreEcalade, TextView tvFiltreNatation
+            , TextView tvFiltreVoile, TextView tvFiltreRando, TextView tvFiltreSpeleo, TextView tvFiltreYoga
+            , TextView tvFiltrePlonge, TextView tvNotFiltre) {
+        tvFiltre.setVisibility(View.INVISIBLE);
+        tvFiltreAlpinisme.setVisibility(View.INVISIBLE);
+        tvFiltreAviron.setVisibility(View.INVISIBLE);
+        tvFiltreCanoe.setVisibility(View.INVISIBLE);
+        tvFiltreCanyonisme.setVisibility(View.INVISIBLE);
+        tvFiltreCourse.setVisibility(View.INVISIBLE);
+        tvFiltreEcalade.setVisibility(View.INVISIBLE);
+        tvFiltreNatation.setVisibility(View.INVISIBLE);
+        tvFiltreVoile.setVisibility(View.INVISIBLE);
+        tvFiltreRando.setVisibility(View.INVISIBLE);
+        tvFiltreSpeleo.setVisibility(View.INVISIBLE);
+        tvFiltreYoga.setVisibility(View.INVISIBLE);
+        tvFiltrePlonge.setVisibility(View.INVISIBLE);
+        tvNotFiltre.setVisibility(View.INVISIBLE);
     }
 }

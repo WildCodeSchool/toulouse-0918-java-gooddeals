@@ -20,7 +20,7 @@
     <string name="unableCurrentLocation">Position actuelle invalide</string>
     <string name="mapRequests">Affichage de la carte impossible</string>
     <string name="se_connecter">Se connecter</string>
-    <string name="map">Map</string>
+    <string name="map">Carte des deals</string>
     <string name="liste_des_deals">Liste des deals</string>
     <string name="se_logout">Se déconnecter</string>
     <string name="pop_up">Pop Up</string>
@@ -35,7 +35,7 @@
     <string name="titleShare">SHARE YOUR GOOD DEAL</string>
     <string name="loginEmail">Email</string>
     <string name="loginPassword">Mot de passe</string>
-    <string name="loginButton">Se Connecter</string>
+    <string name="loginButton">Se connecter</string>
     <string name="loginButtonRegistration">Enregistrez-vous ici!</string>
     <string name="loginTextView">Good Deals</string>
     <string name="fill_all_fields" />
@@ -50,13 +50,17 @@
     <string name="buttonPhoto">Photo</string>
     <string name="profilTextView">Bienvenue Boby</string>
     <string name="buttonPhotoGallery">Galerie</string>
-
-    <!--PopUp-->
-    <string name="pour_manger">Pour Manger</string>
-    <string name="se_d_connecter">Se déconnecter</string>
     <string name="choisir_une_image">CHOISIR UNE IMAGE DE LA GALLERIE</string>
     <string name="choisir_cette_photo">CHOISIR CETTE PHOTO</string>
     <string name="prendre_une_photo">PRENDRE UNE PHOTO</string>
+    <string name="nom_pseudo">Choisissez un peudo...</string>
+    <string name="button_pseudo">Mettre à jour</string>
+
+    <!--PopUp-->
+    <string name="pour_manger">Pour Manger</string>
+
+
+    <string name="se_d_connecter">Se déconnecter</string>
     <string name="nom_fichier">Nom du Fichier</string>
     <string name="auth_fail">Authentication failed</string>
     <string name="connected">vous êtes connecté</string>
@@ -65,12 +69,15 @@
     <string name="aperos_filter">Apéros</string>
     <string name="friandises_filter">Friandises</string>
     <string name="bien_etre_filter">Bien être</string>
-    <string name="loisir_filter">Loisir</string>
+    <string name="loisirs_filter">Loisirs</string>
     <string name="text_butfilter">OK</string>
     <string name="erreur_chargement">Erreur de chragement de la base de données</string>
     <string name="share_body">J\'ai testé</string>
     <string name="share_bodybis">, c\'est un super deal! Si tu es un startupper d\'At Home, n\'oublie pas de télécharger l\'appli Good Deals sur le PlayStore!</string>
     <string name="title_share">Super deal au</string>
+
+    <string name="suppression_compte">Vous êtes sûr de vouloir supprimer votre compte ?</string>
+    <string name="oui">Oui</string>
 
 
 
