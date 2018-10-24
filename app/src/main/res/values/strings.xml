@@ -63,6 +63,7 @@
     <string name="disconnected">Vous êtes déconnecté</string>
     <string name="suppression_compte">Vous êtes sûr de vouloir supprimer votre compte ?</string>
     <string name="oui">Oui</string>
+    <string name="erreur_chargement">Erreur de chragement de la base de données</string>
 
 
 </resources>

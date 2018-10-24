@@ -3,6 +3,7 @@ package fr.wildcodeschool.gooddeals;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.animation.Animation;
@@ -62,6 +63,8 @@ public class SplashActivity extends AppCompatActivity {
 
             }
         }, SPLASH_TIME_OUT);
+
+        DealSingleton.getInstance();
     }
 }
 

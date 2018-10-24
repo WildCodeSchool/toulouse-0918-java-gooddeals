@@ -62,16 +62,8 @@ public class Deal {
         return latitude;
     }
 
-    public void setLatitude(float latitude) {
-        this.latitude = latitude;
-    }
-
     public double getLongitude() {
         return longitude;
-    }
-
-    public void setLongitude(float longitude) {
-        this.longitude = longitude;
     }
 
     public String getType() { return type; }
