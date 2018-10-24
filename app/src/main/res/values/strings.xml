@@ -62,6 +62,9 @@
     <string name="connected">vous êtes connecté</string>
     <string name="disconnected">Vous êtes déconnecté</string>
     <string name="erreur_chargement">Erreur de chragement de la base de données</string>
+    <string name="share_body">J\'ai testé</string>
+    <string name="share_bodybis">, c\'est un super deal! Si tu es un startupper d\'At Home, n\'oublie pas de télécharger l\'appli Good Deals sur le PlayStore!</string>
+    <string name="title_share">Super deal au</string>
 
 
 </resources>
