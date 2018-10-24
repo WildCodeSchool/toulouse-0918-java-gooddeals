@@ -1,10 +1,9 @@
 package fr.wildcodeschool.gooddeals;
 
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -13,6 +12,11 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -36,27 +40,24 @@ public class SplashActivity extends AppCompatActivity {
         logo.setAnimation(fromBottom);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        Singleton singleton = Singleton.getInstance();
         if (user != null) {
-            String personEmail = user.getEmail();
-            String personGivenName = user.getDisplayName();
-            Uri personPhoto = user.getPhotoUrl();
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference("User");
+            myRef.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    LoginModel logModel = dataSnapshot.getValue(LoginModel.class);
+                    Singleton singleton = Singleton.getInstance();
+                    singleton.setLogModel(logModel);
+                }
 
-            String photoPath = null;
-            if (personPhoto != null) {
-                photoPath = personPhoto.toString();
-            }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            if (personGivenName != null && personGivenName.isEmpty()) {
-                personGivenName = null;
-            }
+                }
+            });
 
-            LoginModel loginModel = new LoginModel(personEmail, photoPath, personGivenName);
-            singleton.setLogModel(loginModel);
         }
-
-
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

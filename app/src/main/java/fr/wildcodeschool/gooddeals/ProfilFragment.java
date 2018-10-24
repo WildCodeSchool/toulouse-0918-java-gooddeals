@@ -82,18 +82,25 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
         // Button delete
         Button delete = rootView.findViewById(R.id.profile_activity_button_delete);
         ImageView imgFavorite = rootView.findViewById(R.id.imageViewPhoto);
-        final String personName = user.getDisplayName();
         EditText editPseudo = rootView.findViewById(R.id.edit_text_pseudo);
 
         Singleton singleton = Singleton.getInstance();
-        if (singleton.getLogModel() != null) {
-            editPseudo.getText().append(personName);
-            Glide.with(getActivity())
-                    .load(singleton.getLogModel().getPhoto())
-                    .apply(RequestOptions.circleCropTransform())
-                    .into(imgFavorite);
+        LoginModel loginModel = singleton.getLogModel();
+        boolean hasPhoto = false;
+        if (loginModel != null) {
+            if(loginModel.getPseudo() != null) {
+                editPseudo.getText().append(loginModel.getPseudo());
+            }
+            if (loginModel.getPhoto() != null) {
+                hasPhoto = true;
+                Glide.with(getActivity())
+                        .load(singleton.getLogModel().getPhoto())
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(imgFavorite);
+            }
 
-        } else {
+        }
+        if (!hasPhoto) {
 
             Glide.with(getActivity())
                     .load(R.drawable.licorne)
