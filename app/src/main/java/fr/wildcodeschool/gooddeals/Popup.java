@@ -33,7 +33,7 @@ public class Popup extends AppCompatActivity {
 
         Intent intentFromList = getIntent();
         String description = intentFromList.getStringExtra("EXTRA_DESCRIPTION");
-        String title = intentFromList.getStringExtra("EXTRA_TITLE");
+        final String title = intentFromList.getStringExtra("EXTRA_TITLE");
         String image = intentFromList.getStringExtra("EXTRA_IMAGE");
         final Double latitude = intentFromList.getDoubleExtra("EXTRA_LATITUDE", 0.0);
         final Double longitude = intentFromList.getDoubleExtra("EXTRA_LONGITUDE", 0.0);
@@ -52,10 +52,10 @@ public class Popup extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent myIntent = new Intent(Intent.ACTION_SEND);
-                myIntent.setType("Text/Plain");
-                String shareBody = "Your body here";
-                String titleShare = "Your subject here";
-                myIntent.putExtra(Intent.EXTRA_SUBJECT, shareBody);
+                Intent intent = myIntent.setType("Text/Plain");
+                String shareBody = getString(R.string.share_body)+ title + getString(R.string.share_bodybis);
+                String titleShare = getString(R.string.title_share) + title;
+                myIntent.putExtra(Intent.EXTRA_SUBJECT, titleShare);
                 myIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
                 startActivity(Intent.createChooser(myIntent, getString(R.string.titleShare)));
             }
