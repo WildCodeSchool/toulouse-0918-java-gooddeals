@@ -71,28 +71,27 @@ public class MapFragment extends android.support.v4.app.Fragment implements OnMa
         DealSingleton dealSingleton = DealSingleton.getInstance();
         final ArrayList<Deal> deals = dealSingleton.getDealArrayList();
         for (Deal deal : deals) {
-            int icon = R.drawable.red_markeri;
+            int icon = R.drawable.pin;
             switch (deal.getType()) {
 
                 case "Pour Manger":
-                    icon = R.drawable.darkgreen_markeri;
+                    icon = R.drawable.pin;
                     break;
                 case "Apéro":
-                    icon = R.drawable.red_markeri;
+                    icon = R.drawable.pin_blue;
                     break;
                 case "Friandises":
-                    icon = R.drawable.orange_markeri;
+                    icon = R.drawable.pin_violet;
                     break;
                 case "Bien-être":
-                    icon = R.drawable.blue_markeri;
+                    icon = R.drawable.pin_pink;
                     break;
                 case "Loisirs":
-                    icon = R.drawable.yellow_markeri;
+                    icon = R.drawable.pin_red;
                     break;
             }
             MarkerOptions markerOptions = new MarkerOptions()
-                    .icon(BitmapDescriptorFactory.fromResource(icon))
-                    .title(deal.getName());
+                    .icon(BitmapDescriptorFactory.fromResource(icon));
             markerOptions.position(new LatLng(deal.getLatitude(), deal.getLongitude()));
             Marker marker = mMap.addMarker(markerOptions);
             marker.setTag(deal);
