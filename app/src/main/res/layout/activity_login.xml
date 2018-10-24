@@ -4,16 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary">
+    android:background="@color/backgroundbeige">
 
     <EditText
         android:id="@+id/email_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="@drawable/shape_view"
         android:ems="10"
         android:hint="@string/loginEmail"
+        android:padding="3dp"
         android:inputType="textEmailAddress"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:textColorHint="@color/grayAtHome"
@@ -26,9 +27,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="@drawable/shape_view"
         android:ems="10"
         android:hint="@string/loginPassword"
+        android:padding="3dp"
         android:inputType="textPassword"
         android:textColorHint="@color/grayAtHome"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,14 +39,15 @@
 
     <Button
         android:id="@+id/button_login"
-        android:layout_width="103dp"
-        android:layout_height="42dp"
-        android:layout_marginTop="24dp"
-        android:background="@android:color/white"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:background="@drawable/greybutton"
         android:text="@string/loginButton"
         android:textAllCaps="false"
-        android:textColor="@color/grayAtHome"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        app:layout_constraintBottom_toTopOf="@+id/google_sign_in_login"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password_login" />
 
@@ -63,13 +66,13 @@
 
     <Button
         android:id="@+id/button_registration_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="164dp"
-        android:background="@color/colorPrimary"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="108dp"
+        android:background="@drawable/greybutton"
         android:text="s'inscrire"
         android:textAllCaps="false"
-        android:textColor="@color/grayAtHome"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
