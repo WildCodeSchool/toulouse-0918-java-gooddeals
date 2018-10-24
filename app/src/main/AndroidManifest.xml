@@ -54,6 +54,9 @@
             android:name=".NavbarActivity"
             android:label="@string/title_activity_navbar"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".FilterActivity"
+            android:theme="@style/AppTheme.CustomTheme"></activity>
         <activity android:name=".Login" />
         <activity android:name=".Registration" />
 

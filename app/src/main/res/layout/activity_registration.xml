@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradationn">
+    android:background="#EBE2BF">
 
 
     <EditText
         android:id="@+id/registrationEmail"
         android:layout_width="wrap_content"
         android:layout_height="25dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/shape_view"
         android:drawableLeft="@drawable/ic_person"
         android:drawablePadding="5dp"
@@ -20,6 +20,7 @@
         android:inputType="textEmailAddress"
         android:paddingLeft="5dp"
         android:textColorHint="@color/grayAtHome"
+        app:fontFamily="@font/montserrat"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewRegistration" />
@@ -37,6 +38,7 @@
         android:inputType="textPassword"
         android:paddingLeft="5dp"
         android:textColorHint="@color/grayAtHome"
+        app:fontFamily="@font/montserrat"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registrationEmail" />
@@ -46,12 +48,13 @@
         android:id="@+id/registrationBtn"
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/greybutton"
         android:text="@string/registrationButton"
         android:textAllCaps="false"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:textSize="14sp"
+        app:fontFamily="@font/montserrat"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registrationPassword" />
@@ -61,7 +64,7 @@
         android:id="@+id/textViewRegistration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:text="@string/registrationTextView"
         android:textColor="@color/grayAtHome"
         android:textSize="60sp"

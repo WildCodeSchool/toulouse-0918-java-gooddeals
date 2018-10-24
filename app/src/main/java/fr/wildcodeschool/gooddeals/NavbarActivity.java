@@ -1,5 +1,6 @@
 package fr.wildcodeschool.gooddeals;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,9 +14,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -79,6 +84,7 @@ public class NavbarActivity extends AppCompatActivity
 
         NavigationView navigationView = findViewById(R.id.nav_view);
 
+
         navigationView.setNavigationItemSelectedListener(this);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -91,11 +97,23 @@ public class NavbarActivity extends AppCompatActivity
             fragmentTransaction.commit();
         }
         View headerview = navigationView.getHeaderView(0);
+        ImageView imageUser = headerview.findViewById(R.id.imageDeal);
+        TextView pseudoTv = headerview.findViewById(R.id.pseudo_header);
         TextView headerEmailUser = headerview.findViewById(R.id.emailUser_text_view);
+        Menu navigationViewMenu = navigationView.getMenu();
         Singleton singleton = Singleton.getInstance();
         if (singleton.getLogModel() != null) {
             headerEmailUser.setVisibility(View.VISIBLE);
+            pseudoTv.setVisibility(View.VISIBLE);
+            navigationViewMenu.findItem(R.id.nav_login).setVisible(false);
+            navigationViewMenu.findItem(R.id.nav_logout).setVisible(true);
             headerEmailUser.setText(singleton.getLogModel().getEmail());
+            pseudoTv.setText(singleton.getLogModel().getPseudo());
+            Glide.with(getApplicationContext())
+                    .load(singleton.getLogModel().getPhoto())
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(imageUser);
+
             headerview.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -108,6 +126,14 @@ public class NavbarActivity extends AppCompatActivity
             });
 
         }
+
+        ImageButton filter_button = findViewById(R.id.filterButton);
+        filter_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(NavbarActivity.this, FilterActivity.class));
+            }
+        });
     }
 
     @Override
