@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -200,5 +201,30 @@ public class MapFragment extends android.support.v4.app.Fragment implements OnMa
                 }
             }
         }
+    }
+
+    public void showFilters(TextView tvFiltre) {
+        tvFiltre.setVisibility(View.VISIBLE);
+
+    }
+
+    public void dontShowFilters(TextView tvFiltre, TextView tvFiltreAlpinisme, TextView tvFiltreAviron, TextView tvFiltreCanoe
+            , TextView tvFiltreCanyonisme, TextView tvFiltreCourse, TextView tvFiltreEcalade, TextView tvFiltreNatation
+            , TextView tvFiltreVoile, TextView tvFiltreRando, TextView tvFiltreSpeleo, TextView tvFiltreYoga
+            , TextView tvFiltrePlonge, TextView tvNotFiltre) {
+        tvFiltre.setVisibility(View.INVISIBLE);
+        tvFiltreAlpinisme.setVisibility(View.INVISIBLE);
+        tvFiltreAviron.setVisibility(View.INVISIBLE);
+        tvFiltreCanoe.setVisibility(View.INVISIBLE);
+        tvFiltreCanyonisme.setVisibility(View.INVISIBLE);
+        tvFiltreCourse.setVisibility(View.INVISIBLE);
+        tvFiltreEcalade.setVisibility(View.INVISIBLE);
+        tvFiltreNatation.setVisibility(View.INVISIBLE);
+        tvFiltreVoile.setVisibility(View.INVISIBLE);
+        tvFiltreRando.setVisibility(View.INVISIBLE);
+        tvFiltreSpeleo.setVisibility(View.INVISIBLE);
+        tvFiltreYoga.setVisibility(View.INVISIBLE);
+        tvFiltrePlonge.setVisibility(View.INVISIBLE);
+        tvNotFiltre.setVisibility(View.INVISIBLE);
     }
 }

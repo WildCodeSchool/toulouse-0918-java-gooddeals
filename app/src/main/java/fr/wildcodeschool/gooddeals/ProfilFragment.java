@@ -99,8 +99,6 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
                     }
                 });
 
-        /*((Button) rootView.findViewById(R.id.buttonPhoto))
-                .setOnClickListener(new View.OnClickListener() {*/
         ImageView imgFavorite = rootView.findViewById(R.id.imageViewPhoto);
         imgFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,9 +119,6 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
             }
         });
         mProgressBar = rootView.findViewById(R.id.progressBar);
-        /*Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
-        TextView titleProfil = toolbar.findViewById(R.id.toolbar_title);
-        titleProfil.setText("MON PROFIL");*/
 
         return rootView;
     }

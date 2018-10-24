@@ -187,7 +187,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                 Uri personPhoto = acct.getPhotoUrl();
 
                 Intent intent = new Intent(this,NavbarActivity.class);
-                //intent.putExtra("fragmentNumber",1); //for example
                 startActivity(intent);
             }
 
