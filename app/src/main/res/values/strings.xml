@@ -20,7 +20,7 @@
     <string name="unableCurrentLocation">Position actuelle invalide</string>
     <string name="mapRequests">Affichage de la carte impossible</string>
     <string name="se_connecter">Se connecter</string>
-    <string name="map">Map</string>
+    <string name="map">Carte des deals</string>
     <string name="liste_des_deals">Liste des deals</string>
     <string name="se_logout">Se déconnecter</string>
     <string name="pop_up">Pop Up</string>
@@ -35,7 +35,7 @@
     <string name="titleShare">SHARE YOUR GOOD DEAL</string>
     <string name="loginEmail">Email</string>
     <string name="loginPassword">Mot de passe</string>
-    <string name="loginButton">Se Connecter</string>
+    <string name="loginButton">Se connecter</string>
     <string name="loginButtonRegistration">Enregistrez-vous ici!</string>
     <string name="loginTextView">Good Deals</string>
     <string name="fill_all_fields" />

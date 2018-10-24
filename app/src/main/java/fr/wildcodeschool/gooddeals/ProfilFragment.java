@@ -17,7 +17,9 @@ import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
@@ -119,6 +121,10 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
             }
         });
         mProgressBar = rootView.findViewById(R.id.progressBar);
+        /*Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        TextView titleProfil = toolbar.findViewById(R.id.toolbar_title);
+        titleProfil.setText("MON PROFIL");*/
+
         return rootView;
     }
 

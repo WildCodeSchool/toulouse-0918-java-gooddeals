@@ -5,14 +5,16 @@
     android:id="@+id/splash_back"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="#EBE2BF"
     tools:context=".SplashActivity">
 
     <ImageView
         android:id="@+id/image_logo"
         android:layout_width="241dp"
         android:layout_height="201dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginTop="312dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,13 +23,13 @@
 
     <TextView
         android:id="@+id/text_good"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="60dp"
         android:lineSpacingExtra="18sp"
         android:text="@string/good"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/grayAtHome"
+        android:textColor="#00F997"
         android:textIsSelectable="true"
         android:textSize="80sp"
         android:typeface="sans"
@@ -38,20 +40,19 @@
 
     <TextView
         android:id="@+id/text_deals"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="184dp"
+        android:layout_marginTop="172dp"
+        android:background="#00F997"
         android:lineSpacingExtra="18sp"
         android:text="@string/deals"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/grayAtHome"
+        android:textColor="@android:color/black"
         android:textSize="80sp"
         android:typeface="sans"
         app:fontFamily="@font/montserrat"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

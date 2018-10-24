@@ -4,21 +4,21 @@
     android:id="@+id/headerNav"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
-    android:background="@drawable/backgroundgreen"
+    android:background="@drawable/background1"
     android:clickable="true"
     android:focusable="true"
     android:gravity="bottom"
     android:orientation="vertical"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
         android:id="@+id/imageDeal"
-        android:layout_width="100sp"
-        android:layout_height="100sp"
+        android:layout_width="90sp"
+        android:layout_height="90sp"
         android:contentDescription="@string/nav_header_desc"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         app:srcCompat="@mipmap/ic_launcher_round" />
@@ -26,17 +26,20 @@
     <TextView
         android:id="@+id/pseudo_header"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:layout_height="20dp"
         android:text="@string/nav_header_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:visibility="invisible"/>
+        android:textSize="14sp"
+        android:visibility="invisible"
+        app:fontFamily="@font/montserrat" />
 
     <TextView
         android:id="@+id/emailUser_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
         android:text="@string/nav_header_subtitle"
-        android:visibility="invisible" />
+        android:textSize="14sp"
+        android:visibility="gone"
+        app:fontFamily="@font/montserrat" />
 
 </LinearLayout>
