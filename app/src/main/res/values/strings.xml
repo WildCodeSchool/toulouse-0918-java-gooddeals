@@ -41,7 +41,7 @@
     <string name="fill_all_fields" />
     <string name="registrationEmail">Email</string>
     <string name="registrationPassword">Mot de passe</string>
-    <string name="registrationButton">Sinscrire</string>
+    <string name="registrationButton">Inscription</string>
     <string name="registrationTextView">Good Deals</string>
     <string name="error_login_fields">Merci de renseigner votre email et votre mot de passe</string>
 
@@ -61,7 +61,14 @@
     <string name="auth_fail">Authentication failed</string>
     <string name="connected">vous êtes connecté</string>
     <string name="disconnected">Vous êtes déconnecté</string>
+    <string name="pour_manger_filter">Pour manger</string>
+    <string name="aperos_filter">Apéros</string>
+    <string name="friandises_filter">Friandises</string>
+    <string name="bien_etre_filter">Bien être</string>
+    <string name="loisir_filter">Loisir</string>
+    <string name="text_butfilter">OK</string>
     <string name="erreur_chargement">Erreur de chragement de la base de données</string>
+
 
 
 </resources>

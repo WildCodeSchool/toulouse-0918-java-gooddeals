@@ -5,7 +5,7 @@
     android:id="@+id/splash_back"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/gradationninverse"
     tools:context=".SplashActivity">
 
     <ImageView
