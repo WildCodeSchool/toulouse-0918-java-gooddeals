@@ -35,6 +35,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="url" value="jar:file:/opt/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/maps/ic_map_black_24dp.xml" />
+                                                <entry key="url" value="jar:file:/snap/android-studio/69/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_lock_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="372dp"
+        app:layout_constraintBottom_toTopOf="@+id/but_filter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/choixDeal">
+
+        <CheckBox
+            android:id="@+id/pour_manger"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginRight="2dp"
+            android:text="@string/pour_manger_filter"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/aperos_filter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="spread_inside" />
+
+        <CheckBox
+            android:id="@+id/aperos_filter"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:text="@string/aperos_filter"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/friandises_filter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pour_manger" />
+
+        <CheckBox
+            android:id="@+id/friandises_filter"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:lineSpacingExtra="18sp"
+            android:text="@string/friandises_filter"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/bien_etre_filter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/aperos_filter" />
+
+        <CheckBox
+            android:id="@+id/bien_etre_filter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/bien_etre_filter"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/loisir_filter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/friandises_filter" />
+
+        <CheckBox
+            android:id="@+id/loisir_filter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/loisirs_filter"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bien_etre_filter" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <Button
+        android:id="@+id/but_filter"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:background="@drawable/greybutton"
+        android:text="@string/text_butfilter"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+    <TextView
+        android:id="@+id/choixDeal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="30sp"
+        app:fontFamily="@font/montserrat"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Filtres" />
+</android.support.constraint.ConstraintLayout>

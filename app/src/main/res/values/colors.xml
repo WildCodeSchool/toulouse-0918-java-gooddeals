@@ -5,5 +5,9 @@
     <color name="colorAccent">#01c145</color>
     <color name="colorGreenDark">#297644</color>
     <color name="grayAtHome">#5f5f6b</color>
+    <color name="greenLow">#4d9d10</color>
+    <color name="whiteAtHome">#f0f2ee</color>
+    <color name="greenDrawer">#75ae1f</color>
+    <color name="backgroundbeige">#EBE2BF</color>
 
 </resources>

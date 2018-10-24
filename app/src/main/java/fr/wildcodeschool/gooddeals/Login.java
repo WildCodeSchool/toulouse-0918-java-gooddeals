@@ -147,7 +147,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                             Toast.makeText(Login.this, R.string.error_login_fields, Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
-
                     }
                 });
     }
