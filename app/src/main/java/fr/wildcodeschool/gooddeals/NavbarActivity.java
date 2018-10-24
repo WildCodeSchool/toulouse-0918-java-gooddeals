@@ -134,6 +134,14 @@ public class NavbarActivity extends AppCompatActivity
                 startActivity(new Intent(NavbarActivity.this, FilterActivity.class));
             }
         });
+
+        Intent intent = getIntent();
+        boolean pourManger = intent.getBooleanExtra("filter_manger",false);
+        boolean friandises = intent.getBooleanExtra("filter_friandises",false);
+        boolean bienEtre = intent.getBooleanExtra("filter_bienEtre",false);
+        boolean loisirs = intent.getBooleanExtra("filter_loisirs",false);
+        boolean aperos = intent.getBooleanExtra("filter_aperos",false);
+
     }
 
     @Override
