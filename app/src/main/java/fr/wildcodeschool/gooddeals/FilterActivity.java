@@ -3,6 +3,7 @@ package fr.wildcodeschool.gooddeals;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -30,6 +31,11 @@ public class FilterActivity extends AppCompatActivity {
         final CheckBox friandisesBox = findViewById(R.id.friandises_filter);
         final CheckBox bienEtreBox = findViewById(R.id.bien_etre_filter);
         final CheckBox loisirsBox = findViewById(R.id.loisir_filter);
+        pourMangerBox.setTypeface(ResourcesCompat.getFont(FilterActivity.this, R.font.montserrat));
+        aperoBox.setTypeface(ResourcesCompat.getFont(FilterActivity.this, R.font.montserrat));
+        friandisesBox.setTypeface(ResourcesCompat.getFont(FilterActivity.this, R.font.montserrat));
+        bienEtreBox.setTypeface(ResourcesCompat.getFont(FilterActivity.this, R.font.montserrat));
+        loisirsBox.setTypeface(ResourcesCompat.getFont(FilterActivity.this, R.font.montserrat));
 
         Button filterButton = findViewById(R.id.but_filter);
         filterButton.setOnClickListener(new View.OnClickListener() {

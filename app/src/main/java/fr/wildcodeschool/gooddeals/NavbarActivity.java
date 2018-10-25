@@ -54,29 +54,6 @@ public class NavbarActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        bmb = findViewById(R.id.bmb);
-        assert bmb != null;
-        bmb.setButtonEnum(ButtonEnum.Ham);
-        for (int i = 0; i < bmb.getPiecePlaceEnum().pieceNumber(); i++) {
-
-            if (i == 0) {
-                HamButton.Builder builder = getHamButtonBuilderFilter("Pour Manger");
-                bmb.addBuilder(builder);
-            } else if (i == 1) {
-                HamButton.Builder builder = getHamButtonBuilderFilter("Apéro");
-                bmb.addBuilder(builder);
-            } else if (i == 2) {
-                HamButton.Builder builder = getHamButtonBuilderFilter("Friandises");
-                bmb.addBuilder(builder);
-            } else if (i == 3) {
-                HamButton.Builder builder = getHamButtonBuilderFilter("Bien-être");
-                bmb.addBuilder(builder);
-            } else if (i == 4) {
-                HamButton.Builder builder = getHamButtonBuilderFilter("Loisirs");
-                bmb.addBuilder(builder);
-            }
-        }
-
         final DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
