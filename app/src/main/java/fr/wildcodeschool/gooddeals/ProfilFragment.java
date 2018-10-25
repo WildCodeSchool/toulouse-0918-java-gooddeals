@@ -45,7 +45,7 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
     private Bitmap bmp;
     private StorageReference mStorageRef;
     private StorageReference photoStorageRef;
-    private DatabaseReference mDatabaseRef; //ne sert pas car pas d'envoie de titleFile
+    private DatabaseReference mDatabaseRef;
     private ProgressBar mProgressBar;
     private UploadTask uploadTask;
     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

@@ -24,7 +24,49 @@ public class ListFragment extends android.support.v4.app.Fragment {
         final ListView listDeals = getView().findViewById(R.id.list_view_deals);
         DealSingleton dealSingleton = DealSingleton.getInstance();
         final ArrayList<Deal> deals = dealSingleton.getDealArrayList();
-        final DealsAdapter adapter = new DealsAdapter(listDeals.getContext(), deals);
+
+
+        ArrayList<Deal> dealsFilter = new ArrayList<>();
+
+        Bundle mBundle = this.getArguments();
+        if (mBundle != null) {
+            boolean pourManger = mBundle.getBoolean("filter_manger", true);
+            boolean friandises = mBundle.getBoolean("filter_friandises", true);
+            boolean bienEtre = mBundle.getBoolean("filter_bienEtre", true);
+            boolean loisirs = mBundle.getBoolean("filter_loisirs", true);
+            boolean aperos = mBundle.getBoolean("filter_aperos", true);
+            for (Deal deal : deals) {
+                switch (deal.getType()) {
+
+                    case "Pour Manger":
+                        if (pourManger) {
+                            dealsFilter.add(deal);
+                        }
+                        break;
+                    case "Apéro":
+                        if (aperos) {
+                            dealsFilter.add(deal);
+                        }
+                        break;
+                    case "Friandises":
+                        if (friandises) {
+                            dealsFilter.add(deal);
+                        }
+                        break;
+                    case "Bien-être":
+                        if (bienEtre) {
+                            dealsFilter.add(deal);
+                        }
+                        break;
+                    case "Loisirs":
+                        if (loisirs) {
+                            dealsFilter.add(deal);
+                        }
+                        break;
+                }
+            }
+        }
+        final DealsAdapter adapter = new DealsAdapter(listDeals.getContext(), dealsFilter);
 
         listDeals.setAdapter(adapter);
         listDeals.setOnItemClickListener(new AdapterView.OnItemClickListener() {
