@@ -48,7 +48,7 @@ import java.io.OutputStream;
 import static android.app.Activity.RESULT_OK;
 
 public class ProfilFragment extends android.support.v4.app.Fragment {
-    static final int CAMERA_REQUEST = 3245;
+    static final int CAMERA_REQUEST = 3000;
     private static final int SELECT_PICTURE = 1000;
     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     final FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
@@ -81,16 +81,17 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
             }
         });
 
-        // Button delete
+
         Button delete = rootView.findViewById(R.id.profile_activity_button_delete);
         ImageView imgFavorite = rootView.findViewById(R.id.imageViewPhoto);
         EditText editPseudo = rootView.findViewById(R.id.edit_text_pseudo);
+
 
         Singleton singleton = Singleton.getInstance();
         LoginModel loginModel = singleton.getLogModel();
         boolean hasPhoto = false;
         if (loginModel != null) {
-            if(loginModel.getPseudo() != null) {
+            if (loginModel.getPseudo() != null) {
                 editPseudo.getText().append(loginModel.getPseudo());
             }
             if (loginModel.getPhoto() != null) {
@@ -110,6 +111,7 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
                     .into(imgFavorite);
         }
 
+        // Button delete
         delete.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -142,13 +144,11 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
             }
         });
 
-
-
-
         return rootView;
+
     }
 
-    private void selectImage() {
+    public void selectImage() {
 
 
         final CharSequence[] options = {"Prendre une photo", "Choisir dans la galerie", "Annuler"};
@@ -164,7 +164,7 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
 
             public void onClick(DialogInterface dialog, int item) {
 
-                if (options[item].equals("Ajouter une photo!"))
+                if (options[item].equals("Prendre une photo"))
 
                 {
 
@@ -174,7 +174,7 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
 
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
 
-                    startActivityForResult(intent, 3245);
+                    startActivityForResult(intent, 3000);
 
                 } else if (options[item].equals("Choisir dans la galerie"))
 
@@ -189,16 +189,14 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
 
                     dialog.dismiss();
 
-
                 }
 
             }
 
         });
 
-
-            builder.show();
-        }
+        builder.show();
+    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -209,28 +207,9 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         ImageView mImageView = getView().findViewById(R.id.imageViewPhoto);
-        /*if (requestCode == SELECT_PICTURE && resultCode == RESULT_OK // si on selectionne image
-                && data != null && data.getData() != null) {
-            mImageUri = data.getData();
-            Glide.with(getActivity()).load(mImageUri).into(mImageView);
-        }
-        // CAMERA
-        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
-            bmp = (Bitmap) data.getExtras().get("data");
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-
-            bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            byte[] byteArray = stream.toByteArray();
-
-            // convert byte array to Bitmap
-            Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0,
-                    byteArray.length);
-            mImageView.setImageBitmap(bitmap);
-
-        }*/
         if (resultCode == RESULT_OK) {
 
-            if (requestCode == 3245) {
+            if (requestCode == 3000) {
 
                 File f = new File(Environment.getExternalStorageDirectory().toString());
 
@@ -253,20 +232,15 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
                     BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
 
 
-
                     bitmap = BitmapFactory.decodeFile(f.getAbsolutePath(),
 
                             bitmapOptions);
 
-
-
                     mImageView.setImageBitmap(bitmap);
-                    //mImageUri = data.getData();
                     Glide.with(getActivity())
                             .load(bitmap)
                             .apply(RequestOptions.circleCropTransform())
                             .into(mImageView);
-
                     String path = Environment
 
                             .getExternalStorageDirectory()
@@ -341,11 +315,9 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
 
             }
 
-            }
-
         }
 
-
+    }
 
     // METHODE POUR GERER L'EXTENSION DE L'IMAGE (JPEG...)
     private String getFileExtension(Uri uri) {
@@ -362,9 +334,8 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
     }
 
     // METHODE UPLOAD GALLERY
-
     public void uploadFile() {
-        if (mImageUri != null) {
+        if (mImageUri != null ) {
             //TROUVER LE CHEMIN DANS LE PHONE
             StorageReference fileReference = mStorageRef.child(System.currentTimeMillis()
                     + "." + getFileExtension(mImageUri));
@@ -400,6 +371,7 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
         }
 
     }
+
 }
 
 
