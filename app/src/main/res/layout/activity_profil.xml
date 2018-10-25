@@ -17,7 +17,7 @@
         android:layout_marginStart="8dp"
         android:background="#EBE2BF"
         android:stateListAnimator="@null"
-        android:text="Supprimer mon compte"
+        android:text="@string/supprimer_mon_compte"
         android:textAllCaps="false"
         android:textColor="@color/grayAtHome"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -55,7 +55,7 @@
         android:layout_marginBottom="84dp"
         android:background="@drawable/greybutton"
         android:clickable="true"
-        android:text="valider"
+        android:text="@string/valider"
         android:textColor="@color/grayAtHome"
         app:layout_constraintBottom_toTopOf="@+id/profile_activity_button_delete"
         app:layout_constraintEnd_toEndOf="parent"
@@ -70,7 +70,7 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/shape_view"
         android:ems="10"
-        android:hint="Choisis ton pseudo"
+        android:hint="@string/choisir_son_pseudo"
         android:inputType="textPersonName"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:textColorHint="@color/grayAtHome"
@@ -82,7 +82,7 @@
         app:layout_constraintVertical_bias="0.312" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/icone_photo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

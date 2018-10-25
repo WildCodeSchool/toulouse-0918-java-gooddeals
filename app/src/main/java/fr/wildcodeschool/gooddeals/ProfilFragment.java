@@ -66,7 +66,6 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
         photoStorageRef = FirebaseStorage.getInstance().getReference("upload photos"); // ref CAMERA to FB
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
 
-
         final View rootView = inflater.inflate(R.layout.activity_profil, container, false);
 
         // BUTTON POUR UPLOAD TO FIREBASE STORAGE + BIND A LA METHOD UPLOADFILE()
@@ -88,7 +87,7 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
         LoginModel loginModel = singleton.getLogModel();
         boolean hasPhoto = false;
         if (loginModel != null) {
-            if(loginModel.getPseudo() != null) {
+            if (loginModel.getPseudo() != null) {
                 editPseudo.getText().append(loginModel.getPseudo());
             }
             if (loginModel.getPhoto() != null) {
@@ -98,16 +97,13 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
                         .apply(RequestOptions.circleCropTransform())
                         .into(imgFavorite);
             }
-
         }
         if (!hasPhoto) {
-
             Glide.with(getActivity())
                     .load(R.drawable.licorne)
                     .apply(RequestOptions.circleCropTransform())
                     .into(imgFavorite);
         }
-
         delete.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -125,87 +121,50 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
                                 FirebaseAuth.getInstance().signOut();
                                 Singleton.getInstance().singleClear();
                                 startActivity(new Intent(getActivity(), NavbarActivity.class));
-
                             }
                         })
                         .setNegativeButton("Non", null)
                         .show();
-
             }
         });
-
         imgFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 selectImage();
             }
         });
-
-
-
-
         return rootView;
-
     }
 
     private void selectImage() {
-
-
-        final CharSequence[] options = {"Prendre une photo", "Choisir dans la galerie", "Annuler"};
-
-
+        final CharSequence[] options = {getString(R.string.take_picture), getString(R.string.choose_picture), getString(R.string.cancel)};
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
-        builder.setTitle("Ajouter une photo!");
-
+        builder.setTitle(R.string.add_pic);
         builder.setItems(options, new DialogInterface.OnClickListener() {
 
             @Override
 
             public void onClick(DialogInterface dialog, int item) {
-
-                if (options[item].equals("Ajouter une photo!"))
-
-                {
-
+                if (options[item].equals(R.string.add_pic)) {
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
                     File f = new File(android.os.Environment.getExternalStorageDirectory(), "temp.jpg");
-
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
-
                     startActivityForResult(intent, 3245);
-
-                } else if (options[item].equals("Choisir dans la galerie"))
-
-                {
-
+                } else if (options[item].equals(R.string.choose_picture)) {
                     Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
                     startActivityForResult(intent, 1000);
-
-
-                } else if (options[item].equals("Annuler")) {
-
+                } else if (options[item].equals(R.string.cancel)) {
                     dialog.dismiss();
-
-
                 }
-
             }
 
         });
-
-
         builder.show();
-
     }
-
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
     }
 
     @Override
@@ -213,131 +172,56 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         // GALLERY
         ImageView mImageView = getView().findViewById(R.id.imageViewPhoto);
-        /*if (requestCode == SELECT_PICTURE && resultCode == RESULT_OK // si on selectionne image
-                && data != null && data.getData() != null) {
-            mImageUri = data.getData();
-            Glide.with(getActivity()).load(mImageUri).into(mImageView);
-        }
-        // CAMERA
-        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
-            bmp = (Bitmap) data.getExtras().get("data");
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-
-            bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            byte[] byteArray = stream.toByteArray();
-
-            // convert byte array to Bitmap
-            Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0,
-                    byteArray.length);
-            mImageView.setImageBitmap(bitmap);
-
-        }*/
         if (resultCode == RESULT_OK) {
-
             if (requestCode == 3245) {
-
                 File f = new File(Environment.getExternalStorageDirectory().toString());
-
                 for (File temp : f.listFiles()) {
-
                     if (temp.getName().equals("temp.jpg")) {
-
                         f = temp;
-
                         break;
-
                     }
-
                 }
-
                 try {
-
                     Bitmap bitmap;
-
                     BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
-
-
                     bitmap = BitmapFactory.decodeFile(f.getAbsolutePath(),
-
                             bitmapOptions);
-
-
                     mImageView.setImageBitmap(bitmap);
-
-
                     String path = android.os.Environment
-
                             .getExternalStorageDirectory()
-
                             + File.separator
-
                             + "Phoenix" + File.separator + "default";
-
                     f.delete();
-
                     OutputStream outFile = null;
-
                     File file = new File(path, String.valueOf(System.currentTimeMillis()) + ".jpg");
-
                     try {
-
                         outFile = new FileOutputStream(file);
-
                         bitmap.compress(Bitmap.CompressFormat.JPEG, 85, outFile);
-
                         outFile.flush();
-
                         outFile.close();
-
                     } catch (FileNotFoundException e) {
-
                         e.printStackTrace();
-
                     } catch (IOException e) {
-
                         e.printStackTrace();
-
                     } catch (Exception e) {
-
                         e.printStackTrace();
-
                     }
-
                 } catch (Exception e) {
-
                     e.printStackTrace();
-
                 }
-
             } else if (requestCode == 1000) {
-
-
                 Uri selectedImage = data.getData();
-
                 String[] filePath = {MediaStore.Images.Media.DATA};
-
                 Cursor c = getActivity().getContentResolver().query(selectedImage, filePath, null, null, null);
-
                 c.moveToFirst();
-
                 int columnIndex = c.getColumnIndex(filePath[0]);
-
                 String picturePath = c.getString(columnIndex);
-
                 c.close();
-
                 Bitmap thumbnail = (BitmapFactory.decodeFile(picturePath));
-
                 Log.w("image from gallery", picturePath + "");
-
                 mImageView.setImageBitmap(thumbnail);
-
-
-
             }
-
         }
-
     }
 
     // METHODE POUR GERER L'EXTENSION DE L'IMAGE (JPEG...)
@@ -348,25 +232,21 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
     }
 
     // METHODE UPLOAD GALLERY
-
     public void uploadFile() {
         if (mImageUri != null) {
             //TROUVER LE CHEMIN DANS LE PHONE
             StorageReference fileReference = mStorageRef.child(System.currentTimeMillis()
                     + "." + getFileExtension(mImageUri));
-
             //NEW CODE REMPLACEMENT getDownloadUrl
             final String fileconext = fileReference.toString();
             final StorageReference ref = mStorageRef.child("uploads");
             uploadTask = ref.putFile(mImageUri);
-
             Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                 @Override
                 public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
                     if (!task.isSuccessful()) {
                         throw task.getException();
                     }
-
                     // Continue with the task to get the download URL
                     return ref.getDownloadUrl();
                 }

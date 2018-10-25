@@ -1,5 +1,6 @@
 package fr.wildcodeschool.gooddeals;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -134,6 +136,14 @@ public class NavbarActivity extends AppCompatActivity
                     .apply(RequestOptions.circleCropTransform())
                     .into(imageUser);
         }
+
+        ImageButton filter_button = findViewById(R.id.filterButton);
+        filter_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(NavbarActivity.this, FilterActivity.class));
+            }
+        });
     }
 
     @Override
