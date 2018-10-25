@@ -1,23 +1,16 @@
 package fr.wildcodeschool.gooddeals;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
-
-import java.util.ArrayList;
 
 public class FilterActivity extends AppCompatActivity {
 
-    ArrayList<String> selection = new ArrayList<String>();
-
-
-
-    public void finalSelection() {
-
-    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,32 +22,37 @@ public class FilterActivity extends AppCompatActivity {
         int height = dm.heightPixels;
         getWindow().setLayout((int) (width * .8), (int) (height * .8));
 
-        CheckBox pourMangerBox = findViewById(R.id.pour_manger);
-        CheckBox aperoBox = findViewById(R.id.aperos_filter);
-        CheckBox friandisesBox = findViewById(R.id.friandises_filter);
-        CheckBox bienEtreBox = findViewById(R.id.bien_etre_filter);
-        CheckBox loisirsBox = findViewById(R.id.loisir_filter);
+        final CheckBox pourMangerBox = findViewById(R.id.pour_manger);
+        final CheckBox aperoBox = findViewById(R.id.aperos_filter);
+        final CheckBox friandisesBox = findViewById(R.id.friandises_filter);
+        final CheckBox bienEtreBox = findViewById(R.id.bien_etre_filter);
+        final CheckBox loisirsBox = findViewById(R.id.loisir_filter);
+
+        Button filterButton = findViewById(R.id.but_filter);
+        filterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean pourManger = pourMangerBox.isChecked();
+                boolean friandises = friandisesBox.isChecked();
+                boolean bienEtre = bienEtreBox.isChecked();
+                boolean loisirs = loisirsBox.isChecked();
+                boolean aperos = aperoBox.isChecked();
+
+                Intent intent = new Intent(FilterActivity.this, NavbarActivity.class);
+                intent.putExtra("filter_manger",pourManger);
+                intent.putExtra("filter_aperos",aperos);
+                intent.putExtra("filter_friandises",friandises);
+                intent.putExtra("filter_bienEtre",bienEtre);
+                intent.putExtra("filter_loisirs",loisirs);
+                startActivity(intent);
+            }
 
 
-
-        }
-
-        /*
-
-    public void selectItem(View view) {
-
-        boolean checked = ((CheckBox) view). isChecked();
-        switch (view.getId()) {
-            case : R.id.pour_manger:
-
-        }
-
-        */
-
-
-
-
+        });
 
 
 
     }
+
+
+}
