@@ -67,7 +67,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/registrationTextView"
         android:textColor="@color/grayAtHome"
-        android:textSize="60sp"
+        android:textSize="30dp"
         app:fontFamily="@font/montserrat"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
