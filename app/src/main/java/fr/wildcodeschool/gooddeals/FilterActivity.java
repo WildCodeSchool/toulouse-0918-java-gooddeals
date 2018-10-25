@@ -9,16 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 
-import java.util.ArrayList;
-
 public class FilterActivity extends AppCompatActivity {
 
-    ArrayList<String> selection = new ArrayList<String>();
-
-
-    public void finalSelection() {
-
-    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,55 +53,6 @@ public class FilterActivity extends AppCompatActivity {
 
 
     }
-
-/*
-    public void selectItem(View view) {
-
-        boolean checked = ((CheckBox) view).isChecked();
-        switch (view.getId()) {
-            case :R.id.pour_manger:
-            if (checked) {
-                selection.add();
-            } else {
-                selection.remove();
-            }
-            break;
-
-            case :R.id.aperos_filter:
-            if (checked) {
-                selection.add();
-            } else {
-                selection.remove();
-            }
-            break;
-
-            case :R.id.friandises_filter:
-            if (checked) {
-                selection.add();
-            } else {
-                selection.remove();
-            }
-            break;
-
-            case :R.id.bien_etre_filter:
-            if (checked) {
-                selection.add();
-            } else {
-                selection.remove();
-            }
-            break;
-            case :R.id.loisir_filter:
-            if (checked) {
-                selection.add();
-            } else {
-                selection.remove();
-            }
-            break;
-
-
-        }
-
-    } */
 
 
 }
