@@ -27,4 +27,16 @@ public class LoginModel {
     public String getPseudo() {
         return pseudo;
     }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public void setPseudo(String pseudo) {
+        this.pseudo = pseudo;
+    }
 }

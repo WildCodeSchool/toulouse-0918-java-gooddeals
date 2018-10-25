@@ -1,6 +1,5 @@
 package fr.wildcodeschool.gooddeals;
 
-import android.content.ClipData;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,22 +23,12 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.nightonke.boommenu.BoomButtons.HamButton;
-import com.nightonke.boommenu.BoomMenuButton;
-import com.nightonke.boommenu.ButtonEnum;
-
-import java.util.ArrayList;
-
-import static fr.wildcodeschool.gooddeals.BuilderManager.getHamButtonBuilderFilter;
 
 public class NavbarActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public static final String ATHOME_URL = "https://www.athome-startup.fr/";
-    private BoomMenuButton bmb;
-    private ArrayList<Deal> deals = new ArrayList<>();
 
-    private FirebaseAuth mAuth;
     private Bundle mBundle;
     private String mCurrentFragment = null;
 
@@ -47,9 +36,6 @@ public class NavbarActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.drawer_navbar);
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference dealRef = database.getReference("deal");
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -62,8 +48,6 @@ public class NavbarActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
-
-
         navigationView.setNavigationItemSelectedListener(this);
 
         Intent intent = getIntent();
@@ -100,11 +84,27 @@ public class NavbarActivity extends AppCompatActivity
             mCurrentFragment = "map";
             ft.commit();
         }
+
+        ImageButton filter_button = findViewById(R.id.filterButton);
+        filter_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goToFilterActivity = new Intent(NavbarActivity.this, FilterActivity.class);
+                goToFilterActivity.putExtra("CURRENT_FRAGMENT", mCurrentFragment);
+                startActivity(goToFilterActivity);
+            }
+        });
+        updateUserProfile();
+    }
+
+    private void updateUserProfile() {
+        NavigationView navigationView = findViewById(R.id.nav_view);
         View headerview = navigationView.getHeaderView(0);
         ImageView imageUser = headerview.findViewById(R.id.imageDeal);
         TextView pseudoTv = headerview.findViewById(R.id.pseudo_header);
         TextView headerEmailUser = headerview.findViewById(R.id.emailUser_text_view);
         Menu navigationViewMenu = navigationView.getMenu();
+
         Singleton singleton = Singleton.getInstance();
         boolean hasPhoto = false;
         if (singleton.getLogModel() != null) {
@@ -130,6 +130,7 @@ public class NavbarActivity extends AppCompatActivity
                     FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                     ft.replace(R.id.ftMain, new ProfilFragment());
                     ft.commit();
+                    DrawerLayout drawer = findViewById(R.id.drawer_layout);
                     drawer.closeDrawers();
                 }
             });
@@ -141,16 +142,6 @@ public class NavbarActivity extends AppCompatActivity
                     .apply(RequestOptions.circleCropTransform())
                     .into(imageUser);
         }
-
-        ImageButton filter_button = findViewById(R.id.filterButton);
-        filter_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent goToFilterActivity = new Intent(NavbarActivity.this, FilterActivity.class);
-                goToFilterActivity.putExtra("CURRENT_FRAGMENT", mCurrentFragment);
-                startActivity(goToFilterActivity);
-            }
-        });
     }
 
     @Override
@@ -210,6 +201,7 @@ public class NavbarActivity extends AppCompatActivity
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+        updateUserProfile();
         return true;
     }
 }
