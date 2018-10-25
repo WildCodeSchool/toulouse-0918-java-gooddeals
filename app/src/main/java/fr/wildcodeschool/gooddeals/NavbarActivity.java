@@ -26,6 +26,7 @@ public class NavbarActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public static final String ATHOME_URL = "https://www.athome-startup.fr/";
+
     private Bundle mBundle;
     private String mCurrentFragment = null;
 
@@ -45,8 +46,6 @@ public class NavbarActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
-
-
         navigationView.setNavigationItemSelectedListener(this);
 
         Intent intent = getIntent();
@@ -83,36 +82,6 @@ public class NavbarActivity extends AppCompatActivity
             mCurrentFragment = "map";
             ft.commit();
         }
-        View headerview = navigationView.getHeaderView(0);
-        ImageView imageUser = headerview.findViewById(R.id.imageDeal);
-        TextView pseudoTv = headerview.findViewById(R.id.pseudo_header);
-        TextView headerEmailUser = headerview.findViewById(R.id.emailUser_text_view);
-        Menu navigationViewMenu = navigationView.getMenu();
-        Singleton singleton = Singleton.getInstance();
-        if (singleton.getLogModel() != null) {
-            headerEmailUser.setVisibility(View.VISIBLE);
-            pseudoTv.setVisibility(View.VISIBLE);
-            navigationViewMenu.findItem(R.id.nav_login).setVisible(false);
-            navigationViewMenu.findItem(R.id.nav_logout).setVisible(true);
-            headerEmailUser.setText(singleton.getLogModel().getEmail());
-            pseudoTv.setText(singleton.getLogModel().getPseudo());
-            Glide.with(getApplicationContext())
-                    .load(singleton.getLogModel().getPhoto())
-                    .apply(RequestOptions.circleCropTransform())
-                    .into(imageUser);
-
-            headerview.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                    ft.replace(R.id.ftMain, new ProfilFragment());
-                    ft.commit();
-                    drawer.closeDrawers();
-                }
-            });
-
-        }
 
         ImageButton filter_button = findViewById(R.id.filterButton);
         filter_button.setOnClickListener(new View.OnClickListener() {
@@ -123,8 +92,54 @@ public class NavbarActivity extends AppCompatActivity
                 startActivity(goToFilterActivity);
             }
         });
+        updateUserProfile();
+    }
+
+    private void updateUserProfile() {
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        View headerview = navigationView.getHeaderView(0);
+        ImageView imageUser = headerview.findViewById(R.id.imageDeal);
+        TextView pseudoTv = headerview.findViewById(R.id.pseudo_header);
+        TextView headerEmailUser = headerview.findViewById(R.id.emailUser_text_view);
+        Menu navigationViewMenu = navigationView.getMenu();
+
+        Singleton singleton = Singleton.getInstance();
+        boolean hasPhoto = false;
+        if (singleton.getLogModel() != null) {
+            headerEmailUser.setVisibility(View.VISIBLE);
+            pseudoTv.setVisibility(View.VISIBLE);
+            navigationViewMenu.findItem(R.id.nav_login).setVisible(false);
+            navigationViewMenu.findItem(R.id.nav_logout).setVisible(true);
+            headerEmailUser.setText(singleton.getLogModel().getEmail());
+            pseudoTv.setText(singleton.getLogModel().getPseudo());
+            if (singleton.getLogModel().getPhoto() != null) {
+                hasPhoto = true;
+                Glide.with(getApplicationContext())
+                        .load(singleton.getLogModel().getPhoto())
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(imageUser);
+            }
 
 
+            headerview.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                    ft.replace(R.id.ftMain, new ProfilFragment());
+                    ft.commit();
+                    DrawerLayout drawer = findViewById(R.id.drawer_layout);
+                    drawer.closeDrawers();
+                }
+            });
+
+        }
+        if (!hasPhoto) {
+            Glide.with(getApplicationContext())
+                    .load(R.drawable.licorne)
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(imageUser);
+        }
     }
 
     @Override
@@ -184,6 +199,7 @@ public class NavbarActivity extends AppCompatActivity
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+        updateUserProfile();
         return true;
     }
 }

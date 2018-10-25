@@ -1,63 +1,42 @@
 package fr.wildcodeschool.gooddeals;
 
 
-import android.os.Parcel;
-import android.os.Parcelable;
+public class LoginModel {
 
-public class LoginModel implements Parcelable {
+    private String email;
+    private String photo;
+    private String pseudo;
 
-        private String email;
-        private String photo;
-        private String pseudo;
-
-        public LoginModel(String email, String photo, String pseudo) {
-            this.email = email;
-            this.photo = photo;
-            this.pseudo = pseudo;
-        }
-
-        public String getEmail() {
-            return email;
-        }
-
-        public String getPhoto() {
-            return photo;
-        }
-        public String getPseudo() {
-            return pseudo;
-        }
-
-
-
-    protected LoginModel(Parcel in) {
-        email = in.readString();
-        photo = in.readString();
-        pseudo = in.readString();
+    public LoginModel(String email, String photo, String pseudo) {
+        this.email = email;
+        this.photo = photo;
+        this.pseudo = pseudo;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(email);
-        dest.writeString(photo);
-        dest.writeString(pseudo);
+    public LoginModel() {
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public String getEmail() {
+        return email;
     }
 
-    public static final Creator<LoginModel> CREATOR = new Creator<LoginModel>() {
-        @Override
-        public LoginModel createFromParcel(Parcel in) {
-            return new LoginModel(in);
-        }
+    public String getPhoto() {
+        return photo;
+    }
 
-        @Override
-        public LoginModel[] newArray(int size) {
-            return new LoginModel[size];
-        }
-    };
+    public String getPseudo() {
+        return pseudo;
+    }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public void setPseudo(String pseudo) {
+        this.pseudo = pseudo;
+    }
 }

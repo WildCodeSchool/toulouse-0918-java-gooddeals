@@ -23,7 +23,6 @@ public class FilterActivity extends AppCompatActivity {
         int height = dm.heightPixels;
         getWindow().setLayout((int) (width * .8), (int) (height * .8));
 
-
         final String currentFragment = getIntent().getStringExtra("CURRENT_FRAGMENT");
 
         final CheckBox pourMangerBox = findViewById(R.id.pour_manger);
@@ -56,8 +55,6 @@ public class FilterActivity extends AppCompatActivity {
                 intent.putExtra("CURRENT_FRAGMENT", currentFragment);
                 startActivity(intent);
             }
-
-
         });
     }
 }
