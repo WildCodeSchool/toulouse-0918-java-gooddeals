@@ -25,11 +25,11 @@ import java.util.List;
 public class BuilderManager {
 
     private static int[] imageResources = new int[]{
-            R.drawable.darkgreen_markeri,
-            R.drawable.red_markeri,
-            R.drawable.orange_markeri,
-            R.drawable.blue_markeri,
-            R.drawable.yellow_markeri,
+            R.drawable.pin,
+            R.drawable.pin_blue,
+            R.drawable.pin_violet,
+            R.drawable.pin_pink,
+            R.drawable.pin_red,
     };
 
     private static int imageResourceIndex = 0;
@@ -119,7 +119,7 @@ public class BuilderManager {
                             switch (deal.getType()){
 
                                 case "Pour Manger":
-                                    icon = R.drawable.darkgreen_markeri;
+                                    icon = R.drawable.pin;
                                     break;
                             }
 

@@ -41,6 +41,7 @@ public class NavbarActivity extends AppCompatActivity
 
     private FirebaseAuth mAuth;
     private Bundle mBundle;
+    private String mCurrentFragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,29 +55,6 @@ public class NavbarActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        bmb = findViewById(R.id.bmb);
-        assert bmb != null;
-        bmb.setButtonEnum(ButtonEnum.Ham);
-        for (int i = 0; i < bmb.getPiecePlaceEnum().pieceNumber(); i++) {
-
-            if (i == 0) {
-                HamButton.Builder builder = getHamButtonBuilderFilter("Pour Manger");
-                bmb.addBuilder(builder);
-            } else if (i == 1) {
-                HamButton.Builder builder = getHamButtonBuilderFilter("Apéro");
-                bmb.addBuilder(builder);
-            } else if (i == 2) {
-                HamButton.Builder builder = getHamButtonBuilderFilter("Friandises");
-                bmb.addBuilder(builder);
-            } else if (i == 3) {
-                HamButton.Builder builder = getHamButtonBuilderFilter("Bien-être");
-                bmb.addBuilder(builder);
-            } else if (i == 4) {
-                HamButton.Builder builder = getHamButtonBuilderFilter("Loisirs");
-                bmb.addBuilder(builder);
-            }
-        }
-
         final DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -84,14 +62,16 @@ public class NavbarActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
+
+
         navigationView.setNavigationItemSelectedListener(this);
 
         Intent intent = getIntent();
-        boolean pourManger = intent.getBooleanExtra("filter_manger",true);
-        boolean friandises = intent.getBooleanExtra("filter_friandises",true);
-        boolean bienEtre = intent.getBooleanExtra("filter_bienEtre",true);
-        boolean loisirs = intent.getBooleanExtra("filter_loisirs",true);
-        boolean aperos = intent.getBooleanExtra("filter_aperos",true);
+        boolean pourManger = intent.getBooleanExtra("filter_manger", true);
+        boolean friandises = intent.getBooleanExtra("filter_friandises", true);
+        boolean bienEtre = intent.getBooleanExtra("filter_bienEtre", true);
+        boolean loisirs = intent.getBooleanExtra("filter_loisirs", true);
+        boolean aperos = intent.getBooleanExtra("filter_aperos", true);
 
         mBundle = new Bundle();
         mBundle.putBoolean("filter_manger", pourManger);
@@ -104,6 +84,21 @@ public class NavbarActivity extends AppCompatActivity
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.ftMain, new ProfilFragment());
             fragmentTransaction.commit();
+            mCurrentFragment = "profil";
+        } else if ("list".equals(getIntent().getStringExtra("CURRENT_FRAGMENT"))) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ListFragment fragment = new ListFragment();
+            fragment.setArguments(mBundle);
+            ft.replace(R.id.ftMain, fragment);
+            mCurrentFragment = "list";
+            ft.commit();
+        } else {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            MapFragment fragment = new MapFragment();
+            fragment.setArguments(mBundle);
+            ft.replace(R.id.ftMain, fragment);
+            mCurrentFragment = "map";
+            ft.commit();
         }
         View headerview = navigationView.getHeaderView(0);
         ImageView imageUser = headerview.findViewById(R.id.imageDeal);
@@ -151,7 +146,9 @@ public class NavbarActivity extends AppCompatActivity
         filter_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(NavbarActivity.this, FilterActivity.class));
+                Intent goToFilterActivity = new Intent(NavbarActivity.this, FilterActivity.class);
+                goToFilterActivity.putExtra("CURRENT_FRAGMENT", mCurrentFragment);
+                startActivity(goToFilterActivity);
             }
         });
     }
@@ -192,12 +189,14 @@ public class NavbarActivity extends AppCompatActivity
             MapFragment mapFragment = new MapFragment();
             mapFragment.setArguments(mBundle);
             ft.replace(R.id.ftMain, mapFragment);
+            mCurrentFragment = "map";
             ft.commit();
         } else if (id == R.id.nav_liste) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ListFragment listFragment = new ListFragment();
             listFragment.setArguments(mBundle);
             ft.replace(R.id.ftMain, listFragment);
+            mCurrentFragment = "list";
             ft.commit();
         } else if (id == R.id.nav_logout) {
             FirebaseAuth.getInstance().signOut();

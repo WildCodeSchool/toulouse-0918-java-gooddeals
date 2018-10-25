@@ -107,6 +107,7 @@ public class MapFragment extends android.support.v4.app.Fragment implements OnMa
 
                 case "Pour Manger":
                     icon = R.drawable.pin;
+
                     break;
                 case "Apéro":
                     icon = R.drawable.pin_blue;

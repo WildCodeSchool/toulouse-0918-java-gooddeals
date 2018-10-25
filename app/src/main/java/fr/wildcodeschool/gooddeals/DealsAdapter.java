@@ -38,19 +38,19 @@ public class DealsAdapter extends ArrayAdapter {
         switch (deals.getType()){
 
             case "Pour Manger":
-                icons.setImageResource(R.drawable.darkgreen_markeri);
+                icons.setImageResource(drawable.pin);
                 break;
             case "Apéro":
-                icons.setImageResource(R.drawable.red_markeri);
+                icons.setImageResource(drawable.pin_blue);
                 break;
             case "Friandises":
-                icons.setImageResource(R.drawable.orange_markeri);
+                icons.setImageResource(drawable.pin_violet);
                 break;
             case "Bien-être":
-                icons.setImageResource(R.drawable.blue_markeri);
+                icons.setImageResource(drawable.pin_pink);
                 break;
             case "Loisirs":
-                icons.setImageResource(R.drawable.yellow_markeri);
+                icons.setImageResource(drawable.pin_red);
                 break;
         }
 
