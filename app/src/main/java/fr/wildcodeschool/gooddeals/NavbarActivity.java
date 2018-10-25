@@ -40,6 +40,7 @@ public class NavbarActivity extends AppCompatActivity
 
     private FirebaseAuth mAuth;
     private Bundle mBundle;
+    private String mCurrentFragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,11 +89,11 @@ public class NavbarActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         Intent intent = getIntent();
-        boolean pourManger = intent.getBooleanExtra("filter_manger",true);
-        boolean friandises = intent.getBooleanExtra("filter_friandises",true);
-        boolean bienEtre = intent.getBooleanExtra("filter_bienEtre",true);
-        boolean loisirs = intent.getBooleanExtra("filter_loisirs",true);
-        boolean aperos = intent.getBooleanExtra("filter_aperos",true);
+        boolean pourManger = intent.getBooleanExtra("filter_manger", true);
+        boolean friandises = intent.getBooleanExtra("filter_friandises", true);
+        boolean bienEtre = intent.getBooleanExtra("filter_bienEtre", true);
+        boolean loisirs = intent.getBooleanExtra("filter_loisirs", true);
+        boolean aperos = intent.getBooleanExtra("filter_aperos", true);
 
         mBundle = new Bundle();
         mBundle.putBoolean("filter_manger", pourManger);
@@ -105,11 +106,20 @@ public class NavbarActivity extends AppCompatActivity
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.ftMain, new ProfilFragment());
             fragmentTransaction.commit();
+            mCurrentFragment = "profil";
+        } else if ("list".equals(getIntent().getStringExtra("CURRENT_FRAGMENT"))) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ListFragment fragment = new ListFragment();
+            fragment.setArguments(mBundle);
+            ft.replace(R.id.ftMain, fragment);
+            mCurrentFragment = "list";
+            ft.commit();
         } else {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             MapFragment fragment = new MapFragment();
             fragment.setArguments(mBundle);
             ft.replace(R.id.ftMain, fragment);
+            mCurrentFragment = "map";
             ft.commit();
         }
         View headerview = navigationView.getHeaderView(0);
@@ -147,10 +157,11 @@ public class NavbarActivity extends AppCompatActivity
         filter_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(NavbarActivity.this, FilterActivity.class));
+                Intent goToFilterActivity = new Intent(NavbarActivity.this, FilterActivity.class);
+                goToFilterActivity.putExtra("CURRENT_FRAGMENT", mCurrentFragment);
+                startActivity(goToFilterActivity);
             }
         });
-
 
 
     }
@@ -191,12 +202,14 @@ public class NavbarActivity extends AppCompatActivity
             MapFragment mapFragment = new MapFragment();
             mapFragment.setArguments(mBundle);
             ft.replace(R.id.ftMain, mapFragment);
+            mCurrentFragment = "map";
             ft.commit();
         } else if (id == R.id.nav_liste) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ListFragment listFragment = new ListFragment();
             listFragment.setArguments(mBundle);
             ft.replace(R.id.ftMain, listFragment);
+            mCurrentFragment = "list";
             ft.commit();
         } else if (id == R.id.nav_logout) {
             FirebaseAuth.getInstance().signOut();
