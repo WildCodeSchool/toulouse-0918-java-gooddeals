@@ -144,14 +144,27 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                         if (task.isSuccessful()) {
                             Toast.makeText(Login.this, R.string.connected, Toast.LENGTH_SHORT).show();
                             Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            final FirebaseUser user = mAuth.getCurrentUser();
                             Singleton singleton = Singleton.getInstance();
-                            LoginModel loginModel = new LoginModel(personEmail, personPhoto, personName);
+                            final LoginModel loginModel = new LoginModel(personEmail, personPhoto, personName);
                             singleton.setLogModel(loginModel);
                             FirebaseDatabase database = FirebaseDatabase.getInstance();
-                            DatabaseReference myRef = database.getReference("User");
-                            myRef.child(user.getUid()).setValue(loginModel);
-                            updateUI(user);
+                            final DatabaseReference myRef = database.getReference("User");
+                            myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    if (dataSnapshot.hasChild(user.getUid())) {
+                                        updateUI(user);
+                                    } else {
+                                        myRef.child(user.getUid()).setValue(loginModel);
+                                        updateUI(user);
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                }
+                            });
                         } else {
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             Toast.makeText(Login.this, R.string.error_login_fields, Toast.LENGTH_SHORT).show();

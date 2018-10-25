@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -101,11 +102,13 @@ public class NavbarActivity extends AppCompatActivity
         ImageView imageUser = headerview.findViewById(R.id.imageDeal);
         TextView pseudoTv = headerview.findViewById(R.id.pseudo_header);
         TextView headerEmailUser = headerview.findViewById(R.id.emailUser_text_view);
+        ImageButton filterButton = findViewById(R.id.filterButton);
         Menu navigationViewMenu = navigationView.getMenu();
 
         Singleton singleton = Singleton.getInstance();
         boolean hasPhoto = false;
         if (singleton.getLogModel() != null) {
+            filterButton.setVisibility(View.VISIBLE);
             headerEmailUser.setVisibility(View.VISIBLE);
             pseudoTv.setVisibility(View.VISIBLE);
             navigationViewMenu.findItem(R.id.nav_login).setVisible(false);
