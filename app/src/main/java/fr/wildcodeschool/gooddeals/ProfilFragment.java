@@ -69,7 +69,6 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO : enregistrer le pseudo de la personne
                 uploadFile();
             }
         });
@@ -241,7 +240,9 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
                         Singleton singleton = Singleton.getInstance();
                         LoginModel loginModel = singleton.getLogModel();
                         loginModel.setPhoto(downloadUri.toString());
-                        // TODO : récupérer le pseudo et l'enregistrer dans loginModel
+                        EditText etPseudo = getActivity().findViewById(R.id.edit_text_pseudo);
+                        String pseudo = etPseudo.getText().toString();
+                        loginModel.setPseudo(pseudo);
                         myRef.child(user.getUid()).setValue(loginModel);
                         singleton.setLogModel(loginModel);
 
