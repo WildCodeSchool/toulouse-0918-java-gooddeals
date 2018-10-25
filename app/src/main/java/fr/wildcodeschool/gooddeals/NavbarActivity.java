@@ -21,8 +21,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class NavbarActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -54,8 +52,8 @@ public class NavbarActivity extends AppCompatActivity
         boolean pourManger = intent.getBooleanExtra("filter_manger", true);
         boolean friandises = intent.getBooleanExtra("filter_friandises", true);
         boolean bienEtre = intent.getBooleanExtra("filter_bienEtre", true);
-        boolean loisirs = intent.getBooleanExtra("filter_loisirs", true);
         boolean aperos = intent.getBooleanExtra("filter_aperos", true);
+        boolean loisirs = intent.getBooleanExtra("filter_loisirs", true);
 
         mBundle = new Bundle();
         mBundle.putBoolean("filter_manger", pourManger);
