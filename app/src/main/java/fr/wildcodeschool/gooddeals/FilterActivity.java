@@ -22,6 +22,9 @@ public class FilterActivity extends AppCompatActivity {
         int height = dm.heightPixels;
         getWindow().setLayout((int) (width * .8), (int) (height * .8));
 
+
+        final String currentFragment = getIntent().getStringExtra("CURRENT_FRAGMENT");
+
         final CheckBox pourMangerBox = findViewById(R.id.pour_manger);
         final CheckBox aperoBox = findViewById(R.id.aperos_filter);
         final CheckBox friandisesBox = findViewById(R.id.friandises_filter);
@@ -39,17 +42,17 @@ public class FilterActivity extends AppCompatActivity {
                 boolean aperos = aperoBox.isChecked();
 
                 Intent intent = new Intent(FilterActivity.this, NavbarActivity.class);
-                intent.putExtra("filter_manger",pourManger);
-                intent.putExtra("filter_aperos",aperos);
-                intent.putExtra("filter_friandises",friandises);
-                intent.putExtra("filter_bienEtre",bienEtre);
-                intent.putExtra("filter_loisirs",loisirs);
+                intent.putExtra("filter_manger", pourManger);
+                intent.putExtra("filter_aperos", aperos);
+                intent.putExtra("filter_friandises", friandises);
+                intent.putExtra("filter_bienEtre", bienEtre);
+                intent.putExtra("filter_loisirs", loisirs);
+                intent.putExtra("CURRENT_FRAGMENT", currentFragment);
                 startActivity(intent);
             }
 
 
         });
-
 
 
     }
