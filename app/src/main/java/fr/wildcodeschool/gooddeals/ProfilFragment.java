@@ -191,10 +191,14 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
         ImageView mImageView = getView().findViewById(R.id.imageViewPhoto);
         if (resultCode == RESULT_OK) {
             if (requestCode == CAMERA_REQUEST) {
-                Glide.with(mImageView.getContext()).load(mImageUri).into(mImageView);
+                Glide.with(mImageView.getContext()).load(mImageUri)
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(mImageView);
             } else if (requestCode == GALLERY_SELECT_PICTURE) {
                 mImageUri = data.getData();
-                Glide.with(mImageView.getContext()).load(mImageUri).into(mImageView);
+                Glide.with(mImageView.getContext()).load(mImageUri)
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(mImageView);
             }
         }
     }
@@ -242,8 +246,8 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
                         loginModel.setPseudo(pseudo);
                         myRef.child(user.getUid()).setValue(loginModel);
                         singleton.setLogModel(loginModel);
-
                         updateUserProfile();
+                        startActivity(new Intent(getActivity(),NavbarActivity.class));
                     } else {
                         // Handle failures
                         // ...

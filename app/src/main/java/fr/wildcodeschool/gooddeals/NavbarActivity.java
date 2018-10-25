@@ -83,14 +83,19 @@ public class NavbarActivity extends AppCompatActivity
             mCurrentFragment = "map";
             ft.commit();
         }
-
         ImageButton filter_button = findViewById(R.id.filterButton);
         filter_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent goToFilterActivity = new Intent(NavbarActivity.this, FilterActivity.class);
-                goToFilterActivity.putExtra("CURRENT_FRAGMENT", mCurrentFragment);
-                startActivity(goToFilterActivity);
+                Singleton singleton = Singleton.getInstance();
+                if (singleton.getLogModel() != null) {
+                    Intent goToFilterActivity = new Intent(NavbarActivity.this, FilterActivity.class);
+                    goToFilterActivity.putExtra("CURRENT_FRAGMENT", mCurrentFragment);
+                    startActivity(goToFilterActivity);
+                } else {
+                    Toast.makeText(NavbarActivity.this, R.string.acces_filtre, Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
         updateUserProfile();
@@ -102,13 +107,10 @@ public class NavbarActivity extends AppCompatActivity
         ImageView imageUser = headerview.findViewById(R.id.imageDeal);
         TextView pseudoTv = headerview.findViewById(R.id.pseudo_header);
         TextView headerEmailUser = headerview.findViewById(R.id.emailUser_text_view);
-        ImageButton filterButton = findViewById(R.id.filterButton);
         Menu navigationViewMenu = navigationView.getMenu();
-
         Singleton singleton = Singleton.getInstance();
         boolean hasPhoto = false;
         if (singleton.getLogModel() != null) {
-            filterButton.setVisibility(View.VISIBLE);
             headerEmailUser.setVisibility(View.VISIBLE);
             pseudoTv.setVisibility(View.VISIBLE);
             navigationViewMenu.findItem(R.id.nav_login).setVisible(false);
@@ -195,6 +197,7 @@ public class NavbarActivity extends AppCompatActivity
             Singleton.getInstance().singleClear();
             Toast.makeText(this, R.string.disconnected, Toast.LENGTH_SHORT).show();
             startActivity(new Intent(NavbarActivity.this, NavbarActivity.class));
+            finish();
         } else if (id == R.id.atHome_web) {
             Uri uri = Uri.parse(ATHOME_URL);
             startActivity(new Intent(Intent.ACTION_VIEW, uri));
