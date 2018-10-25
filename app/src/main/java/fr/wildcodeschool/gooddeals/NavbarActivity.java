@@ -1,6 +1,5 @@
 package fr.wildcodeschool.gooddeals;
 
-import android.content.ClipData;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -40,6 +39,7 @@ public class NavbarActivity extends AppCompatActivity
     private ArrayList<Deal> deals = new ArrayList<>();
 
     private FirebaseAuth mAuth;
+    private Bundle mBundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,14 +87,30 @@ public class NavbarActivity extends AppCompatActivity
 
         navigationView.setNavigationItemSelectedListener(this);
 
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.ftMain, new MapFragment());
-        ft.commit();
+        Intent intent = getIntent();
+        boolean pourManger = intent.getBooleanExtra("filter_manger",true);
+        boolean friandises = intent.getBooleanExtra("filter_friandises",true);
+        boolean bienEtre = intent.getBooleanExtra("filter_bienEtre",true);
+        boolean loisirs = intent.getBooleanExtra("filter_loisirs",true);
+        boolean aperos = intent.getBooleanExtra("filter_aperos",true);
+
+        mBundle = new Bundle();
+        mBundle.putBoolean("filter_manger", pourManger);
+        mBundle.putBoolean("filter_friandises", friandises);
+        mBundle.putBoolean("filter_bienEtre", bienEtre);
+        mBundle.putBoolean("filter_loisirs", loisirs);
+        mBundle.putBoolean("filter_aperos", aperos);
 
         if (getIntent().getIntExtra("fragmentNumber", 0) == 1) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.ftMain, new ProfilFragment());
             fragmentTransaction.commit();
+        } else {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            MapFragment fragment = new MapFragment();
+            fragment.setArguments(mBundle);
+            ft.replace(R.id.ftMain, fragment);
+            ft.commit();
         }
         View headerview = navigationView.getHeaderView(0);
         ImageView imageUser = headerview.findViewById(R.id.imageDeal);
@@ -134,6 +150,9 @@ public class NavbarActivity extends AppCompatActivity
                 startActivity(new Intent(NavbarActivity.this, FilterActivity.class));
             }
         });
+
+
+
     }
 
     @Override
@@ -169,11 +188,15 @@ public class NavbarActivity extends AppCompatActivity
             startActivity(new Intent(NavbarActivity.this, Login.class));
         } else if (id == R.id.nav_map) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.ftMain, new MapFragment());
+            MapFragment mapFragment = new MapFragment();
+            mapFragment.setArguments(mBundle);
+            ft.replace(R.id.ftMain, mapFragment);
             ft.commit();
         } else if (id == R.id.nav_liste) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.ftMain, new ListFragment());
+            ListFragment listFragment = new ListFragment();
+            listFragment.setArguments(mBundle);
+            ft.replace(R.id.ftMain, listFragment);
             ft.commit();
         } else if (id == R.id.nav_logout) {
             FirebaseAuth.getInstance().signOut();
