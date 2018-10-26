@@ -33,8 +33,6 @@ import java.util.ArrayList;
 
 public class MapFragment extends android.support.v4.app.Fragment implements OnMapReadyCallback {
 
-    private static final String TAG = "MapFragment";
-    private static final int ERROR_DIALOG_REQUEST = 9001;
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;

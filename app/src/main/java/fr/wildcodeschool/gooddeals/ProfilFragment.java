@@ -51,9 +51,7 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     final FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     private Uri mImageUri; //Uri object used to tell a ContentProvider(Glide) what we want to access by reference.
-    private Bitmap bmp;
     private StorageReference mStorageRef;
-    private ProgressBar mProgressBar;
     private UploadTask uploadTask;
 
     @Override
@@ -65,11 +63,9 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
 
         // BUTTON POUR UPLOAD TO FIREBASE STORAGE + BIND A LA METHOD UPLOADFILE()
         Button uploadButton = rootView.findViewById(R.id.uploadButton1);
-        mProgressBar = rootView.findViewById(R.id.progressBar);
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO : enregistrer le pseudo de la personne
                 uploadFile();
             }
         });
@@ -195,10 +191,14 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
         ImageView mImageView = getView().findViewById(R.id.imageViewPhoto);
         if (resultCode == RESULT_OK) {
             if (requestCode == CAMERA_REQUEST) {
-                Glide.with(mImageView.getContext()).load(mImageUri).into(mImageView);
+                Glide.with(mImageView.getContext()).load(mImageUri)
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(mImageView);
             } else if (requestCode == GALLERY_SELECT_PICTURE) {
                 mImageUri = data.getData();
-                Glide.with(mImageView.getContext()).load(mImageUri).into(mImageView);
+                Glide.with(mImageView.getContext()).load(mImageUri)
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(mImageView);
             }
         }
     }
@@ -241,11 +241,13 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
                         Singleton singleton = Singleton.getInstance();
                         LoginModel loginModel = singleton.getLogModel();
                         loginModel.setPhoto(downloadUri.toString());
-                        // TODO : récupérer le pseudo et l'enregistrer dans loginModel
+                        EditText etPseudo = getActivity().findViewById(R.id.edit_text_pseudo);
+                        String pseudo = etPseudo.getText().toString();
+                        loginModel.setPseudo(pseudo);
                         myRef.child(user.getUid()).setValue(loginModel);
                         singleton.setLogModel(loginModel);
-
                         updateUserProfile();
+                        startActivity(new Intent(getActivity(),NavbarActivity.class));
                     } else {
                         // Handle failures
                         // ...

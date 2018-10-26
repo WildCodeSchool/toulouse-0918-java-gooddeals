@@ -9,8 +9,8 @@
 
     <EditText
         android:id="@+id/registrationEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:background="@drawable/shape_view"
         android:drawableLeft="@drawable/ic_person"
@@ -18,7 +18,7 @@
         android:ems="10"
         android:hint="@string/registrationEmail"
         android:inputType="textEmailAddress"
-        android:paddingLeft="5dp"
+        android:padding="5dp"
         android:textColorHint="@color/grayAtHome"
         app:fontFamily="@font/montserrat"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,8 +27,8 @@
 
     <EditText
         android:id="@+id/registrationPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@drawable/shape_view"
         android:drawableLeft="@drawable/ic_action_name"
@@ -36,7 +36,7 @@
         android:ems="10"
         android:hint="@string/registrationPassword"
         android:inputType="textPassword"
-        android:paddingLeft="5dp"
+        android:padding="5dp"
         android:textColorHint="@color/grayAtHome"
         app:fontFamily="@font/montserrat"
         app:layout_constraintEnd_toEndOf="parent"
