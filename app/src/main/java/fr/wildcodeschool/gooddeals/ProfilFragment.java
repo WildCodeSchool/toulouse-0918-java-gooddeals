@@ -1,5 +1,6 @@
 package fr.wildcodeschool.gooddeals;
 
+import android.app.ActionBar;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -24,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -53,19 +55,17 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
     private Uri mImageUri; //Uri object used to tell a ContentProvider(Glide) what we want to access by reference.
     private Bitmap bmp;
     private StorageReference mStorageRef;
-    private ProgressBar mProgressBar;
     private UploadTask uploadTask;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         // FIREBASE pour envoie sur STORAGE
         mStorageRef = FirebaseStorage.getInstance().getReference("uploads"); // creation dossier uploads
-
         final View rootView = inflater.inflate(R.layout.activity_profil, container, false);
 
         // BUTTON POUR UPLOAD TO FIREBASE STORAGE + BIND A LA METHOD UPLOADFILE()
         Button uploadButton = rootView.findViewById(R.id.uploadButton1);
-        mProgressBar = rootView.findViewById(R.id.progressBar);
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,7 +104,7 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
 
             @Override
             public void onClick(View view) {
-                new android.support.v7.app.AlertDialog.Builder(getContext())
+                new AlertDialog.Builder(getContext())
                         .setMessage(R.string.suppression_compte)
                         .setCancelable(false)
                         .setPositiveButton(R.string.oui, new DialogInterface.OnClickListener() {
@@ -195,10 +195,16 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
         ImageView mImageView = getView().findViewById(R.id.imageViewPhoto);
         if (resultCode == RESULT_OK) {
             if (requestCode == CAMERA_REQUEST) {
-                Glide.with(mImageView.getContext()).load(mImageUri).into(mImageView);
+                Glide.with(mImageView.getContext())
+                        .load(mImageUri)
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(mImageView);
             } else if (requestCode == GALLERY_SELECT_PICTURE) {
                 mImageUri = data.getData();
-                Glide.with(mImageView.getContext()).load(mImageUri).into(mImageView);
+                Glide.with(mImageView.getContext())
+                        .load(mImageUri)
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(mImageView);
             }
         }
     }
