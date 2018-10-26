@@ -86,7 +86,9 @@
     <string name="valider">valider</string>
     <string name="choisir_son_pseudo">Choisir son pseudo</string>
     <string name="acces_filtre">Connectez-vous pour pouvoir accéder aux filtres.</string>
+    <string name="categorie">Veuillez cocher au moins une catégorie</string>
     <string name="s_inscrire">S\'inscrire</string>
+
 
 
 </resources>

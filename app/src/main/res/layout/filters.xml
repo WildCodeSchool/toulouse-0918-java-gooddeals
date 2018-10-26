@@ -112,6 +112,7 @@
         android:background="@drawable/greybutton"
         android:text="@string/text_butfilter"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:visibility="visible"
         app:fontFamily="@font/montserrat"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
