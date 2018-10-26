@@ -13,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -187,6 +186,8 @@ public class NavbarActivity extends AppCompatActivity
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             MapFragment mapFragment = new MapFragment();
             mapFragment.setArguments(mBundle);
+            TextView toolbarTitle = findViewById(R.id.toolbar_title);
+            toolbarTitle.setText(R.string.app_name);
             ft.replace(R.id.ftMain, mapFragment);
             mCurrentFragment = "map";
             ft.commit();
@@ -194,6 +195,8 @@ public class NavbarActivity extends AppCompatActivity
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ListFragment listFragment = new ListFragment();
             listFragment.setArguments(mBundle);
+            TextView toolbarTitle = findViewById(R.id.toolbar_title);
+            toolbarTitle.setText(R.string.app_name);
             ft.replace(R.id.ftMain, listFragment);
             mCurrentFragment = "list";
             ft.commit();
@@ -201,10 +204,14 @@ public class NavbarActivity extends AppCompatActivity
             FirebaseAuth.getInstance().signOut();
             Singleton.getInstance().singleClear();
             Toast.makeText(this, R.string.disconnected, Toast.LENGTH_SHORT).show();
+            TextView toolbarTitle = findViewById(R.id.toolbar_title);
+            toolbarTitle.setText(R.string.app_name);
             startActivity(new Intent(NavbarActivity.this, NavbarActivity.class));
             finish();
         } else if (id == R.id.atHome_web) {
             Uri uri = Uri.parse(ATHOME_URL);
+            TextView toolbarTitle = findViewById(R.id.toolbar_title);
+            toolbarTitle.setText(R.string.app_name);
             startActivity(new Intent(Intent.ACTION_VIEW, uri));
         }
 
