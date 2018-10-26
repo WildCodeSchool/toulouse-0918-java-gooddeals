@@ -70,6 +70,7 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
                 ProgressBar progressBar = rootView.findViewById(R.id.progressBarButton);
                 progressBar.setVisibility(View.VISIBLE);
                 uploadFile();
+                getActivity().finish();
             }
         });
 
@@ -116,6 +117,8 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
                                 FirebaseAuth.getInstance().signOut();
                                 Singleton.getInstance().singleClear();
                                 startActivity(new Intent(getActivity(), NavbarActivity.class));
+                                getActivity().finish();
+
                             }
                         })
                         .setNegativeButton("Non", null)
