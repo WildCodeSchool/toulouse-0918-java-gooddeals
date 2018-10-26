@@ -285,6 +285,19 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
                     }
                 }
             });
+        } else {
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference("User");
+            Singleton singleton = Singleton.getInstance();
+            LoginModel loginModel = singleton.getLogModel();
+            EditText etPseudo = getActivity().findViewById(R.id.edit_text_pseudo);
+            String pseudo = etPseudo.getText().toString();
+            loginModel.setPseudo(pseudo);
+            myRef.child(user.getUid()).setValue(loginModel);
+            singleton.setLogModel(loginModel);
+            updateUserProfile();
+            startActivity(new Intent(getActivity(),NavbarActivity.class));
+
         }
     }
 
