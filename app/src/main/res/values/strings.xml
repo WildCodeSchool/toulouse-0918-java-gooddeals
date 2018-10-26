@@ -73,7 +73,7 @@
     <string name="text_butfilter">OK</string>
     <string name="erreur_chargement">Erreur de chragement de la base de données</string>
     <string name="share_body">J\'ai testé \</string>
-    <string name="share_bodybis">, c\'est un super deal! Si tu es un startupper d\'At Home, n\'oublie pas de télécharger l\'appli Good Deals sur le PlayStore!</string>
+    <string name="share_bodybis">, c\'est un super deal! Si tu es un startupper d\'At Home, n\'oublie pas de télécharger l\'appli Good Deals sur le PlayStore! \ Rejoins moi ! \</string>
     <string name="title_share">Super deal - \</string>
 
     <string name="suppression_compte">Vous êtes sûr de vouloir supprimer votre compte ?</string>
@@ -86,6 +86,7 @@
     <string name="valider">valider</string>
     <string name="choisir_son_pseudo">Choisir son pseudo</string>
     <string name="acces_filtre">Connectez-vous pour pouvoir accéder aux filtres.</string>
+    <string name="s_inscrire">S\'inscrire</string>
 
 
 </resources>

@@ -129,7 +129,8 @@ public class NavbarActivity extends AppCompatActivity
             headerview.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    ImageButton filter_button = findViewById(R.id.filterButton);
+                    filter_button.setVisibility(View.INVISIBLE);
                     FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                     ft.replace(R.id.ftMain, new ProfilFragment());
                     ft.commit();
