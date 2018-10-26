@@ -65,6 +65,8 @@ public class NavbarActivity extends AppCompatActivity
 
         if (getIntent().getIntExtra("fragmentNumber", 0) == 1) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            TextView toolbarTitle = findViewById(R.id.toolbar_title);
+            toolbarTitle.setText(R.string.mon_profil);
             fragmentTransaction.replace(R.id.ftMain, new ProfilFragment());
             fragmentTransaction.commit();
             mCurrentFragment = "profil";
@@ -131,6 +133,8 @@ public class NavbarActivity extends AppCompatActivity
                 public void onClick(View v) {
                     ImageButton filter_button = findViewById(R.id.filterButton);
                     filter_button.setVisibility(View.INVISIBLE);
+                    TextView toolbar = findViewById(R.id.toolbar_title);
+                    toolbar.setText("Mon Profil");
                     FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                     ft.replace(R.id.ftMain, new ProfilFragment());
                     ft.commit();
