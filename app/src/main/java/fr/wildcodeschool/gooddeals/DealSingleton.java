@@ -1,7 +1,5 @@
 package fr.wildcodeschool.gooddeals;
 
-import android.widget.Toast;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -14,15 +12,15 @@ class DealSingleton {
     private static final DealSingleton ourInstance = new DealSingleton();
     private ArrayList<Deal> dealArrayList = new ArrayList<>();
 
+    private DealSingleton() {
+
+    }
+
     static DealSingleton getInstance() {
         return ourInstance;
     }
 
-    private DealSingleton() {
-        loadDeals();
-    }
-
-    public void loadDeals() {
+    public void loadDeals(final DealListener listener) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference dealRef = database.getReference("deal");
         dealRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -32,10 +30,12 @@ class DealSingleton {
                     Deal deal = dealSnapshot.getValue(Deal.class);
                     dealArrayList.add(deal);
                 }
+                listener.onResponse(true);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                listener.onResponse(false);
             }
         });
     }

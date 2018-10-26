@@ -171,7 +171,7 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
             // Continue only if the File was successfully created
             if (photoFile != null) {
                 mImageUri = FileProvider.getUriForFile(getContext(),
-                        "com.example.android.fileprovider",
+                        "fr.wildcodeschool.gooddeals.fileprovider",
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, mImageUri);
                 startActivityForResult(takePictureIntent, CAMERA_REQUEST);
