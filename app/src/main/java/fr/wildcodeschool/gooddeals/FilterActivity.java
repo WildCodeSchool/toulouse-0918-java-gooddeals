@@ -47,6 +47,7 @@ public class FilterActivity extends AppCompatActivity {
                 boolean loisirs = loisirsBox.isChecked();
                 boolean aperos = aperoBox.isChecked();
 
+
                 if (!pourManger && !friandises && !bienEtre && !loisirs && !aperos) {
                     Toast.makeText(FilterActivity.this, R.string.categorie, Toast.LENGTH_SHORT).show();
                 } else {
