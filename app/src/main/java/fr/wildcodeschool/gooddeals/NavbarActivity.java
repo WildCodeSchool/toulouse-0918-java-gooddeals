@@ -82,6 +82,7 @@ public class NavbarActivity extends AppCompatActivity
             fragment.setArguments(mBundle);
             ft.replace(R.id.ftMain, fragment);
             mCurrentFragment = "map";
+            ft.addToBackStack(null);
             ft.commit();
         }
         ImageButton filter_button = findViewById(R.id.filterButton);

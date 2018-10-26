@@ -214,6 +214,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         if (user != null) {
             Intent intent = new Intent(this, NavbarActivity.class);
             startActivity(intent);
+            finish();
         }
     }
 
