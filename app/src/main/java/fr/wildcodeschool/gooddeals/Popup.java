@@ -53,7 +53,7 @@ public class Popup extends AppCompatActivity {
             public void onClick(View view) {
                 Intent myIntent = new Intent(Intent.ACTION_SEND);
                 Intent intent = myIntent.setType("Text/Plain");
-                String shareBody = getString(R.string.share_body)+ title + getString(R.string.share_bodybis);
+                String shareBody = getString(R.string.share_body)+ title + getString(R.string.share_bodybis) + Uri.parse("http://maps.google.com/maps?.34&daddr=" + latitude+ "," + longitude);
                 String titleShare = getString(R.string.title_share) + title;
                 myIntent.putExtra(Intent.EXTRA_SUBJECT, titleShare);
                 myIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
