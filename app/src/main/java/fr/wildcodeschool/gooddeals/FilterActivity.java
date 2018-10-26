@@ -9,6 +9,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.Toast;
 
 public class FilterActivity extends AppCompatActivity {
 
@@ -46,14 +47,18 @@ public class FilterActivity extends AppCompatActivity {
                 boolean loisirs = loisirsBox.isChecked();
                 boolean aperos = aperoBox.isChecked();
 
-                Intent intent = new Intent(FilterActivity.this, NavbarActivity.class);
-                intent.putExtra("filter_manger", pourManger);
-                intent.putExtra("filter_aperos", aperos);
-                intent.putExtra("filter_friandises", friandises);
-                intent.putExtra("filter_bienEtre", bienEtre);
-                intent.putExtra("filter_loisirs", loisirs);
-                intent.putExtra("CURRENT_FRAGMENT", currentFragment);
-                startActivity(intent);
+                if (!pourManger && !friandises && !bienEtre && !loisirs && !aperos) {
+                    Toast.makeText(FilterActivity.this, R.string.categorie, Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(FilterActivity.this, NavbarActivity.class);
+                    intent.putExtra("filter_manger", pourManger);
+                    intent.putExtra("filter_aperos", aperos);
+                    intent.putExtra("filter_friandises", friandises);
+                    intent.putExtra("filter_bienEtre", bienEtre);
+                    intent.putExtra("filter_loisirs", loisirs);
+                    intent.putExtra("CURRENT_FRAGMENT", currentFragment);
+                    startActivity(intent);
+                }
             }
         });
     }
