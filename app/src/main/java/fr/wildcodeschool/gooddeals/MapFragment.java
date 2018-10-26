@@ -34,10 +34,9 @@ import java.util.ArrayList;
 
 public class MapFragment extends android.support.v4.app.Fragment implements OnMapReadyCallback {
 
-    public static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
-
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
     private static final float DEFAULT_ZOOM = 17f;
     private LatLng esquirol = new LatLng(43.600346, 1.443844);
 
@@ -222,6 +221,7 @@ public class MapFragment extends android.support.v4.app.Fragment implements OnMa
                     for (int i = 0; i < grantResults.length; i++) {
                         if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
                             mMap.setMyLocationEnabled(true);
+                            getDeviceLocation();
                             return;
                         }
                     }
