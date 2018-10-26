@@ -59,7 +59,7 @@
     <!--PopUp-->
     <string name="pour_manger">Pour Manger</string>
 
-
+    <string name="inscription">S\'inscrire</string>
     <string name="se_d_connecter">Se déconnecter</string>
     <string name="nom_fichier">Nom du Fichier</string>
     <string name="auth_fail">Authentication failed</string>
@@ -74,7 +74,7 @@
     <string name="erreur_chargement">Erreur de chragement de la base de données</string>
     <string name="share_body">J\'ai testé \</string>
     <string name="share_bodybis">, c\'est un super deal! Si tu es un startupper d\'At Home, n\'oublie pas de télécharger l\'appli Good Deals sur le PlayStore!</string>
-    <string name="title_share">Super deal au \</string>
+    <string name="title_share">Super deal - \</string>
 
     <string name="suppression_compte">Vous êtes sûr de vouloir supprimer votre compte ?</string>
     <string name="oui">Oui</string>
@@ -85,6 +85,7 @@
     <string name="supprimer_mon_compte">Supprimer mon compte</string>
     <string name="valider">valider</string>
     <string name="choisir_son_pseudo">Choisir son pseudo</string>
+    <string name="acces_filtre">Connectez-vous pour pouvoir accéder aux filtres.</string>
 
 
 </resources>

@@ -31,12 +31,16 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnPausedListener;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -53,7 +57,6 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     final FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     private Uri mImageUri; //Uri object used to tell a ContentProvider(Glide) what we want to access by reference.
-    private Bitmap bmp;
     private StorageReference mStorageRef;
     private UploadTask uploadTask;
 
@@ -65,11 +68,14 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
         final View rootView = inflater.inflate(R.layout.activity_profil, container, false);
 
         // BUTTON POUR UPLOAD TO FIREBASE STORAGE + BIND A LA METHOD UPLOADFILE()
-        Button uploadButton = rootView.findViewById(R.id.uploadButton1);
+
+        final Button uploadButton = rootView.findViewById(R.id.uploadButton1);
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO : enregistrer le pseudo de la personne
+                uploadButton.setVisibility(View.INVISIBLE);
+                ProgressBar progressBar = rootView.findViewById(R.id.progressBarButton);
+                progressBar.setVisibility(View.VISIBLE);
                 uploadFile();
             }
         });
@@ -175,7 +181,7 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
             // Continue only if the File was successfully created
             if (photoFile != null) {
                 mImageUri = FileProvider.getUriForFile(getContext(),
-                        "com.example.android.fileprovider",
+                        "fr.wildcodeschool.gooddeals.fileprovider",
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, mImageUri);
                 startActivityForResult(takePictureIntent, CAMERA_REQUEST);
@@ -195,12 +201,14 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
         ImageView mImageView = getView().findViewById(R.id.imageViewPhoto);
         if (resultCode == RESULT_OK) {
             if (requestCode == CAMERA_REQUEST) {
+
                 Glide.with(mImageView.getContext())
                         .load(mImageUri)
                         .apply(RequestOptions.circleCropTransform())
                         .into(mImageView);
             } else if (requestCode == GALLERY_SELECT_PICTURE) {
                 mImageUri = data.getData();
+
                 Glide.with(mImageView.getContext())
                         .load(mImageUri)
                         .apply(RequestOptions.circleCropTransform())
@@ -226,6 +234,30 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
         if (mImageUri != null) {
             final StorageReference ref = mStorageRef.child("uploads");
             uploadTask = ref.putFile(mImageUri);
+            uploadTask.addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                    double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                    System.out.println("Upload is " + progress + "% done");
+                }
+            }).addOnPausedListener(new OnPausedListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onPaused(UploadTask.TaskSnapshot taskSnapshot) {
+                    System.out.println("Upload is paused");
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle unsuccessful uploads
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    // Handle successful uploads on complete
+                    // ...
+                }
+            });
+
             uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                 @Override
                 public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
@@ -247,11 +279,13 @@ public class ProfilFragment extends android.support.v4.app.Fragment {
                         Singleton singleton = Singleton.getInstance();
                         LoginModel loginModel = singleton.getLogModel();
                         loginModel.setPhoto(downloadUri.toString());
-                        // TODO : récupérer le pseudo et l'enregistrer dans loginModel
+                        EditText etPseudo = getActivity().findViewById(R.id.edit_text_pseudo);
+                        String pseudo = etPseudo.getText().toString();
+                        loginModel.setPseudo(pseudo);
                         myRef.child(user.getUid()).setValue(loginModel);
                         singleton.setLogModel(loginModel);
-
                         updateUserProfile();
+                        startActivity(new Intent(getActivity(),NavbarActivity.class));
                     } else {
                         // Handle failures
                         // ...
