@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -82,14 +83,19 @@ public class NavbarActivity extends AppCompatActivity
             mCurrentFragment = "map";
             ft.commit();
         }
-
         ImageButton filter_button = findViewById(R.id.filterButton);
         filter_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent goToFilterActivity = new Intent(NavbarActivity.this, FilterActivity.class);
-                goToFilterActivity.putExtra("CURRENT_FRAGMENT", mCurrentFragment);
-                startActivity(goToFilterActivity);
+                Singleton singleton = Singleton.getInstance();
+                if (singleton.getLogModel() != null) {
+                    Intent goToFilterActivity = new Intent(NavbarActivity.this, FilterActivity.class);
+                    goToFilterActivity.putExtra("CURRENT_FRAGMENT", mCurrentFragment);
+                    startActivity(goToFilterActivity);
+                } else {
+                    Toast.makeText(NavbarActivity.this, R.string.acces_filtre, Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
         updateUserProfile();
@@ -102,7 +108,6 @@ public class NavbarActivity extends AppCompatActivity
         TextView pseudoTv = headerview.findViewById(R.id.pseudo_header);
         TextView headerEmailUser = headerview.findViewById(R.id.emailUser_text_view);
         Menu navigationViewMenu = navigationView.getMenu();
-
         Singleton singleton = Singleton.getInstance();
         boolean hasPhoto = false;
         if (singleton.getLogModel() != null) {
@@ -192,6 +197,7 @@ public class NavbarActivity extends AppCompatActivity
             Singleton.getInstance().singleClear();
             Toast.makeText(this, R.string.disconnected, Toast.LENGTH_SHORT).show();
             startActivity(new Intent(NavbarActivity.this, NavbarActivity.class));
+            finish();
         } else if (id == R.id.atHome_web) {
             Uri uri = Uri.parse(ATHOME_URL);
             startActivity(new Intent(Intent.ACTION_VIEW, uri));

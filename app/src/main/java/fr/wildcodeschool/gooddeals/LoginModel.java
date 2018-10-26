@@ -28,10 +28,6 @@ public class LoginModel {
         return pseudo;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public void setPhoto(String photo) {
         this.photo = photo;
     }
