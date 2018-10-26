@@ -21,7 +21,6 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -29,15 +28,21 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
-public class Login extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener{
+public class Login extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
 
 
-    private FirebaseAuth mAuth;
-    SignInButton signInButton;
-    GoogleApiClient mGoogleApiClient;private static final int RC_SIGN_IN = 9001;
+    private static final int RC_SIGN_IN = 9001;
     private static final String TAG = "SignInActivity";
+    SignInButton signInButton;
+    GoogleApiClient mGoogleApiClient;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,11 +76,10 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                 if (email.isEmpty() || password.isEmpty()) {
                     Toast toast = Toast.makeText(Login.this, R.string.error_login_fields, Toast.LENGTH_SHORT);
                     TextView v = toast.getView().findViewById(android.R.id.message);
-                    if( v != null) v.setGravity(Gravity.CENTER);
+                    if (v != null) v.setGravity(Gravity.CENTER);
                     toast.show();
                 } else {
                     signInUser(email, password);
-                    startActivity(new Intent(Login.this, NavbarActivity.class));
                 }
             }
         });
@@ -88,19 +92,21 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         });
 
     }
+
     @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult){}
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+    }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.google_sign_in_login:
                 signIn();
-            break;
+                break;
         }
     }
 
-    private void signIn(){
+    private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
@@ -109,7 +115,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == RC_SIGN_IN){
+        if (requestCode == RC_SIGN_IN) {
 
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
@@ -128,6 +134,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         final String personEmail = acct.getEmail();
         final Uri personPhotoUri = acct.getPhotoUrl();
         final String personPhoto = personPhotoUri.toString();
+        final String personName = acct.getDisplayName();
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
@@ -135,12 +142,15 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(Login.this,R.string.connected, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Login.this, R.string.connected, Toast.LENGTH_SHORT).show();
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             Singleton singleton = Singleton.getInstance();
-                            LoginModel loginModel = new LoginModel(personEmail,personPhoto, personGivenName);
+                            LoginModel loginModel = new LoginModel(personEmail, personPhoto, personName);
                             singleton.setLogModel(loginModel);
+                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+                            DatabaseReference myRef = database.getReference("User");
+                            myRef.child(user.getUid()).setValue(loginModel);
                             updateUI(user);
                         } else {
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -150,8 +160,8 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                     }
                 });
     }
+
     private void signInUser(final String email, String password) {
-        mAuth.getCurrentUser().getEmail();
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -159,11 +169,24 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                         if (task.isSuccessful()) {
                             Toast.makeText(Login.this, R.string.connected, Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
-                            // TODO : faire une requête pour récupérer les données supplementaire de l'utilisateur
-                            Singleton singleton = Singleton.getInstance();
-                            LoginModel loginModel = new LoginModel(email,null, null);
-                            singleton.setLogModel(loginModel);
-                            updateUI(user);
+
+                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+                            DatabaseReference myRef = database.getReference("User");
+                            myRef.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    LoginModel logModel = dataSnapshot.getValue(LoginModel.class);
+                                    Singleton singleton = Singleton.getInstance();
+                                    singleton.setLogModel(logModel);
+                                    updateUI(mAuth.getCurrentUser());
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(Login.this, R.string.auth_fail,
@@ -176,30 +199,20 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-
-            GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
-            if (acct != null) {
-                String personName = acct.getDisplayName();
-                String personGivenName = acct.getGivenName();
-                String personFamilyName = acct.getFamilyName();
-                String personEmail = acct.getEmail();
-                String personId = acct.getId();
-                Uri personPhoto = acct.getPhotoUrl();
-
-                Intent intent = new Intent(this,NavbarActivity.class);
-                startActivity(intent);
-            }
-
-
+            Intent intent = new Intent(this, NavbarActivity.class);
+            startActivity(intent);
         }
     }
+
     @Override
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        //mAuth.signOut(); // forcer la deconnexion de l'utilisateur
-        updateUI(currentUser);
+        if (currentUser != null) {
+            //mAuth.signOut(); // forcer la deconnexion de l'utilisateur
+            updateUI(currentUser);
+        }
     }
 }
 

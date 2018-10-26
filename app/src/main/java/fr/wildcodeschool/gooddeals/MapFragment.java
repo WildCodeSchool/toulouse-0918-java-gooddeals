@@ -39,7 +39,7 @@ public class MapFragment extends android.support.v4.app.Fragment implements OnMa
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
     private static final float DEFAULT_ZOOM = 17f;
-    private LatLng esquirol = new LatLng(43.6004273, 1.4445871000000352);
+    private LatLng esquirol = new LatLng(43.600346, 1.443844);
 
     //vars
     private Boolean mLocationPermissionsGranted = false;

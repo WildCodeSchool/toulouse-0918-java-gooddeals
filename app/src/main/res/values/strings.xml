@@ -78,7 +78,13 @@
 
     <string name="suppression_compte">Vous êtes sûr de vouloir supprimer votre compte ?</string>
     <string name="oui">Oui</string>
-
+    <string name="take_picture">Prendre une photo</string>
+    <string name="choose_picture">Choisir dans la galerie</string>
+    <string name="cancel">Annuler</string>
+    <string name="add_pic">Ajouter une photo !</string>
+    <string name="supprimer_mon_compte">Supprimer mon compte</string>
+    <string name="valider">valider</string>
+    <string name="choisir_son_pseudo">Choisir son pseudo</string>
 
 
 </resources>
