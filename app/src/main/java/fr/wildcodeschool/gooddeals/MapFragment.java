@@ -2,6 +2,7 @@ package fr.wildcodeschool.gooddeals;
 
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -47,6 +48,7 @@ public class MapFragment extends android.support.v4.app.Fragment implements OnMa
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        moveCamera(esquirol, DEFAULT_ZOOM);
         getLocationPermission();
         if (mLocationPermissionsGranted) {
             getDeviceLocation();
@@ -186,12 +188,6 @@ public class MapFragment extends android.support.v4.app.Fragment implements OnMa
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
     }
 
-    public void initMap() {
-        SupportMapFragment mapFragment =
-                (com.google.android.gms.maps.SupportMapFragment) getFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(MapFragment.this);
-    }
-
     private void getLocationPermission() {
         String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION};
@@ -201,36 +197,36 @@ public class MapFragment extends android.support.v4.app.Fragment implements OnMa
                     COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 mLocationPermissionsGranted = true;
                 mMap.setMyLocationEnabled(true);
+                getDeviceLocation();
             } else {
-                ActivityCompat.requestPermissions(getActivity(), permissions,
+                requestPermissions(permissions,
                         LOCATION_PERMISSION_REQUEST_CODE);
             }
         } else {
-            ActivityCompat.requestPermissions(getActivity(), permissions,
+            requestPermissions(permissions,
                     LOCATION_PERMISSION_REQUEST_CODE);
         }
     }
 
+
+
     @Override
+    @SuppressLint("MissingPermission")
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        mLocationPermissionsGranted = false;
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         switch (requestCode) {
             case LOCATION_PERMISSION_REQUEST_CODE: {
                 if (grantResults.length > 0) {
                     for (int i = 0; i < grantResults.length; i++) {
-                        if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
-                            mLocationPermissionsGranted = false;
+                        if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                            mMap.setMyLocationEnabled(true);
+                            getDeviceLocation();
                             return;
                         }
                     }
-                    mLocationPermissionsGranted = true;
-                    //initialize our map
-                    initMap();
                 }
             }
         }
     }
-
-
 }
