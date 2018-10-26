@@ -87,6 +87,7 @@
     <string name="choisir_son_pseudo">Choisir son pseudo</string>
     <string name="acces_filtre">Connectez-vous pour pouvoir accéder aux filtres.</string>
     <string name="s_inscrire">S\'inscrire</string>
+    <string name="mon_profil">Mon Profil</string>
 
 
 </resources>
