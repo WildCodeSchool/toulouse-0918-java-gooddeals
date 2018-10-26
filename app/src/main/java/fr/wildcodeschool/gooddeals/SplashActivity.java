@@ -21,7 +21,9 @@ import com.google.firebase.database.ValueEventListener;
 public class SplashActivity extends AppCompatActivity {
 
     private static int SPLASH_TIME_OUT = 3000;
-
+    private boolean mDealsLoaded = false;
+    private boolean mUserLoaded = false;
+    private boolean mAnimationEnded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,24 +51,42 @@ public class SplashActivity extends AppCompatActivity {
                     LoginModel logModel = dataSnapshot.getValue(LoginModel.class);
                     Singleton singleton = Singleton.getInstance();
                     singleton.setLogModel(logModel);
+                    mUserLoaded = true;
+                    goToMap();
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                    mUserLoaded = true;
+                    goToMap();
                 }
             });
-
+        } else {
+            mUserLoaded = true;
+            goToMap();
         }
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(SplashActivity.this, NavbarActivity.class));
-
+                mAnimationEnded = true;
+                goToMap();
             }
         }, SPLASH_TIME_OUT);
 
-        DealSingleton.getInstance();
+        DealSingleton singleton = DealSingleton.getInstance();
+        singleton.loadDeals(new DealListener() {
+            @Override
+            public void onResponse(boolean success) {
+                mDealsLoaded = true;
+                goToMap();
+            }
+        });
+    }
+
+    private void goToMap() {
+        if (mUserLoaded && mDealsLoaded && mAnimationEnded) {
+            startActivity(new Intent(SplashActivity.this, NavbarActivity.class));
+        }
     }
 }
 
