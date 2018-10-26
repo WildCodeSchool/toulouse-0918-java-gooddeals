@@ -54,6 +54,7 @@ public class FilterActivity extends AppCompatActivity {
                 intent.putExtra("filter_loisirs", loisirs);
                 intent.putExtra("CURRENT_FRAGMENT", currentFragment);
                 startActivity(intent);
+
             }
         });
     }

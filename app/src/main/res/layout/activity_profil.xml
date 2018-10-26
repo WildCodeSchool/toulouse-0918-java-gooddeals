@@ -52,8 +52,8 @@
         android:id="@+id/uploadButton1"
         android:layout_width="84dp"
         android:layout_height="37dp"
-        android:layout_marginBottom="84dp"
-        android:background="@drawable/backgroundgreen"
+        android:layout_marginBottom="96dp"
+        android:background="@drawable/shape_view_green"
         android:clickable="true"
         android:text="@string/valider"
         android:textColor="@color/grayAtHome"
@@ -64,9 +64,9 @@
     <EditText
         android:id="@+id/edit_text_pseudo"
         android:layout_width="wrap_content"
-        android:layout_height="23dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/shape_view"
         android:ems="10"
         android:hint="@string/choisir_son_pseudo"
@@ -78,7 +78,8 @@
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewPhoto"
-        app:layout_constraintVertical_bias="0.312" />
+        app:layout_constraintVertical_bias="0.312"
+        tools:padding="5dp" />
 
     <ImageView
         android:id="@+id/icone_photo"
