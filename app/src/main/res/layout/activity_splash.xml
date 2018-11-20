@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/splash_back"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EBE2BF"
+    tools:context=".SplashActivity">
+
+    <ImageView
+        android:id="@+id/image_logo"
+        android:layout_width="241dp"
+        android:layout_height="201dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="312dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_vert_4x" />
+
+    <TextView
+        android:id="@+id/text_good"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:lineSpacingExtra="18sp"
+        android:text="@string/good"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/colorAccent"
+        android:textIsSelectable="true"
+        android:textSize="80sp"
+        android:typeface="sans"
+        app:fontFamily="@font/montserrat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_deals"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="172dp"
+        android:background="@color/colorAccent"
+        android:lineSpacingExtra="18sp"
+        android:text="@string/deals"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#EBE2BF"
+        android:textSize="80sp"
+        android:typeface="sans"
+        app:fontFamily="@font/montserrat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>

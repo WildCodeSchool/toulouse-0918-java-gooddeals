@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EBE2BF">
+
+
+    <EditText
+        android:id="@+id/registrationEmail"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/shape_view"
+        android:drawableLeft="@drawable/ic_person"
+        android:drawablePadding="5dp"
+        android:ems="10"
+        android:hint="@string/registrationEmail"
+        android:inputType="textEmailAddress"
+        android:padding="5dp"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textColorHint="@color/grayAtHome"
+        app:fontFamily="@font/montserrat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewRegistration" />
+
+    <EditText
+        android:id="@+id/registrationPassword"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/shape_view"
+        android:drawableLeft="@drawable/ic_action_name"
+        android:drawablePadding="0dp"
+        android:ems="10"
+        android:hint="@string/registrationPassword"
+        android:inputType="textPassword"
+        android:padding="5dp"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textColorHint="@color/grayAtHome"
+        app:fontFamily="@font/montserrat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registrationEmail" />
+
+
+    <Button
+        android:id="@+id/registrationBtn"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/shape_view_green"
+        android:text="@string/registrationButton"
+        android:textAllCaps="false"
+        android:textColor="@color/grayAtHome"
+        android:textSize="14sp"
+        app:fontFamily="@font/montserrat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registrationPassword" />
+
+
+    <TextView
+        android:id="@+id/textViewRegistration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/registrationTextView"
+        android:textColor="@color/grayAtHome"
+        android:textSize="30dp"
+        app:fontFamily="@font/montserrat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
